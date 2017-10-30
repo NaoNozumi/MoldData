@@ -1,0 +1,86 @@
+﻿@charset "UTF-8";
+
+body{
+	margin:				12px 20px;
+	line-height:		175%;
+}
+
+h1{
+	color:				#333333;
+	border-left:		20px solid #333333;
+	border-bottom:		1px dashed #333333;
+	padding:			2px 2px 2px 8px;
+}
+
+h2{
+	color:				#333333;
+	border-left:		4px solid #333333;
+	padding:			2px 2px 2px 8px;
+}
+
+h3{
+	color:				#333333;
+	border-bottom:		1px dashed #333333;
+	padding:			2px 2px 2px 4px;
+}
+
+p{
+	margin:				4px 0px 8px 24px;
+	text-indent:		1em;
+}
+
+table{
+	margin:				4px 0px 8px 32px;
+	border-collapse:	collapse;
+	border-spacing:		4px;
+}
+
+strong{
+	color:				#3333FF;
+}
+
+#maxpress{
+	background-color:	#FFFF66;
+}
+
+td input{
+	text-align:			right;
+}
+
+p.result{
+	font-size:			x-large;
+	color:				#FF0000;
+	text-indent:		0em;
+}
+caption{
+	text-align:			left;
+	color:				#666666;
+}
+
+/* グラフ */
+.graphArea{
+	background-color:	#FFFFFF;
+	margin-top:			20px;
+}
+.graphArea svg{
+	top:				8px;
+	left:				8px;
+}
+/*
+.graphArea .axis path, .graphArea .axis line{
+	fill:				none;
+	shape-rendering:	crispEdges;
+	stroke:				#666666;
+}
+.graphArea text{
+	font-family: 		sans-serif;
+	font-size:			12px;
+}
+.tick line{
+	opacity:			0.3;
+}
+*/
+/* グラフダウンロード用 */
+.forDownload{
+	display:			none;
+}

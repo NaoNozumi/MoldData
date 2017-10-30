@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Content-Script-Type" content="text/javascript" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+
+		<link href="calmoldpress.css" rel="stylesheet" type="text/css" />
+		<link rel="shortcut icon" type="image/png" href="calculator69.png" />
+
+		<script src="calmoldpress.js" type="text/javascript" charset="UTF-8"></script>
+		<script src="localStorage.js" type="text/javascript" charset="UTF-8"></script>
+		<script src="drawgraph.js" type="text/javascript" charset="UTF-8"></script>
+		<!-- <script src="mathform.js" type="text/javascript" charset="UTF-8"></script> -->
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<script src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js" type="text/javascript"></script>
+		<script src="http://canvg.googlecode.com/svn/trunk/StackBlur.js" type="text/javascript"></script>
+		<script src="http://canvg.googlecode.com/svn/trunk/canvg.js" type="text/javascript"></script>
+		
+		<title>型締シリンダ圧力計算</title>
+	</head>
+
+	<body>
+		<h1>型締シリンダ圧力計算</h1>
+			<p>希望する<strong>型締力F[ton]</strong>を出す為に必要となる<strong>型締シリンダ圧力P[kg/cm<sup>2</sup>]</strong>を求める。</p>
+			<p>必要な<strong>型締力F[ton]</strong>は<strong>成形面積[cm<sup>2</sup>]</strong>と成形時の<strong>圧空圧力[kg/cm<sup>2</sup>]</strong>より求める事が出来る。<br />
+			その時に必要な<strong>型締シリンダ圧力P[kg/cm<sup>2</sup>]</strong>は<strong>最大型締力F<sub>max</sub>[ton]</strong>とその時の<strong>型締シリンダ圧力P<sub>max</sub>[kg/cm<sup>2</sup>]</strong>から求める事が出来る。両者は比例の関係にある。</p>
+		<hr />
+
+		<h2>設備仕様</h2>
+			<form name="specification" id="specification">
+				<table>
+					<caption>[成形面積]</caption>
+					<tr>
+						<td>流 Min-Max</td>
+						<td>
+							<input name="formlengthmin" id="formlengthmin" type="text" maxlength="4" size="4" />
+							-
+							<input name="formlengthmax" id="formlengthmax" type="text" maxlength="4" size="4" />
+						</td>
+						<td>[mm]</td>
+					</tr>
+					<tr>
+						<td>巾 Min-Max</td>
+						<td>
+							<input name="formwidthtmin" id="formwidthmin" type="text" maxlength="4" size="4" />
+							-
+							<input name="formwidthmax" id="formwidthmax" type="text" maxlength="4" size="4" />
+						</td>
+						<td>[mm]</td>
+					</tr>
+				</table>
+				<table>
+					<caption>[成形圧力]</caption>
+					<tr>
+						<td>成形圧力 Min-Max</td>
+						<td>
+							<input type="text" size="5" value="0" disabled="disabled" />
+							-
+							<input name="maxFormingPressure" id="maxFormingPressure" type="text" maxlength="5" size="5" />
+						</td>
+						<td>[MPa]</td>
+					</tr>
+				</table>
+			</form>
+			<hr />
+		<h2>最大型締トルク</h2>
+			<p>まず、<strong>最大型締力F<sub>max</sub>[ton]</strong>を出す為に型締シリンダが出すべき<strong>トルクT<sub>max</sub>[kgfm]</strong>を求める。</p>
+			<form name="calmaxpress" id="calmaxpress">
+				<table>
+					<tr>
+						<td>最大型締力</td>
+						<td>=</td>
+						<td>
+							<input name="maxpress" id="maxpress" type="text" maxlength="6" size="12" />
+						</td>
+						<td>[ton]</td>
+					</tr>
+					<tr>
+						<td>ボールネジピッチ</td>
+						<td>=</td>
+						<td>
+							<input name="pitch" id="pitch" type="text" maxlength="6" size="12" />
+						</td>
+						<td>[mm]</td>
+					</tr>
+					<tr>
+						<td>減速比(モータ / ネジ)</td>
+						<td>=</td>
+						<td>
+							<input name="reductionratio1" id="reductionratio1" type="text" maxlength="4" size="4" />
+							/
+							<input name="reductionratio2" id="reductionratio2" type="text" maxlength="4" size="4" />
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>シリンダ効率</td>
+						<td>=</td>
+						<td>
+							<input name="efficiency" id="efficiency" class="required" type="text" maxlength="6" size="12" />
+						</td>
+						<td></td>
+					</tr>
+				</table>
+				<p><input type="button" value="最大型締トルク計算" onClick="caltorque();" /></p>
+			</form>
+			<p><img id="eqnarrayMaxTorque" alt="最大型締トルク計算式" src="dummy.png" /></p>
+			<p class="result" id="maxtorqueresult">&#8594;</p>
+		<hr />
+
+		<h2>最大型締シリンダ圧力</h2>
+			<p><strong>トルクT<sub>max</sub>[kgfm]</strong>から<strong>型締シリンダ圧力P<sub>max</sub>[kg/cm<sup>2</sup>]</strong>を求める。</p>
+			<p>圧力は「単位面積当りの力」、トルクは「力×長さ」であることより<br />
+			<strong>最大トルクT<sub>max</sub>×10<sup>2</sup>[kgfcm]=(最大型締シリンダ圧力P<sub>max</sub>[kg/cm<sup>2</sup>]×シリンダ断面積[cm<sup>2</sup>])×回転中心からの距離[cm]</strong></p>
+			<h3>注意！</h3>
+			<p>押し側で型締の時は「ロッド径」を0[mm]にして下さい。</p>
+			<form name="maxcypress" id="maxcypress">
+				<table>
+					<tr>
+						<td>シリンダ径</td>
+						<td>=</td>
+						<td>
+							φ <input name="cyphai" id="cyphai" type="text" maxlength="6" size="12" />
+						</td>
+						<td>[mm]</td>
+					</tr>
+					<tr>
+						<td>ロッド径</td>
+						<td>=</td>
+						<td>
+							φ <input name="rodphai" id="rodphai" type="text" maxlength="6" size="12" />
+						</td>
+						<td>[mm]</td>
+					</tr>
+					<tr>
+						<td>回転中心からの距離</td>
+						<td>=</td>
+						<td>
+							<input name="turningradius" id="turningradius" type="text" maxlength="6" size="12" />
+						</td>
+						<td>[mm]</td>
+					</tr>
+				</table>
+				<p><input type="button" value="最大型締シリンダ圧力計算" onClick="calcypress();" /></p>
+				<p><a id="csv_download">CSVダウンロード</a>
+			</form>
+			<div id="cyPress2tonGraph" class="graphArea"></div>
+			<div class="forDownload">
+				<canvas id="canvas1"></canvas>
+			</div>
+			<p id="test1">
+				<!-- http://tech-sketch.jp/2013/10/d3js-svg-convert-to-png.html -->
+				<button onclick="downloadGraph('cyPress2tonGraph', 'canvas1', 1);" type="button">グラフダウンロード</button>
+			</p>
+			<!-- <p><img id="plotMPa2ton" alt="型締力-型締シリンダ圧力" src="dummy.png" /></p> -->
+			<p><img id="eqnarrayMaxCYPressure" alt="最大型締シリンダ圧力計算式" src="dummy.png" /></p>
+			<p class="result" id="maxcypressresult">&#8594;</p>
+		<hr />
+
+		<h2>型締シリンダ圧力</h2>
+			<p>上記を踏まえ、<strong>型締シリンダ圧力P[MPa]</strong>を求める。</p>
+			<p>必要な<strong>型締力F[ton]</strong>は、<br />
+			<strong>型締力F[ton]=型サイズ(流)[cm]×型サイズ(巾)[cm]×圧空圧力[kg/cm<sup>2</sup>]×10<sup>-3</sup></strong><br />
+			により求まる。</p>
+			<form name="cypressure" id="cypressure">
+				<table>
+					<tr>
+						<td>型サイズ(流)</td>
+						<td>=</td>
+						<td>
+							<input name="moldlength" id="moldlength" type="text" maxlength="6" size="12" />
+						</td>
+						<td>[mm]</td>
+					</tr>
+					<tr>
+						<td>型サイズ(巾)</td>
+						<td>=</td>
+						<td>
+							<input name="moldwidth" id="moldwidth" type="text" maxlength="6" size="12" />
+						</td>
+						<td>[mm]</td>
+					</tr>
+					<tr>
+						<td>圧空圧力</td>
+						<td>=</td>
+						<td>
+							<input name="pressure" id="pressure" type="text" maxlength="6" size="12" />
+						</td>
+						<td>[MPa]</td>
+					</tr>
+				</table>
+				<p><input type="button" value="型締シリンダ圧力計算" onClick="calcypressure();" /></p>
+				<p><a id="csv_download2">CSVダウンロード</a>
+			</form>
+			<div id="formPress2tonGraph" class="graphArea"></div>
+			<div class="forDownload">
+				<canvas id="canvas2"></canvas>
+			</div>
+			<p id="test2">
+				<!-- http://tech-sketch.jp/2013/10/d3js-svg-convert-to-png.html -->
+				<button onclick="downloadGraph('formPress2tonGraph', 'canvas2', 2);" type="button">グラフダウンロード</button>
+			</p>
+			<p><img id="eqnarrayCYPressure" alt="型締シリンダ圧力計算式" src="dummy.png" /></p>
+			<p class="result" id="cypressresult">&#8594;</p>
+		<hr />
+
+		<h2>電空ハイレグ弁への出力</h2>
+			<p>
+				<del datetime="2014-11-12T21:14:00+09:00">
+				D/Aカードの出力は、0~10[V]を0~4000[digit]とする。
+				</del>
+			</p>
+			<form name="hyregpressure" id="hyregpressure">
+				<table>
+					<caption>[電空ハイレグ弁の仕様]</caption>
+					<tr>
+						<td>指令信号 Min-Max</td>
+						<td>
+							<input name="voltmin" id="voltmin" type="text" maxlength="4" size="4" />
+							-
+							<input name="voltmax" id="voltmax" type="text" maxlength="4" size="4" />
+						</td>
+						<td>[V]</td>
+					</tr>
+					<tr>
+						<td>出力圧力 Min-Max</td>
+						<td>
+							<input name="pressmin" id="pressmin" type="text" maxlength="4" size="4" />
+							-
+							<input name="pressmax" id="pressmax" type="text" maxlength="4" size="4" />
+						</td>
+						<td>[MPa]</td>
+					</tr>
+				</table>
+				<table>
+					<caption>[D/Aカードの仕様]</caption>
+					<tr>
+						<td>デジタル指令値 Min-Max</td>
+						<td>
+							<input name="digitmin" id="digitmin" type="text" maxlength="4" size="4" />
+							-
+							<input name="digitmax" id="digitmax" type="text" maxlength="4" size="4" />
+						</td>
+						<td>[digit]</td>
+					</tr>
+					<tr>
+						<td>出力電圧 Min-Max</td>
+						<td>
+							<input name="outvoltmin" id="outvoltmin" type="text" maxlength="4" size="4" />
+							-
+							<input name="outvoltmax" id="outvoltmax" type="text" maxlength="4" size="4" />
+						</td>
+						<td>[V]</td>
+				</table>
+				<p><input type="button" value="電空ハイレグ弁出力計算" onClick="calhyregpressure();" /></p>
+			</form>
+			<p class="result" id="voldresult">&#8594;</p>
+			<h3>電空ハイレグ弁出力仕様</h3>
+				<p class="result" id="hyregSpecification"> </p>
+		<hr />
+		<h3>注意事項とか今後の予定</h3>
+			<ul>
+				<li>基本的にネットに接続して使うことが前提となっています。</li>
+				<li>数式の描画にGoogleの機能を使用していたような…。忘れました。</li>
+				<li>演算とグラフの描画にJavaScriptを使用しています。</li>
+				<li>Firefox 33.0で動作確認</li>
+				<li><del>IEでは確認していません。</del>多分動くと思います。</li>
+				<li>入力チェックやエラー処理はしていません。気が向いたら実装予定。</li>
+			</ul>
+		<hr />
+		<address>パインアメで( ´◎｀)ｽｰ</address>
+	</body>
+</html>
