@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Content-Script-Type" content="text/javascript" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+
+		<link href="calservoparam.css" rel="stylesheet" type="text/css" />
+		<link rel="shortcut icon" type="image/png" href="calculator69.png" />
+
+		<script src="calservoparam.js" type="text/javascript" charset="UTF-8"></script>
+		<script src="localStorage.js" type="text/javascript" charset="UTF-8"></script>
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<!-- <script src="./plug-in/d3.min.js" charset="utf-8"></script> -->
+
+		<title>送りサーボパラメータ演算</title>
+	</head>
+	<body>
+		<h1>送りサーボパラメータ演算</h1>
+			<div id="figure"></div>
+			<div>
+				<p>図において、A(モータ)が<var id="1_1"> </var>回転するとBは<var id="1_2"> </var>回転する。
+				Bが<var id="1_3"> </var>回転することで、C(チェーン)は</p>
+				<p class="incode"><code>
+					<var id="1_4"> </var>[丁] × <var id="1_5"> </var>[回転] = <var id="1_6"> </var>[丁]
+				</code></p>
+				<p><var id="1_7"> </var>回転する。Cで1丁=<var id="1_8"> </var>mmである為、モータが<var id="1_9"> </var>回転すると、チェーンは</p>
+				<p class="incode"><code>
+					<var id="1_10"> </var>[mm] × <var id="1_11"> </var>[丁] = <var id="1_12"> </var>[mm]
+				</code></p>
+				<p>動く。ここで、<var id="1_13"> </var>丁(<var id="1_14"> </var>[mm])を360°と仮定する。</p>
+				<p class="incode"><code>
+					<var id="1_15"> </var>[丁] = <var id="1_16"> </var>[mm] = 360[°]
+				</code></p>
+			</div>
+		<hr />
+
+		<h2>各種パラメータ</h2>
+			<form name="specification" id="specification">
+				<table>
+					<caption>[各種パラメータ]</caption>
+					<tr>
+						<td>A</td>
+						<td>：</td>
+						<td><input name="teethA" id="teethA" type="text" maxlength="4" size="4" /></td>
+						<td>[丁]</td>
+					</tr>
+					<tr>
+						<td>B</td>
+						<td>：</td>
+						<td><input name="teethB" id="teethB" type="text" maxlength="4" size="4" /></td>
+						<td>[丁]</td>
+					</tr>
+					<tr>
+						<td>C</td>
+						<td>：</td>
+						<td><input name="teethC" id="teethC" type="text" maxlength="4" size="4" /></td>
+						<td>[丁]</td>
+					<tr>
+						<td>チェーン1丁の長さ</td>
+						<td>：</td>
+						<td><input name="chainlength" id="chainlength" type="text" maxlength="8" size="8" /></td>
+						<td>[mm]</td>
+					</tr>
+					<tr>
+						<td>サーボモータ減速比</td>
+						<td>：</td>
+						<td><input name="ratioNumer" id="ratioNumer" type="text" maxlength="4" size="4" />/<input name="ratio" id="ratio" type="text" maxlength="4" size="4" /></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>サーボモータ回転速度</td>
+						<td>：</td>
+						<td><input name="maxspeed" id="maxspeed" type="text" maxlength="6" size="6" /></td>
+						<td>[rpm]</td>
+					</tr>
+					<tr>
+						<td>エンコーダパルス</td>
+						<td>：</td>
+						<td><input name="encpls" id="encpls" type="text" maxlength="12" size="12" /></td>
+						<td>[pls]</td>
+					</tr>
+				</table>
+				<p><input type="button" value="サーボパラメータ算出" onClick="calservoparam();" /></p>
+			</form>
+		<hr />
+
+		<h2>単位換算</h2>
+		<h3>[mm] → [°]への換算</h3>
+			<p class="incode"><code>
+				1[mm] = (<var id="2_1"> </var> / <var id="2_2"> </var>)[°]
+			</code></p>
+			<p>サーボへ移動量の指定を行うには、</p>
+			<p class="incode"><code>
+				サーボ移動量[°] = 送り量[mm] × (<var id="2_3"> </var> / <var id="2_4"> </var>)[°]
+			</code></p>
+		<h3>[°] → [mm]への換算</h3>
+			<p class="incode"><code>
+				1[°] = (<var id="2_5"> </var> / <var id="2_6"> </var>)[mm]
+			</code></p>
+			<p>サーボからの移動量をmm単位に換算するには、</p>
+			<p class="incode"><code>
+				送り量[mm] = サーボ移動量[°] × (<var id="2_7"> </var> / <var id="2_8"> </var>)[mm]
+			</code></p>
+		<hr />
+
+		<h2>サーボパラメータ</h2>
+			<p><var id="3_1"> </var>回転を360[°]として設定する。
+			サーボ1回転当りのエンコーダパルス数は<var id="3_2"> </var>[pls]である為、</p>
+			<p class="incode"><code>
+				1回転当り移動量：<var id="3_3"> </var>[pls] × <var id="3_4"> </var>[回転] = 360[°]
+			</code></p>
+			<p class="incode"><code>
+				<var id="3_5"> </var>[pls] = <var id="3_6"> </var>[°]
+			</code></p>
+		<hr />
+
+		<h2>送り速度</h2>
+			<p>サーボ1回転当りのエンコーダパルス数は<var id="4_1"> </var>[pls]である。
+			まず、サーボ1回転当りのパルスを[°]に換算する。前述のサーボパラメータ「1回転当り移動量」より</p>
+			<p class="incode"><code>
+				1回転当り移動量[°] = <var id="4_2"> </var>[pls] × (<var id="4_3"> </var>[°] / <var id="4_4"> </var>[pls])
+			</code></p>
+			<p>サーボの回転速度は<var id="4_5"> </var>[rpm]より</p>
+			<p class="incode"><code>
+				送り速度[°/min] = <var id="4_6"> </var>[rpm] × <var id="4_7"> </var>[°] = <var id="4_8"> </var>[°/min]
+			</code></p>
+			<p>ちなみに[mm/sec]単位に換算すると、<var id="4_9"> </var>[mm/sec]となる。</p>
+		<hr />
+
+		<h3>注意事項とか今後の予定</h3>
+			<ul>
+				<li>演算とグラフの描画にJavaScriptを使用しています。</li>
+				<li>Firefox 33.0で動作確認</li>
+				<li><del>IEでは確認していません。</del>多分動くと思います。</li>
+				<li>入力チェックやエラー処理はしていません。気が向いたら実装予定。</li>
+			</ul>
+		<hr />
+		<address>パインアメで( ´◎｀)ｽｰ</address>
+	</body>
+</html>
