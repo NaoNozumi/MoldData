@@ -1,272 +1,260 @@
 @charset "utf-8";
 body {
-    margin: 24px 48px;
-    line-height: 175%;
+	margin: 24px 48px;
+	line-height: 175%;
 }
 
 h1 {
-    color: #333333;
-    border-left: 20px solid #333333;
-    border-bottom: 1px dashed #333333;
-    padding: 2px 2px 2px 8px;
+	color: #333333;
+	border-left: 20px solid #333333;
+	border-bottom: 1px dashed #333333;
+	padding: 2px 2px 2px 8px;
 }
 
 h2 {
-    color: #333333;
-    border-left: 4px solid #333333;
-    padding: 2px 2px 2px 8px;
+	color: #333333;
+	border-left: 4px solid #333333;
+	padding: 2px 2px 2px 8px;
 }
 
 h3 {
-    color: #333333;
-    border-bottom: 1px dashed #333333;
-    padding: 2px 2px 2px 4px;
+	color: #333333;
+	border-bottom: 1px dashed #333333;
+	padding: 2px 2px 2px 4px;
 }
 
 p {
-    margin: 4px 0px 8px 24px;
-    text-indent: 1em;
+	margin: 4px 0px 8px 24px;
+	text-indent: 1em;
 }
-
 
 /* http://webworkersclip.com/2875/
 型リスト */
 
 table#moldList {
-    border-collapse: separate;
-    border-spacing: 0;
-    line-height: 1.4;
-    border-top: 1px solid #cccccc;
-    border-left: 1px solid #cccccc;
+	border-collapse: separate;
+	border-spacing: 0;
+	line-height: 1.4;
+	border-top: 1px solid #cccccc;
+	border-left: 1px solid #cccccc;
 }
 
 table#moldList th {
-    text-align: center;
-    width: 20px;
-    padding: 4px;
-    font-weight: bold;
-    vertical-align: top;
-    border-right: 1px solid #cccccc;
-    border-bottom: 1px solid #cccccc;
-    border-top: 1px solid #ffffff;
-    border-left: 1px solid #ffffff;
-    background: #eeeeee;
+	text-align: center;
+	width: 20px;
+	padding: 4px;
+	font-weight: bold;
+	vertical-align: top;
+	border-right: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
+	border-top: 1px solid #ffffff;
+	border-left: 1px solid #ffffff;
+	background: #eeeeee;
 }
 
 table#moldList td {
-    text-align: left;
-    width: 240px;
-    padding: 4px;
-    vertical-align: top;
-    border-right: 1px solid #cccccc;
-    border-bottom: 1px solid #cccccc;
+	text-align: left;
+	width: 240px;
+	padding: 4px;
+	vertical-align: top;
+	border-right: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
 }
-
 
 /* 点火率テーブル */
 
 table.ratio {
-    border-collapse: separate;
-    border-spacing: 2px;
-    text-align: center;
-    line-height: 1.8;
+	border-collapse: separate;
+	border-spacing: 2px;
+	text-align: center;
+	line-height: 1.8;
 }
 
 table.ratio th {
-    width: 28px;
-    padding: 4px;
-    font-weight: bold;
-    vertical-align: top;
-    color: #ffffff;
-    background: #666666;
+	width: 28px;
+	padding: 4px;
+	font-weight: bold;
+	vertical-align: top;
+	color: #ffffff;
+	background: #666666;
 }
 
 table.ratio td {
-    width: 28px;
-    padding: 4px;
-    vertical-align: top;
-    background: #00FFFF;
+	width: 28px;
+	padding: 4px;
+	vertical-align: top;
+	background: #00FFFF;
 }
-
 
 /* https://saruwakakun.com/html-css/reference/h-design
 ホルダ・型名 */
 
-#holderName, #dataName {
-    font-weight: bolder;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
-    color: #000080;
-    padding: 8px;
-    display: inline-block;
-    line-height: 1.8;
-    background: #cccccc;
-    vertical-align: middle;
-    border-radius: 24px 0px 0px 24px;
+#holderName, #dataName, #machineName {
+	font-weight: bolder;
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
+	color: #000080;
+	padding: 8px;
+	display: inline-block;
+	line-height: 1.8;
+	background: #cccccc;
+	vertical-align: middle;
+	border-radius: 24px 0px 0px 24px;
 }
-
 
 /* 機能 */
 
 table.function {
-    border-collapse: separate;
-    border-spacing: 0;
-    line-height: 1.4;
-    border-top: 1px solid #cccccc;
-    border-left: 1px solid #cccccc;
+	border-collapse: separate;
+	border-spacing: 0;
+	line-height: 1.4;
+	border-top: 1px solid #cccccc;
+	border-left: 1px solid #cccccc;
 }
 
 table.function td {
-    text-align: left;
-    height: 20px;
-    padding: 4px;
-    vertical-align: top;
-    border-right: 1px solid #cccccc;
-    border-bottom: 1px solid #cccccc;
+	text-align: left;
+	height: 20px;
+	padding: 4px;
+	vertical-align: top;
+	border-right: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
 }
 
 table.function td.functionComment {
-    width: 160px;
+	width: 160px;
 }
 
 table.function td.functionValue {
-    text-align: center;
-    width: 40px;
-    font-weight: bold;
-    border-right: 4px solid #cccccc;
-    border-bottom: 4px solid #cccccc;
-    border-top: 4px solid #ffffff;
-    border-left: 4px solid #ffffff;
+	text-align: center;
+	width: 40px;
+	font-weight: bold;
+	border-right: 4px solid #cccccc;
+	border-bottom: 4px solid #cccccc;
+	border-top: 4px solid #ffffff;
+	border-left: 4px solid #ffffff;
 }
-
 
 /* 機能色1 */
 
 table.function td.a {
-    color: #000000;
-    background: #bfbfbf;
+	color: #000000;
+	background: #bfbfbf;
 }
-
 
 /* 機能色2 */
 
 table.function td.b {
-    color: #ffffff;
-    background: #ffbf00;
+	color: #ffffff;
+	background: #ffbf00;
 }
-
 
 /* 機能色3 */
 
 table.function td.c {
-    color: #000000;
-    background: #00ffff;
+	color: #000000;
+	background: #00ffff;
 }
-
 
 /* 機能色4 */
 
 table.function td.d {
-    color: #000000;
-    background: #00ff00;
+	color: #000000;
+	background: #00ff00;
 }
-
 
 /* メモ */
 
 table.memo {
-    border-collapse: separate;
-    border-spacing: 0;
-    line-height: 1.4;
-    border-top: 1px solid #cccccc;
-    border-left: 1px solid #cccccc;
+	border-collapse: separate;
+	border-spacing: 0;
+	line-height: 1.4;
+	border-top: 1px solid #cccccc;
+	border-left: 1px solid #cccccc;
 }
 
 table.memo td {
-    text-align: left;
-    width: 288px;
-    height: 20px;
-    padding: 4px;
-    vertical-align: top;
-    border-right: 1px solid #cccccc;
-    border-bottom: 1px solid #cccccc;
+	text-align: left;
+	width: 288px;
+	height: 20px;
+	padding: 4px;
+	vertical-align: top;
+	border-right: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
 }
 
 table.memo td.white {
-    width: 200px;
+	width: 200px;
 }
 
 table.memo td.black {
-    text-align: center;
-    width: 80px;
-    color: #ffffff;
-    background: #666666;
+	text-align: center;
+	width: 80px;
+	color: #ffffff;
+	background: #666666;
 }
-
 
 /* デバイスリスト */
 
 table#moldDataList {
-    border-collapse: separate;
-    border-spacing: 0;
-    line-height: 1.4;
-    border-top: 1px solid #cccccc;
-    border-left: 1px solid #cccccc;
+	border-collapse: separate;
+	border-spacing: 0;
+	line-height: 1.4;
+	border-top: 1px solid #cccccc;
+	border-left: 1px solid #cccccc;
 }
 
 table#moldDataList th {
-    text-align: center;
-    width: 60px;
-    padding: 2px 4px;
-    font-weight: bold;
-    vertical-align: top;
-    border-right: 2px solid #cccccc;
-    border-bottom: 1px solid #cccccc;
-    border-top: 1px solid #ffffff;
-    border-left: 2px solid #ffffff;
-    background: #eeeeee;
+	text-align: center;
+	width: 60px;
+	padding: 2px 4px;
+	font-weight: bold;
+	vertical-align: top;
+	border-right: 2px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
+	border-top: 1px solid #ffffff;
+	border-left: 2px solid #ffffff;
+	background: #eeeeee;
 }
 
 table#moldDataList td {
-    text-align: left;
-    padding: 2px 4px;
-    vertical-align: top;
-    border-right: 1px solid #cccccc;
-    border-bottom: 1px solid #cccccc;
+	text-align: left;
+	padding: 2px 4px;
+	vertical-align: top;
+	border-right: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
 }
 
 table#moldDataList td.comment {
-    width: 160px;
+	width: 160px;
 }
 
 table#moldDataList td.value {
-    width: 40px;
+	width: 40px;
 }
-
 
 /* タイミング */
 
 canvas {
-    padding: 4px 12px;
-    border: 1px solid #cccccc;
+	padding: 4px 12px;
+	border: 1px solid #cccccc;
 }
-
 
 /* 上に戻るボタン */
 
 .square_btn {
-    position: fixed;
-    bottom: 16px;
-    right: 8px;
-    padding: 2px 12px;
-    font-weight: bold;
-    text-decoration: none;
-    border-left: solid 4px #333333;
-    color: #333333;
-    background: #f7f7f7;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+	position: fixed;
+	bottom: 16px;
+	right: 8px;
+	padding: 2px 12px;
+	font-weight: bold;
+	text-decoration: none;
+	border-left: solid 4px #333333;
+	color: #333333;
+	background: #f7f7f7;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
 }
 
 .square_btn:active {
-    box-shadow: inset 0 0 2px rgba(128, 128, 128, 0.1);
-    transform: translateY(2px);
+	box-shadow: inset 0 0 2px rgba(128, 128, 128, 0.1);
+	transform: translateY(2px);
 }

@@ -11,8 +11,8 @@
 
 	<script src="init.js" charset="UTF-8" defer="defer"></script>
 	<script src="ratioArray.js" charset="UTF-8" defer="defer"></script>
-	<script src="./js/txtDecode.js" charset="UTF-8" defer="defer"></script>
 
+	<script src="./js/txtDecode.js" charset="UTF-8" defer="defer"></script>
 	<script src="./js/MoldData.js" charset="UTF-8" defer="defer"></script>
 	<script src="./js/ratio.js" charset="UTF-8" defer="defer"></script>
 	<script src="./js/memo.js" charset="UTF-8" defer="defer"></script>
@@ -28,10 +28,12 @@
 	<h1>型データ</h1>
 
 	<h2>製造番号入力</h2>
+	<p id="machineName">機械名</p>
 	<p>
 		製造番号を入力します。半角数字4桁で入力して下さい。
 	</p>
-	<form name="serialForm" onsubmit="inputSerial()">
+	<!-- form内でsubmitしても頁遷移したくない -->
+	<form name="serialForm" onsubmit="inputSerial();return false;">
 		<input name="serialNum" type="text" />
 		<input type="submit" value="送信" />
 	</form>
