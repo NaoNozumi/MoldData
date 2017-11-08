@@ -1,3 +1,4 @@
+// M150142 #5752 FLC-315PC5.2-Q2-S 南条装備工業㈱ 八千代
 // 点火率画面情報(正規勝手)
 // 上
 const UPPER_HEATER_ADD = new Array(

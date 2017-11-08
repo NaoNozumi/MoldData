@@ -1,3 +1,4 @@
+// M140092 #5557 FLC-415PC5-Q2 ㈱三和
 // 点火率画面情報(反対勝手)
 // 上
 const UPPER_HEATER_ADD = new Array(

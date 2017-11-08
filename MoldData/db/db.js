@@ -5,20 +5,20 @@
 /
 / 初期化
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
-var machineName = document.getElementById("machineName");
+let machineName = document.getElementById("machineName");
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / 製造No.に応じて設定ファイルを引っ張るテスト
 / 2017/11作成
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
-var xhr = new XMLHttpRequest();
-var MachineList = new Array();
+let xhr = new XMLHttpRequest();
+let MachineList = new Array();
 
 // 製造No.リスト読込
 xhr.onreadystatechange = function() {
 	if (xhr.readyState == 4 && xhr.status == 200) {
-		var i, j, k, l;
-		var result = xhr.responseText.split("\r\n");
+		let i, j, k, l;
+		let result = xhr.responseText.split("\r\n");
 
 		for (i = 0; i < result.length; i++) {
 			MachineList[i] = result[i].split("\t");
@@ -34,9 +34,9 @@ xhr.send(null); // リクエストを発行
 / 機械リストから入力データに従ってデータを拾う
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function inputSerial() {
-	var i, j, k, l;
-	var value = document.serialForm.serialNum.value;
-	var regex = /^\d{4}$/; // 半角4桁の数字
+	let i, j, k, l;
+	let value = document.serialForm.serialNum.value;
+	let regex = /^\d{4}$/; // 半角4桁の数字
 
 	// 入力データが正しければ、検索
 	if (regex.test(value)) {

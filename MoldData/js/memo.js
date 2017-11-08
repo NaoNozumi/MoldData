@@ -10,8 +10,8 @@ const MEMO02_COL = 2; // メモ02列
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 // メモ画面行列
 // レイアウトが変わるようであれば都度変更
-var memoList1 = document.getElementById("memoList1");
-var memoList2 = document.getElementById("memoList2");
+let memoList1 = document.getElementById("memoList1");
+let memoList2 = document.getElementById("memoList2");
 
 // メモ画面
 // 1
@@ -47,11 +47,11 @@ for (i = 0; i < MEMO02_ROW; i++) {
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 // 1
 function memoTableOne() {
-	var i, j, k, l, tmp1, tmp2;
-	var row = MEMO01_ROW;
-	var col = MEMO01_COL / 2;
-	var itemNum = 16; // 1項目16ワード
-	var itemSeparate = 10; // 1項目10+6ワード
+	let i, j, k, l, tmp1, tmp2;
+	let row = MEMO01_ROW;
+	let col = MEMO01_COL / 2;
+	let itemNum = 16; // 1項目16ワード
+	let itemSeparate = 10; // 1項目10+6ワード
 
 	for (i = 0; i < col; i++) { // 各列
 		for (j = 0; j < row; j++) { // 各行
@@ -80,10 +80,10 @@ function memoTableOne() {
 
 // 2
 function memoTableTwo() {
-	var i, j, k, l, tmp;
-	var row = MEMO02_ROW;
-	var col = MEMO02_COL;
-	var itemNum = 16; // 1項目16ワード
+	let i, j, k, l, tmp;
+	let row = MEMO02_ROW;
+	let col = MEMO02_COL;
+	let itemNum = 16; // 1項目16ワード
 
 	for (i = 0; i < col; i++) { // 各列
 		for (j = 0; j < row; j++) { // 各行

@@ -1,3 +1,4 @@
+// FLC開発機
 // 点火率画面情報(開発)
 // 上
 const UPPER_HEATER_ADD = new Array(

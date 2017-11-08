@@ -16,7 +16,7 @@ const timingWidth = timingItemWidthName + timingItemWidthOneLap; // タイミン
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / タイミング画面を描く
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
-var timingCanvas1 = document.getElementById("timing1");
+let timingCanvas1 = document.getElementById("timing1");
 timingCanvas1.setAttribute("height", timingHeight);
 timingCanvas1.setAttribute("width", timingWidth + 16);
 
@@ -25,14 +25,14 @@ if (!timingCanvas1 || !timingCanvas1.getContext) {
 }
 
 // 2Dコンテキスト
-var timingCtx1 = timingCanvas1.getContext("2d");
+let timingCtx1 = timingCanvas1.getContext("2d");
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / タイミング画面描画
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function timingDraw() {
-	var i, j, k, l, m, n;
-	var text;
+	let i, j, k, l, m, n;
+	let text;
 
 	// クリア
 	timingCtx1.clearRect(0, 0, timingCanvas1.width, timingCanvas1.height);
@@ -94,7 +94,7 @@ function timingDraw() {
 / タイミング画面コメント描画
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function timingCommDraw() {
-	var i, j, k, l, m, n;
+	let i, j, k, l, m, n;
 
 	// 角度
 	timingCtx1.textAlign = "center";

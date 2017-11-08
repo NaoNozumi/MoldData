@@ -1,3 +1,4 @@
+// M160093 #5901 FCSP-870APA-W-50-L-1.2 ベルモントプラスチック㈱ 本社・滋賀
 // 点火率画面情報
 // 上
 const UPPER_HEATER_ADD = new Array(

@@ -53,14 +53,14 @@ const FILE_NAME_ITEM_NUM = 3; // 3項目
 / 型データ読み込み・表示
 / 2017/10作成
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
-var i, j, k, l, m, n;
-var rows, cells, th, td;
+let i, j, k, l, m, n;
+let rows, cells, th, td;
 
-var holderList = new Array(HOLDER_CNT); // ホルダ配列
-var fileHolder = new Array(HOLDER_CNT); // ファイルリスト配列(10ホルダ900点)
-var fileList = new Array(HOLDER_CNT * FILE_CNT); // ファイルリスト配列(300型)
-var dataList = new Array(HOLDER_CNT * FILE_CNT); // 型データ配列
-var commentList = new Array(COMMENT_NUM); // デバイスコメント配列
+let holderList = new Array(HOLDER_CNT); // ホルダ配列
+let fileHolder = new Array(HOLDER_CNT); // ファイルリスト配列(10ホルダ900点)
+let fileList = new Array(HOLDER_CNT * FILE_CNT); // ファイルリスト配列(300型)
+let dataList = new Array(HOLDER_CNT * FILE_CNT); // 型データ配列
+let commentList = new Array(COMMENT_NUM); // デバイスコメント配列
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / http://www.sejuku.net/blog/32532
@@ -70,20 +70,20 @@ var commentList = new Array(COMMENT_NUM); // デバイスコメント配列
 document.forms.gotForm.gotFile.addEventListener('change', fileRead, false); // *.TXTファイル読み込み
 document.forms.listForm.addEventListener('click', listFormClick, false);
 
-var moldList = document.getElementById("moldList");
-var moldDataList = document.getElementById("moldDataList");
-var functionList = document.getElementById("functionList");
-var listForm = document.forms.listForm;
-var dataName = document.getElementById("dataName"); // 型データ名
+let moldList = document.getElementById("moldList");
+let moldDataList = document.getElementById("moldDataList");
+let functionList = document.getElementById("functionList");
+let listForm = document.forms.listForm;
+let dataName = document.getElementById("dataName"); // 型データ名
 
 // 初期化
-var holderNum = 0;
-var pageNum = 0;
-var fileNum = 0;
+let holderNum = 0;
+let pageNum = 0;
+let fileNum = 0;
 listForm.filePage[0].checked = true;
 
 /* 長さNの配列をSで埋めて作成したい。
-var a = (new Array(3)).fill('A'); // ["A", "A", "A"]
+let a = (new Array(3)).fill('A'); // ["A", "A", "A"]
 
 length N の配列の作成は new Array(N)
 arr.fill()メソッドは第一引数で指定された値で配列の値を設定する。
@@ -171,7 +171,7 @@ function listFormClick(e) {
 
 // ファイル
 function fileSelect(e) {
-	var i, j, k, l;
+	let i, j, k, l;
 
 	// setattributesで追加される属性の順番は決まらない
 	j = e.target.attributes.length;
@@ -209,7 +209,7 @@ for (i = 0; i < (FILE_CNT / PAGE_CNT); i++) {
 }
 
 // デバイス表
-var tentative = 4; // 4分割(仮)
+let tentative = 4; // 4分割(仮)
 for (i = 0; i < (SETTING_NUM / tentative); i++) {
 	// http://javascript123.seesaa.net/article/390980127.html
 	// 行追加
@@ -249,7 +249,7 @@ for (i = 0; i < (FUNCTION_NUM / tentative); i++) {
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function fileRead(e) {
 	// 読み込んだファイル情報を取得
-	var moldFile = e.target.files[0];
+	let moldFile = e.target.files[0];
 
 	switch (moldFile.name) {
 		case "KATA.TXT": // 型データ
@@ -287,7 +287,7 @@ function fileRead(e) {
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function fileProcess(e) {
 	// FileReaderのインスタンスを作成
-	var reader = new FileReader();
+	let reader = new FileReader();
 
 	// 読み込んだファイルの中身を取得
 	reader.readAsText(e);
@@ -301,7 +301,7 @@ function fileProcess(e) {
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function fileLoad(e) {
 	// 改行で分解
-	var rows = e.target.result.split("\r\n");
+	let rows = e.target.result.split("\r\n");
 
 	// ファイル判定
 	if (rows[RECIPE_NAME].indexOf("KATA") != -1) {
@@ -318,8 +318,8 @@ function fileLoad(e) {
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 // 型リスト
 function makeNameList(e) {
-	var cols;
-	var i, j, k;
+	let cols;
+	let i, j, k;
 
 	// 13行目以降がデータ本体
 	// ホルダリスト格納
@@ -369,8 +369,8 @@ function makeNameList(e) {
 
 // 型データ
 function makeKataList(e) {
-	var cols;
-	var i, j, k;
+	let cols;
+	let i, j, k;
 
 	// 13行目以降がデータ本体
 	// 型データ格納
@@ -397,8 +397,8 @@ function makeKataList(e) {
 
 // コメントリスト
 function makeCommentList(e) {
-	var cols;
-	var i, j, k;
+	let cols;
+	let i, j, k;
 
 	for (i = 0; i < COMMENT_NUM; i++) {
 		// データ分割
@@ -428,8 +428,8 @@ function makeCommentList(e) {
 / 型リスト生成
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function makeFileList() {
-	var i, j, k, l, tmp;
-	var holderName = document.getElementById("holderName");
+	let i, j, k, l, tmp;
+	let holderName = document.getElementById("holderName");
 
 	// ホルダ名
 	for (i = 0; i < HOLDER_NAME_LENGTH; i++) {
@@ -473,7 +473,7 @@ function makeFileList() {
 / 型データリスト生成
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function makeDataList() {
-	var i, j, k;
+	let i, j, k;
 
 	// 型データ
 	for (i = 0; i < (SETTING_NUM / tentative); i++) {
@@ -520,7 +520,7 @@ function makeDataList() {
 / https://so-zou.jp/web-app/text/encode-decode/
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function toHex(e, f) {
-	var i, j, k;
+	let i, j, k;
 
 	// 負の数だった場合
 	if (e.indexOf("-") != -1) {
@@ -542,7 +542,7 @@ function toHex(e, f) {
 	// swap
 	// リトルエンディアンと判断されたものに対して処理
 	if (f == 0) {
-		var LE, BE;
+		let LE, BE;
 		LE = k.substr(2, 2);
 		BE = k.substr(0, 2);
 		k = LE + BE;
@@ -555,7 +555,7 @@ function toHex(e, f) {
 / 2進数
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function binNumberConv(e) {
-	var i, j, k;
+	let i, j, k;
 
 	// 2進数変換
 	e = parseInt(e, 10).toString(2);
@@ -572,11 +572,11 @@ function binNumberConv(e) {
 / 2の補数
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function complement(e) {
-	var i, j, k;
+	let i, j, k;
 
 	// ビット反転&1加算(2の補数)
 	//i = (0b1111111111111111 ^ ("0b" + i)) + 0b1; // 残念、ieで動かない
-	var a, tmp;
+	let a, tmp;
 	tmp = "";
 	for (k = 0; k < 16; k++) {
 		a = e.substr(k, 1); // 1文字切出し
