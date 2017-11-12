@@ -48,6 +48,15 @@ function inputSerial() {
 			if (MachineList[i][1] == value) {
 				j = 1; // 一致フラグ
 				machineName.textContent = MachineList[i][0] + " #" + value + " " + MachineList[i][3] + " " + MachineList[i][2];
+				// https://q-az.net/remove-native-javascript/
+				if (document.getElementsByTagName("script").length > 8) {
+					// init.jsとratioArray.js再読込
+					let elem1 = document.getElementsByTagName("script")[8];
+					let elem2 = document.getElementsByTagName("script")[9];
+
+					elem1.parentNode.removeChild(elem1);
+					elem2.parentNode.removeChild(elem2);
+				}
 				// スクリプト読込
 				loadCount = 0;
 				loadScript(value);
@@ -79,20 +88,22 @@ function loadScript(e) {
 	if (loadCount < len) ga.onload = loadScript(e);
 	// 最後に点火率画面再描画
 	if (loadCount == len) {
-		// 点火率再描画
-		j = ratioUp.rows.length;
-		for (i = 0; i < j; i++) {
-			ratioUp.deleteRow(0);
-		}
-		j = ratioCorner.rows.length;
-		for (i = 0; i < j; i++) {
-			ratioCorner.deleteRow(0);
-		}
-		j = ratioDown.rows.length;
-		for (i = 0; i < j; i++) {
-			ratioDown.deleteRow(0);
-		}
+		ga.onload = function() {
+			// 点火率再描画
+			j = ratioUp.rows.length;
+			for (i = 0; i < j; i++) {
+				ratioUp.deleteRow(0);
+			}
+			j = ratioCorner.rows.length;
+			for (i = 0; i < j; i++) {
+				ratioCorner.deleteRow(0);
+			}
+			j = ratioDown.rows.length;
+			for (i = 0; i < j; i++) {
+				ratioDown.deleteRow(0);
+			}
 
-		makeRatioTable();
+			makeRatioTable();
+		}
 	}
 }
