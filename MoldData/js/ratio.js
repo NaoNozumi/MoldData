@@ -17,60 +17,68 @@ let ratioCorner = document.getElementById("ratioCorner");
 let ratioDown = document.getElementById("ratioDown");
 let clsPreheating = document.getElementById("clsPreheating");
 let clsOperation = document.getElementById("clsOperation");
+makeRatioTable();
 
-// 上ヒータ
-for (i = 0; i <= RATIO_UP_ROW; i++) {
-	// http://javascript123.seesaa.net/article/390980127.html
-	// 行追加
-	rows = ratioUp.insertRow(-1);
-	if (i == 0) {
-		rows.appendChild(document.createElement("th")).textContent = " ";
-	} else {
-		rows.appendChild(document.createElement("th")).textContent = RATIO_UP_ROW_HEADER[i - 1];
+function makeRatioTable() {
+	let i, j;
+	let rows;
+
+	// 上ヒータ
+	for (i = 0; i <= RATIO_UP_ROW; i++) {
+		// http://javascript123.seesaa.net/article/390980127.html
+		// 行追加
+		rows = ratioUp.insertRow(-1);
+		if (i == 0) {
+			rows.appendChild(document.createElement("th")).textContent = " ";
+		} else {
+			rows.appendChild(document.createElement("th")).textContent = RATIO_UP_ROW_HEADER[i - 1];
+		}
+
+		for (j = 0; j < RATIO_UP_COL; j++) {
+			// コメント/値セル追加
+			if (i == 0) {
+				rows.appendChild(document.createElement("th")).textContent = RATIO_UP_COL_HEADER[j];
+			} else {
+				rows.insertCell(-1).textContent = 0;
+			}
+		}
 	}
 
-	for (j = 0; j < RATIO_UP_COL; j++) {
-		// コメント/値セル追加
+	// U字ヒータ
+	// U字ヒータの数が変わったらここを編集
+	rows = ratioCorner.insertRow(-1);
+	for (i = 0; i < RATIO_CORNER; i++) {
+		rows.appendChild(document.createElement("th")).textContent = "U字" + i;
+	}
+	rows = ratioCorner.insertRow(-1);
+	for (i = 0; i < RATIO_CORNER; i++) {
+		rows.insertCell(-1).textContent = 0;
+	}
+
+	// 下ヒータ
+	for (i = 0; i <= RATIO_DOWN_ROW; i++) {
+		// http://javascript123.seesaa.net/article/390980127.html
+		// 行追加
+		rows = ratioDown.insertRow(-1);
 		if (i == 0) {
-			rows.appendChild(document.createElement("th")).textContent = RATIO_UP_COL_HEADER[j];
+			rows.appendChild(document.createElement("th")).textContent = " ";
 		} else {
-			rows.insertCell(-1).textContent = 0;
+			rows.appendChild(document.createElement("th")).textContent = RATIO_DOWN_ROW_HEADER[i - 1];
+		}
+
+		for (j = 0; j < RATIO_DOWN_COL; j++) {
+			// コメント/値セル追加
+			if (i == 0) {
+				rows.appendChild(document.createElement("th")).textContent = RATIO_DOWN_COL_HEADER[j];
+			} else {
+				rows.insertCell(-1).textContent = 0;
+			}
 		}
 	}
 }
-
-// U字ヒータ
-// U字ヒータの数が変わったらここを編集
-rows = ratioCorner.insertRow(-1);
-for (i = 0; i < RATIO_CORNER; i++) {
-	rows.appendChild(document.createElement("th")).textContent = "U字" + i;
-}
-rows = ratioCorner.insertRow(-1);
-for (i = 0; i < RATIO_CORNER; i++) {
-	rows.insertCell(-1).textContent = 0;
-}
-
-// 下ヒータ
-for (i = 0; i <= RATIO_DOWN_ROW; i++) {
-	// http://javascript123.seesaa.net/article/390980127.html
-	// 行追加
-	rows = ratioDown.insertRow(-1);
-	if (i == 0) {
-		rows.appendChild(document.createElement("th")).textContent = " ";
-	} else {
-		rows.appendChild(document.createElement("th")).textContent = RATIO_DOWN_ROW_HEADER[i - 1];
-	}
-
-	for (j = 0; j < RATIO_DOWN_COL; j++) {
-		// コメント/値セル追加
-		if (i == 0) {
-			rows.appendChild(document.createElement("th")).textContent = RATIO_DOWN_COL_HEADER[j];
-		} else {
-			rows.insertCell(-1).textContent = 0;
-		}
-	}
-}
-
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ CLSヒータ画面
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 // CLS予熱
 for (i = 0; i < CLS_ROW * 2; i++) { // 行
 	// 行追加

@@ -13,7 +13,6 @@
 
 // 点火率画面情報
 // ハーフヒータも1行・1列として数えること
-console.log("pu-");
 RATIO_UP_ROW = 9; // 上ヒータ行数(標準:9)
 RATIO_UP_COL = 22; // 上ヒータ列数(標準:19)
 RATIO_CORNER = 2; // U字ヒータ数(標準:2)
@@ -39,7 +38,12 @@ RATIO_U_S = 200; // U字ヒータ開始アドレス(標準:171)
 □ □ □ □ □ □ □ □ □ 1
 9 8 7 6 5 4 3 2 1
 */
-RATIO_UP_ROW_HEADER = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9); // 上の行(要素数はRATIO_UP_ROWの内容と同じ)
-RATIO_UP_COL_HEADER = new Array(1, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 9, 10, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19); // 上の列(要素数はRATIO_UP_COLの内容と同じ)
-RATIO_DOWN_ROW_HEADER = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9); // 下の行(要素数はRATIO_DOWN_ROWの内容と同じ)
-RATIO_DOWN_COL_HEADER = new Array(1, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 9, 10, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19); // 下の列(要素数はRATIO_DOWN_COLの内容と同じ)
+RATIO_UP_ROW_HEADER.length = 0;
+RATIO_UP_COL_HEADER.length = 0;
+RATIO_DOWN_ROW_HEADER.length = 0;
+RATIO_DOWN_COL_HEADER.length = 0;
+
+RATIO_UP_ROW_HEADER = [1, 2, 3, 4, 5, 6, 7, 8, 9]; // 上の行(要素数はRATIO_UP_ROWの内容と同じ)
+RATIO_UP_COL_HEADER = [1, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 9, 10, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]; // 上の列(要素数はRATIO_UP_COLの内容と同じ)
+RATIO_DOWN_ROW_HEADER = [1, 2, 3, 4, 5, 6, 7, 8, 9]; // 下の行(要素数はRATIO_DOWN_ROWの内容と同じ)
+RATIO_DOWN_COL_HEADER = [1, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 9, 10, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]; // 下の列(要素数はRATIO_DOWN_COLの内容と同じ)

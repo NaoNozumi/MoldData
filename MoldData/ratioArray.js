@@ -11,7 +11,7 @@ let UPPER_HEATER_ADD = new Array(
 	163, 154, 145, 136, 127, 118, 109, 100, 91, 82, 73, 64, 55, 46, 37, 28, 19, 10, 1,
 	162, 153, 144, 135, 126, 117, 108, 99, 90, 81, 72, 63, 54, 45, 36, 27, 18, 9, 0);
 // U字
-let U_HEATER_ADD = new Array(171, 172);
+let U_HEATER_ADD = new Array(RATIO_U_S, RATIO_U_S + 1);
 
 // 下
 let LOWER_HEATER_ADD = new Array(

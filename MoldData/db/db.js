@@ -6,6 +6,7 @@
 / 初期化
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 let machineName = document.getElementById("machineName");
+let loadCount;
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / 製造No.に応じて設定ファイルを引っ張るテスト
@@ -33,6 +34,8 @@ xhr.send(null); // リクエストを発行
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / 機械リストから入力データに従ってデータを拾う
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+// https://so-zou.jp/web-app/tech/programming/javascript/sample/script.htm
+// https://qiita.com/w650/items/adb108649a0e2a86f334
 function inputSerial() {
 	let i, j, k, l;
 	let value = document.serialForm.serialNum.value;
@@ -43,20 +46,53 @@ function inputSerial() {
 		j = 0; // 検索完了フラグ
 		for (i = 0; i < MachineList.length; i++) {
 			if (MachineList[i][1] == value) {
-				j = 1;
+				j = 1; // 一致フラグ
 				machineName.textContent = MachineList[i][0] + " #" + value + " " + MachineList[i][3] + " " + MachineList[i][2];
-
-				var ga = document.createElement("script");
-				ga.charset = "UTF-8";
-				ga.src = "./HDATA/" + value + "/init.js";
-				ga.defer = "defer";
-				document.body.appendChild(ga);
-
+				// スクリプト読込
+				loadCount = 0;
+				loadScript(value);
 				break;
 			}
 		}
 		if (j == 0) machineName.textContent = "該当なし";
 	} else {
 		alert("入力データが正しくありません。");
+	}
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ 動的にjsを実行する
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+let scripts = new Array("/init.js", "/ratioArray.js");
+let len = scripts.length;
+
+function loadScript(e) {
+	let i, j;
+	let ga = document.createElement("script");
+
+	ga.charset = "UTF-8";
+	ga.src = "./HDATA/" + e + scripts[loadCount];
+	ga.defer = "defer";
+	document.body.appendChild(ga);
+	loadCount++;
+
+	if (loadCount < len) ga.onload = loadScript(e);
+	// 最後に点火率画面再描画
+	if (loadCount == len) {
+		// 点火率再描画
+		j = ratioUp.rows.length;
+		for (i = 0; i < j; i++) {
+			ratioUp.deleteRow(0);
+		}
+		j = ratioCorner.rows.length;
+		for (i = 0; i < j; i++) {
+			ratioCorner.deleteRow(0);
+		}
+		j = ratioDown.rows.length;
+		for (i = 0; i < j; i++) {
+			ratioDown.deleteRow(0);
+		}
+
+		makeRatioTable();
 	}
 }
