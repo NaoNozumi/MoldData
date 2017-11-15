@@ -6,7 +6,7 @@
 / 初期化
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 let machineName = document.getElementById("machineName");
-let loadCount;
+let loadCount; // 詠み込んだスクリプトの数
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / 製造No.に応じて設定ファイルを引っ張るテスト
@@ -60,6 +60,8 @@ function inputSerial() {
 				// スクリプト読込
 				loadCount = 0;
 				loadScript(value);
+				// コメントファイル読込
+				loadComment(value);
 				break;
 			}
 		}
@@ -67,6 +69,25 @@ function inputSerial() {
 	} else {
 		alert("入力データが正しくありません。");
 	}
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ 機械リストから入力データに従ってデータを拾う(comment.txt)
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+let xhrCom = new XMLHttpRequest();
+
+function loadComment(e) {
+	xhrCom.onreadystatechange = function() {
+		if (xhrCom.readyState == 4 && xhrCom.status == 200) {
+			let result = xhrCom.responseText.split("\r\n");
+
+			makeCommentList(result);
+			xhrCom.abort(); // リクエスト中止
+		}
+	}
+
+	xhrCom.open("GET", "./HDATA/" + e + "/comment.txt", true); // ファイルを非同期通信でオープンする
+	xhrCom.send(null); // リクエストを発行
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -81,7 +102,7 @@ function loadScript(e) {
 
 	ga.charset = "UTF-8";
 	ga.src = "./HDATA/" + e + scripts[loadCount];
-	ga.defer = "defer";
+	ga.setAttribute("defer", "defer");
 	document.body.appendChild(ga);
 	loadCount++;
 
