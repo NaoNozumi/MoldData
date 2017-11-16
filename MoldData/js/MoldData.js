@@ -169,7 +169,9 @@ function listFormClick(e) {
 	}
 }
 
-// ファイル
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ ファイル
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function fileSelect(e) {
 	let i, j, k, l;
 
@@ -180,11 +182,27 @@ function fileSelect(e) {
 		if (k.indexOf("fileNum") != -1) fileNum = parseInt(k.replace("fileNum", ""));
 	}
 
+	// 選択ファイル表示
+	fileSelectPoint();
+
 	// 型データ名
 	dataName.textContent = "ホルダNo. " + (holderNum + 1) + " / " + "ファイルNo. " + (pageNum * (FILE_CNT / PAGE_CNT) + fileNum + 1) + " / " + moldList.rows[fileNum + 1].cells[1].textContent;
 
 	// 型データリスト生成
 	makeDataList();
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ 選択ファイル表示
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+function fileSelectPoint() {
+	let i;
+
+	// 選択ファイル名
+	for (i = 1; i < moldList.rows.length; i++) {
+		moldList.rows[i].cells[0].style.backgroundColor = "#eeeeee";
+	}
+	moldList.rows[fileNum + 1].cells[0].style.backgroundColor = "#ffbf00";
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -207,6 +225,8 @@ for (i = 0; i < (FILE_CNT / PAGE_CNT); i++) {
 		rows.insertCell(-1).textContent = "-";
 	}
 }
+// 選択ファイル表示
+fileSelectPoint();
 
 // デバイス表
 let tentative = 4; // 4分割(仮)
@@ -277,7 +297,7 @@ function fileRead(e) {
 			break;
 
 		default:
-			console.log("サポート外のファイル形式です。");
+			alert("サポート外のファイル形式です。");
 			break;
 	}
 }
@@ -467,6 +487,9 @@ function makeFileList() {
 			(k != (FILE_NAME_ITEM_NUM - 1)) ? txtDecode(tmp, i + 1, k + 1, "fileName"): moldList.rows[i + 1].cells[k + 1].textContent = tmp;
 		}
 	}
+
+	// 選択ファイル表示
+	fileSelectPoint();
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
