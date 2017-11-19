@@ -17,6 +17,7 @@
 	<script src="./js/ratio.js" charset="UTF-8" defer="defer"></script>
 	<script src="./js/memo.js" charset="UTF-8" defer="defer"></script>
 	<script src="./js/timing.js" charset="UTF-8" defer="defer"></script>
+
 	<noscript>
 			<p>このページではJavaScriptを使用しています。</p>
 		</noscript>
@@ -83,29 +84,42 @@
 	<hr />
 
 	<h2>型データ</h2>
-	<h3>点火率(上ヒータ)</h3>
+
+	<h3>点火率</h3>
+	<button type="button" name="dispayChange" id="ratioUpChange">表示切替1</button>
+	<button type="button" name="dispayChange" id="ratioCornerChange">表示切替2</button>
+	<button type="button" name="dispayChange" id="ratioDownChange">表示切替3</button>
+
+	<h4>上ヒータ</h4>
 	<table class="ratio" id="ratioUp"></table>
 
-	<h3>点火率(U字ヒータ)</h3>
+	<h4>U字ヒータ</h4>
 	<table class="ratio" id="ratioCorner"></table>
 
-	<h3>点火率(下ヒータ)</h3>
+	<h4>下ヒータ</h4>
 	<table class="ratio" id="ratioDown"></table>
 
 	<hr />
 
-	<h3>CLS熱板ヒータ温度(予熱)</h3>
+	<h3>熱板ヒータ温度</h3>
+	<button type="button" name="dispayChange" id="clsPreheatingChange">表示切替4</button>
+	<button type="button" name="dispayChange" id="clsOperationChange">表示切替5</button>
+
+	<h4>予熱</h4>
 	<table class="ratio" id="clsPreheating"></table>
 
-	<h3>CLS熱板ヒータ温度(運転)</h3>
+	<h4>運転</h4>
 	<table class="ratio" id="clsOperation"></table>
 
 	<hr />
 
-	<h3>設定データ</h3>
+	<h3>PLS</h3>
 	<h4>タイミング</h4>
 	<canvas id="timing1">canvasが利用できるWebブラウザで開いてください。</canvas>
 
+	<hr />
+
+	<h3>設定データ</h3>
 	<h4>機能</h4>
 	<table class="function" id="functionList"></table>
 

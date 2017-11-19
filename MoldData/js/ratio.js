@@ -204,3 +204,18 @@ function ratioColor(e) {
 
 	return i;
 }
+
+// 表示切替
+let dispChangeButtons = document.getElementsByName("dispayChange");
+for (i = 0; i < dispChangeButtons.length; i++) {
+	dispChangeButtons[i].addEventListener('click', showBlock, false);
+}
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ 表示/非表示切替
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+function showBlock(e) {
+	let i = e.target.id.slice(0, -6);
+	let j = document.getElementById(i).style.display;
+
+	(j == "" || j == "block") ? document.getElementById(i).style.display = "none": document.getElementById(i).style.display = "block";
+}
