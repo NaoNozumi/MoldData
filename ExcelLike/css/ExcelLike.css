@@ -1,0 +1,29 @@
+@charset "utf-8";
+body {
+	margin: 24px 48px;
+	line-height: 175%;
+}
+
+h1 {
+	color: #333333;
+	border-left: 20px solid #333333;
+	border-bottom: 1px dashed #333333;
+	padding: 2px 2px 2px 8px;
+}
+
+h2 {
+	color: #333333;
+	border-left: 4px solid #333333;
+	padding: 2px 2px 2px 8px;
+}
+
+h3 {
+	color: #333333;
+	border-bottom: 1px dashed #333333;
+	padding: 2px 2px 2px 4px;
+}
+
+p {
+	margin: 4px 0px 8px 24px;
+	text-indent: 1em;
+}

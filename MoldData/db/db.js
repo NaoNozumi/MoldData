@@ -17,12 +17,16 @@ let MachineList = new Array();
 
 // 製造No.リスト読込
 xhr.onreadystatechange = function() {
-	if (xhr.readyState == 4 && xhr.status == 200) {
-		let i, j, k, l;
-		let result = xhr.responseText.split("\r\n");
+	if (xhr.readyState == 4) {
+		if (xhr.status == 200 || shr.status == 304) {
+			let i, j, k, l;
+			let result = xhr.responseText.split("\r\n");
 
-		for (i = 0; i < result.length; i++) {
-			MachineList[i] = result[i].split("\t");
+			for (i = 0; i < result.length; i++) {
+				MachineList[i] = result[i].split("\t");
+			}
+		} else {
+			alert("「製造番号入力」機能使用不能");
 		}
 		xhr.abort(); // リクエストを中止
 	}
@@ -78,10 +82,14 @@ let xhrCom = new XMLHttpRequest();
 
 function loadComment(e) {
 	xhrCom.onreadystatechange = function() {
-		if (xhrCom.readyState == 4 && xhrCom.status == 200) {
-			let result = xhrCom.responseText.split("\r\n");
+		if (xhrCom.readyState == 4) {
+			if (xhrCom.status == 200 || xhrCom.status == 304) {
+				let result = xhrCom.responseText.split("\r\n");
 
-			makeCommentList(result);
+				makeCommentList(result);
+			} else {
+				alert("comment.txt読込失敗");
+			}
 			xhrCom.abort(); // リクエスト中止
 		}
 	}
