@@ -25,7 +25,7 @@ xhr.onreadystatechange = function() {
 			for (i = 0; i < result.length; i++) {
 				MachineList[i] = result[i].split("\t");
 			}
-		} else {
+		}else{
 			alert("「製造番号入力」機能使用不能");
 		}
 		xhr.abort(); // リクエストを中止

@@ -55,5 +55,4 @@ function txtDecode(text, rows, cells, flag) {
 		}
 	}
 	reader.readAsText(blob, 'shift_jis');
-
 }
