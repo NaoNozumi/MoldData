@@ -6,6 +6,7 @@
 	<title>型データ</title>
 	<link rel="shortcut icon" type="image/png" href="calculator69.png" />
 	<link rel="stylesheet" href="MoldData.css">
+	<link rel="stylesheet" href="handsontable.full.min.css" />
 
 	<script src="./db/db.js" charset="UTF-8" defer="defer"></script>
 
@@ -134,7 +135,19 @@
 	<h4>メモ2</h4>
 	<table class="memo" id="memoList2"></table>
 
-	<h4>デバイス表</h4>
+	<hr />
+
+	<h3>デバイス表</h3>
+	<h4>デバイス表切り出し</h4>
+	<p>デバイスリストの一部を切り出して下に表示します。</p>
+
+	<form name="dispRange" onsubmit=";return false;">
+		<input name="dispStart" type="text" size="6" />〜<input name="dispEnd" type="text" size="6" />
+		<input type="submit" value="決定" />
+	</form>
+	<div id="deviceTable"></div>
+
+	<h4>一覧</h4>
 	<table id="moldDataList">
 		<tr>
 			<th>No.</th>
@@ -153,6 +166,9 @@
 	</table>
 
 	<a href="#header" class="square_btn">Top</a>
+
+	<script src="js/handsontable.full.min.js" charset="UTF-8"></script>
+	<script src="js/dispDevice.js" charset="UTF-8"></script>
 </body>
 
 </html>
