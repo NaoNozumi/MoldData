@@ -16,19 +16,13 @@ let deviceHOT = new Handsontable(deviceTable, {
 		},
 		{
 			type: "text"
-		},
-		{
-			type: "numeric"
-		},
-		{
-			type: "text"
 		}
 	],
 	autoColumnSize: true, // カラム幅自動調整
 	minSpareRows: 1, // 最低限表示する行数
 	rowHeaders: true, // 行ヘッダ
-	colHeaders: ["アドレス", "コメント", "備考", "桁", "単位"], // 列ヘッダ
-	colWidths: [80, 240, 160, 80, 80], //列幅
+	colHeaders: ["アドレス", "コメント", "値"], // 列ヘッダ
+	colWidths: [80, 240, 80], //列幅
 	manualColumnResize: true, // 列幅変更可
 	contextMenu: { // メニュー
 		items: {
@@ -43,7 +37,7 @@ let deviceHOT = new Handsontable(deviceTable, {
 });
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-/
+/ デバイス表切り出し
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function inputDispRange() {
 	let dispStart = document.dispRange.dispStart.value;
@@ -71,7 +65,7 @@ function inputDispRange() {
 			dispData[i] = new Array(5);
 			dispData[i][0] = "W" + parseInt(k + i, 10).toString(16).toUpperCase();
 			dispData[i][1] = commentList[k + i - SETTING_S][1];
-			dispData[i][2] = dataList[holderNum * FILE_CNT + pageNum * (FILE_CNT / PAGE_CNT) + fileNum][k + i];
+			dispData[i][2] = dataList[holderNum * FILE_CNT + pageNum * (FILE_CNT / PAGE_CNT) + fileNum][k + i] / commentList[k + i - SETTING_S][3] + "[" + commentList[k + i - SETTING_S][4] + "]";
 		}
 
 		// データ読込
@@ -80,3 +74,7 @@ function inputDispRange() {
 		alert("入力データが正しくありません。");
 	}
 }
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ 
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */

@@ -434,7 +434,6 @@ function makeCommentList(e) {
 		commentList[i] = cols;
 		// 不足分データ補完
 		if (cols.length < COMMENT_ITEM_NUM) {
-			console.log(cols);
 			j = cols.length;
 			for (k = j; k < COMMENT_ITEM_NUM; k++) {
 				commentList[i][k] = "";
@@ -457,7 +456,9 @@ function makeCommentList(e) {
 	}
 
 	// タイミング画面
-	timingDraw();
+	/*timingDraw();*/
+	// 型データリスト生成
+	 makeDataList();
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -517,8 +518,7 @@ function makeDataList() {
 	// 型データ
 	for (i = 0; i < (SETTING_NUM / tentative); i++) {
 		for (j = 0; j < tentative; j++) {
-			k = commentList[(SETTING_NUM / tentative) * j + i][3];
-			moldDataList.rows[i + 1].cells[j * 3 + 2].textContent = dataList[holderNum * FILE_CNT + pageNum * (FILE_CNT / PAGE_CNT) + fileNum][SETTING_S + (SETTING_NUM / tentative) * j + i] + "[" + commentList[(SETTING_NUM / tentative) * j + i][4] + "]";
+			moldDataList.rows[i + 1].cells[j * 3 + 2].textContent = dataList[holderNum * FILE_CNT + pageNum * (FILE_CNT / PAGE_CNT) + fileNum][SETTING_S + (SETTING_NUM / tentative) * j + i] / commentList[(SETTING_NUM / tentative) * j + i][3] + "[" + commentList[(SETTING_NUM / tentative) * j + i][4] + "]";
 		}
 	}
 
@@ -551,6 +551,12 @@ function makeDataList() {
 	memoTableTwo();
 	// タイミング画面
 	timingDraw();
+	// デバイス表切り出しクリア
+	/*document.dispRange.dispStart.value = "";
+	document.dispRange.dispEnd.value = "";*/
+	deviceHOT.loadData([
+		["", "", ""]
+	]);
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

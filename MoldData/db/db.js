@@ -25,7 +25,7 @@ xhr.onreadystatechange = function() {
 			for (i = 0; i < result.length; i++) {
 				MachineList[i] = result[i].split("\t");
 			}
-		}else{
+		} else {
 			alert("「製造番号入力」機能使用不能");
 		}
 		xhr.abort(); // リクエストを中止
@@ -132,10 +132,13 @@ function loadScript(e) {
 				ratioDown.deleteRow(0);
 			}
 
+			// 上下ヒータ点火率テーブル再描画
 			makeRatioTable();
+			// 型データリスト生成
+			makeDataList();
 			// 上下ヒータ点火率
-			upperHeaterRatio();
-			lowerHeaterRatio();
+			/*upperHeaterRatio();
+			lowerHeaterRatio();*/
 		}
 	}
 }
