@@ -35,6 +35,7 @@ const FUNCTION_NUM = 48; // 機能点数(何とFLCは80点)
 const TIMING_S = 1216; // タイミング開始アドレス
 const TIMING_NUM = 64; //タイミング点数
 const COMMENT_NUM = SETTING_NUM; // 他設定コメント点数
+const COMMENT_ITEM_NUM = 5; // コメント項目数
 const MEMO_S = 1536; // メモ画面(文字入力)開始アドレス
 const MEMO_NUM = 512; // メモ画面(文字入力)点数
 const MEMO01_S = 1536; // メモ01開始アドレス
@@ -119,7 +120,11 @@ for (i = 0; i < dataList.length; i++) { // 型データ毎2次元配列宣言
 	}
 }
 for (i = 0; i < COMMENT_NUM; i++) {
-	commentList[i] = "";
+	commentList[i] = new Array(COMMENT_ITEM_NUM);
+	for (j = 0; j < COMMENT_ITEM_NUM; j++) {
+		commentList[i][j] = "";
+		if (j == 3) commentList[i][j] = 1;
+	}
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -425,19 +430,29 @@ function makeCommentList(e) {
 		// データ分割
 		cols = e[i].split("\t");
 
-		commentList[i] = cols[1];
+		//commentList[i] = cols[1];
+		commentList[i] = cols;
+		// 不足分データ補完
+		if (cols.length < COMMENT_ITEM_NUM) {
+			console.log(cols);
+			j = cols.length;
+			for (k = j; k < COMMENT_ITEM_NUM; k++) {
+				commentList[i][k] = "";
+				if (k == 3) commentList[i][k] = 1;
+			}
+		}
 	}
 
 	// 型データコメント
 	for (i = 0; i < (SETTING_NUM / tentative); i++) {
 		for (j = 0; j < tentative; j++) {
-			moldDataList.rows[i + 1].cells[j * 3 + 1].textContent = commentList[(SETTING_NUM / tentative) * j + i];
+			moldDataList.rows[i + 1].cells[j * 3 + 1].textContent = commentList[(SETTING_NUM / tentative) * j + i][1];
 		}
 	}
 	// 機能コメント
 	for (i = 0; i < FUNCTION_NUM / tentative; i++) {
 		for (j = 0; j < tentative; j++) {
-			functionList.rows[i].cells[j * 2].textContent = commentList[(FUNCTION_S - SETTING_S) + (FUNCTION_NUM / tentative) * j + i];
+			functionList.rows[i].cells[j * 2].textContent = commentList[(FUNCTION_S - SETTING_S) + (FUNCTION_NUM / tentative) * j + i][1];
 		}
 	}
 
@@ -502,7 +517,8 @@ function makeDataList() {
 	// 型データ
 	for (i = 0; i < (SETTING_NUM / tentative); i++) {
 		for (j = 0; j < tentative; j++) {
-			moldDataList.rows[i + 1].cells[j * 3 + 2].textContent = dataList[holderNum * FILE_CNT + pageNum * (FILE_CNT / PAGE_CNT) + fileNum][SETTING_S + (SETTING_NUM / tentative) * j + i];
+			k = commentList[(SETTING_NUM / tentative) * j + i][3];
+			moldDataList.rows[i + 1].cells[j * 3 + 2].textContent = dataList[holderNum * FILE_CNT + pageNum * (FILE_CNT / PAGE_CNT) + fileNum][SETTING_S + (SETTING_NUM / tentative) * j + i] + "[" + commentList[(SETTING_NUM / tentative) * j + i][4] + "]";
 		}
 	}
 

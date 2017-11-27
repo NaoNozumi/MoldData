@@ -113,6 +113,6 @@ function timingCommDraw() {
 	for (i = 0; i < timingItemNum; i++) {
 		j = timingItemHeight * i; // Y座標
 
-		timingCtx1.fillText(commentList[(TIMING_S - SETTING_S) + i * 2], 0, j + timingItemHeight / 2 + nameFontSize / 2 + angleCommHeight, timingItemWidthName - timingItemWidthOnoff); // コメント
+		timingCtx1.fillText(commentList[(TIMING_S - SETTING_S) + i * 2][1], 0, j + timingItemHeight / 2 + nameFontSize / 2 + angleCommHeight, timingItemWidthName - timingItemWidthOnoff); // コメント
 	}
 }

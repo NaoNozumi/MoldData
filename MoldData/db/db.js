@@ -133,6 +133,9 @@ function loadScript(e) {
 			}
 
 			makeRatioTable();
+			// 上下ヒータ点火率
+			upperHeaterRatio();
+			lowerHeaterRatio();
 		}
 	}
 }
