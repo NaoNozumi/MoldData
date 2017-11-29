@@ -65,7 +65,7 @@ function inputDispRange() {
 			dispData[i] = new Array(5);
 			dispData[i][0] = "W" + parseInt(k + i, 10).toString(16).toUpperCase();
 			dispData[i][1] = commentList[k + i - SETTING_S][1];
-			dispData[i][2] = dataList[holderNum * FILE_CNT + pageNum * (FILE_CNT / PAGE_CNT) + fileNum][k + i] / commentList[k + i - SETTING_S][3] + "[" + commentList[k + i - SETTING_S][4] + "]";
+			dispData[i][2] = dataList[holderNum * FILE_CNT + pageNum * (FILE_CNT / PAGE_CNT) + fileNum][k + i] / commentList[k + i - SETTING_S][3] + " " + commentList[k + i - SETTING_S][4];
 		}
 
 		// データ読込
@@ -76,5 +76,5 @@ function inputDispRange() {
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-/ 
+/
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */

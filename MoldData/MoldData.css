@@ -1,7 +1,7 @@
 @charset "utf-8";
 body {
 	margin: 24px 48px;
-	line-height: 175%;
+	line-height: 1.4;
 }
 
 h1 {
@@ -198,7 +198,7 @@ table.memo td.black {
 table#moldDataList {
 	border-collapse: separate;
 	border-spacing: 0;
-	line-height: 1.4;
+	line-height: 1.2;
 	border-top: 1px solid #cccccc;
 	border-left: 1px solid #cccccc;
 }
@@ -230,6 +230,10 @@ table#moldDataList td.comment {
 
 table#moldDataList td.value {
 	width: 40px;
+}
+
+table#moldDataList tr:nth-child(even) {
+	background: #ebeeff;
 }
 
 /* タイミング */
