@@ -44,7 +44,7 @@ table#moldList th {
 	width: 20px;
 	padding: 4px;
 	font-weight: bold;
-	vertical-align: top;
+	vertical-align: middle;
 	border-right: 1px solid #cccccc;
 	border-bottom: 1px solid #cccccc;
 	border-top: 1px solid #ffffff;
@@ -56,7 +56,7 @@ table#moldList td {
 	text-align: left;
 	width: 240px;
 	padding: 4px;
-	vertical-align: top;
+	vertical-align: middle;
 	border-right: 1px solid #cccccc;
 	border-bottom: 1px solid #cccccc;
 }
@@ -74,7 +74,7 @@ table.ratio th {
 	width: 28px;
 	padding: 4px;
 	font-weight: bold;
-	vertical-align: top;
+	vertical-align: middle;
 	color: #ffffff;
 	background: #666666;
 }
@@ -82,7 +82,7 @@ table.ratio th {
 table.ratio td {
 	width: 28px;
 	padding: 4px;
-	vertical-align: top;
+	vertical-align: middle;
 	background: #00FFFF;
 }
 
@@ -115,7 +115,7 @@ table.function td {
 	text-align: left;
 	height: 20px;
 	padding: 4px;
-	vertical-align: top;
+	vertical-align: middle;
 	border-right: 1px solid #cccccc;
 	border-bottom: 1px solid #cccccc;
 }
@@ -177,7 +177,7 @@ table.memo td {
 	width: 288px;
 	height: 20px;
 	padding: 4px;
-	vertical-align: top;
+	vertical-align: middle;
 	border-right: 1px solid #cccccc;
 	border-bottom: 1px solid #cccccc;
 }
@@ -208,7 +208,7 @@ table#moldDataList th {
 	width: 60px;
 	padding: 2px 4px;
 	font-weight: bold;
-	vertical-align: top;
+	vertical-align: middle;
 	border-right: 2px solid #cccccc;
 	border-bottom: 1px solid #cccccc;
 	border-top: 1px solid #ffffff;
@@ -219,7 +219,7 @@ table#moldDataList th {
 table#moldDataList td {
 	text-align: left;
 	padding: 2px 4px;
-	vertical-align: top;
+	vertical-align: middle;
 	border-right: 1px solid #cccccc;
 	border-bottom: 1px solid #cccccc;
 }

@@ -131,9 +131,16 @@ function loadScript(e) {
 			for (i = 0; i < j; i++) {
 				ratioDown.deleteRow(0);
 			}
+			// 機能再描画
+			j=functionList.rows.length;
+			for (i = 0; i < j; i++) {
+				functionList.deleteRow(0);
+			}
 
 			// 上下ヒータ点火率テーブル再描画
 			makeRatioTable();
+			// 機能一覧テーブル再描画
+			makeFunctionTable();
 			// 型データリスト生成
 			makeDataList();
 			// 上下ヒータ点火率

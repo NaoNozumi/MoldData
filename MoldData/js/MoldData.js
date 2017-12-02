@@ -31,7 +31,7 @@ const CLS_OPERATION_S = 1120; // CLSヒータ運転温度開始アドレス
 const SETTING_S = 1024; // 他設定開始アドレス
 const SETTING_NUM = 512; // 他設定点数
 const FUNCTION_S = 1152; // 機能開始アドレス
-const FUNCTION_NUM = 48; // 機能点数(何とFLCは80点)
+//const FUNCTION_NUM = 48; // 機能点数(何とFLCは80点)
 const TIMING_S = 1216; // タイミング開始アドレス
 const TIMING_NUM = 64; //タイミング点数
 const COMMENT_NUM = SETTING_NUM; // 他設定コメント点数
@@ -255,20 +255,30 @@ for (i = 0; i < (SETTING_NUM / tentative); i++) {
 	}
 }
 
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 // 機能一覧
-for (i = 0; i < (FUNCTION_NUM / tentative); i++) {
-	// 行追加
-	rows = functionList.insertRow(-1);
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+function makeFunctionTable() {
+	let i, j;
+	let rows;
 
-	for (j = 0; j < tentative; j++) {
-		td = rows.insertCell(-1);
-		td.setAttribute("class", "functionComment");
-		td.textContent = "機能" + ((FUNCTION_NUM / tentative) * j + i + 1);
-		td = rows.insertCell(-1);
-		td.setAttribute("class", "functionValue a");
-		td.textContent = "";
+	for (i = 0; i < (FUNCTION_NUM / tentative); i++) {
+		// 行追加
+		rows = functionList.insertRow(-1);
+
+		for (j = 0; j < tentative; j++) {
+			td = rows.insertCell(-1);
+			td.setAttribute("class", "functionComment");
+			//td.textContent = "機能" + ((FUNCTION_NUM / tentative) * j + i + 1);
+			td.textContent = commentList[(FUNCTION_S - SETTING_S) + (FUNCTION_NUM / tentative) * j + i][1]; // 機能コメント
+			td = rows.insertCell(-1);
+			td.setAttribute("class", "functionValue a");
+			td.textContent = "";
+		}
 	}
 }
+// 初回
+makeFunctionTable();
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / ファイルが読み込まれた時の処理
@@ -551,6 +561,8 @@ function makeDataList() {
 	memoTableTwo();
 	// タイミング画面
 	timingDraw();
+	// エアコック画面
+	airCockDraw();
 	// デバイス表切り出しクリア
 	/*document.dispRange.dispStart.value = "";
 	document.dispRange.dispEnd.value = "";*/

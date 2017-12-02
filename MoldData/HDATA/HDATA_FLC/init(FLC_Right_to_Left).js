@@ -21,6 +21,8 @@ const RATIO_DOWN_COL = 19; // 下ヒータ列数(標準:19)
 const FLOW = 1; // 0:正規勝手/1:反対勝手(使い道無かった)
 const CLS_PEHEATING_NUM = 30; // CLSヒータ予熱温度点数
 const CLS_OPERATION_NUM = 30; // CLSヒータ運転温度点数
+//
+FUNCTION_NUM = 80; // 機能点数(何とFLCは80点)
 
 // 型データ構成
 // 「0」始まりとします。(W0~2048点)

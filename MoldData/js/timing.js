@@ -21,7 +21,7 @@ timingCanvas1.setAttribute("height", timingHeight);
 timingCanvas1.setAttribute("width", timingWidth + 16);
 
 if (!timingCanvas1 || !timingCanvas1.getContext) {
-	console.log("canvasが利用できるWebブラウザで開いてください。");
+	alert("canvasが利用できるWebブラウザで開いてください。");
 }
 
 // 2Dコンテキスト

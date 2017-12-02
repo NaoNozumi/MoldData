@@ -18,6 +18,7 @@
 	<script src="./js/ratio.js" charset="UTF-8" defer="defer"></script>
 	<script src="./js/memo.js" charset="UTF-8" defer="defer"></script>
 	<script src="./js/timing.js" charset="UTF-8" defer="defer"></script>
+	<script src="./js/airCock.js" charset="UTF-8" defer="defer"></script>
 
 	<noscript>
 			<p>このページではJavaScriptを使用しています。</p>
@@ -105,15 +106,19 @@
 
 	<hr />
 
-	<h3>熱板ヒータ温度</h3>
+	<h3>CLS</h3>
 	<button type="button" name="dispayChange" id="clsPreheatingChange">表示切替4</button>
 	<button type="button" name="dispayChange" id="clsOperationChange">表示切替5</button>
+	<button type="button" name="dispayChange" id="airCockChange">表示切替6</button>
 
-	<h4>予熱</h4>
+	<h4>熱板ヒータ温度予熱</h4>
 	<table class="ratio" id="clsPreheating"></table>
 
-	<h4>運転</h4>
+	<h4>熱板ヒータ温度運転</h4>
 	<table class="ratio" id="clsOperation"></table>
+
+	<h4>エアコック</h4>
+	<canvas id="airCock">canvasが利用できるWebブラウザで開いてください。</canvas>
 
 	<hr />
 
