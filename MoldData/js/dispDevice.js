@@ -18,11 +18,13 @@ let deviceHOT = new Handsontable(deviceTable, {
 			type: "text"
 		}
 	],
+	stretchH: "all",
+	autoWrapRow: true,
 	autoColumnSize: true, // カラム幅自動調整
 	minSpareRows: 1, // 最低限表示する行数
 	rowHeaders: true, // 行ヘッダ
 	colHeaders: ["アドレス", "コメント", "値"], // 列ヘッダ
-	colWidths: [80, 240, 80], //列幅
+	colWidths: ["15%", "70%", "15%"], //列幅
 	manualColumnResize: true, // 列幅変更可
 	contextMenu: { // メニュー
 		items: {
@@ -74,7 +76,3 @@ function inputDispRange() {
 		alert("入力データが正しくありません。");
 	}
 }
-
-/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-/
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */

@@ -24,11 +24,13 @@ let hot = new Handsontable(commTable, {
 			type: "text"
 		}
 	],
+	stretchH: "all",
+	autoWrapRow: true,
 	autoColumnSize: true, // カラム幅自動調整
 	minSpareRows: 1, // 最低限表示する行数
 	rowHeaders: true, // 行ヘッダ
 	colHeaders: ["アドレス", "コメント", "備考", "桁", "単位"], // 列ヘッダ
-	colWidths: [80, 240, 160, 80, 80], //列幅
+	colWidths: ["12%", "40%", "24%", "12%", "12%"], //列幅
 	manualColumnResize: true, // 列幅変更可
 	contextMenu: { // メニュー
 		items: {
@@ -63,6 +65,7 @@ function commRead(e) {
 			break;
 	}
 }
+
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / ファイルの中身取得後処理
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -80,4 +83,11 @@ function commLoad(e) {
 
 	// データ読込
 	hot.loadData(commData);
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+function dataDownload() {
+	alert(hot.getData());
 }

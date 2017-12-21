@@ -132,7 +132,7 @@ function loadScript(e) {
 				ratioDown.deleteRow(0);
 			}
 			// 機能再描画
-			j=functionList.rows.length;
+			j = functionList.rows.length;
 			for (i = 0; i < j; i++) {
 				functionList.deleteRow(0);
 			}

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -29,11 +29,14 @@
 	<div id="header"></div>
 
 	<h1>型データ</h1>
+	<p>
+		GOT2000シリーズで保存した型データを読み込めます。型データは予めGOT側でUnicodeテキストファイルに変換して下さい。2ワードのデータには対応していません。
+	</p>
 
 	<h2>製造番号入力</h2>
 	<p id="machineName">機械名</p>
 	<p>
-		製造番号を入力します。半角数字4桁で入力して下さい。<br /> *#0000(開発FLC),*#5557,#5583,#5705,*#5752,#5788,#5801,*#5901,#5923,#5950,#5954
+		製造番号を入力します。半角数字4桁で入力して下さい。コメントファイルを読み込みます。<br /> *#0000(開発FLC),*#5557,#5583,#5705,*#5752,#5788,#5801,*#5901,#5923,#5950,#5954,#5992
 	</p>
 	<!-- form内でsubmitしても頁遷移したくない -->
 	<form name="serialForm" onsubmit="inputSerial();return false;">
@@ -147,7 +150,7 @@
 	<p>デバイスリストの一部を切り出して下に表示します。</p>
 
 	<form name="dispRange" onsubmit="inputDispRange();return false;">
-		<input name="dispStart" type="text" size="6" />〜<input name="dispEnd" type="text" size="6" />
+		<input name="dispStart" type="text" size="6" />～<input name="dispEnd" type="text" size="6" />
 		<input type="submit" value="決定" />
 	</form>
 	<div id="deviceTable"></div>
