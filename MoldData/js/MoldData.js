@@ -7,15 +7,27 @@
   各項目間はタブ区切りで改行コードは"\r\n"
 */
 
+// GOTタイプ
+let GOT_Type = "got2000";
+
+// 10ホルダ30型
+const HOLDER_CNT = 10;
+const FILE_CNT = 30;
+// ファイル頁3
+const PAGE_CNT = 3;
+const HOLDER_NAME_LENGTH = 20; // ホルダ名20ワード
+const FILE_NAME_LENGTH = 30; // ファイル名10ワード x 3項目
+const FILE_NAME_ITEM_NUM = 3; // 3項目
+
 // レシピファイル情報
 // 行は「1」始まりとしてカウントします。
 const RECIPE_NAME = 2; // レシピファイル名(:RECIPE_NAME)存在行 - 1
-const HOLDER_NAME_S = 12; // ホルダ名開始行 - 1
-const HOLDER_NAME_E = 32; // ホルダ名終了行
-const FILE_NAME_S = 32; // ファイル名開始行 - 1
-const FILE_NAME_E = 932; // ファイル名終了行
-const KATA_S = 12; // 型データ開始行 - 1
-const KATA_E = 2060; // 型データ終了行
+let HOLDER_NAME_S = 12; // ホルダ名開始行 - 1
+let HOLDER_NAME_E = HOLDER_NAME_S + HOLDER_NAME_LENGTH; // ホルダ名終了行
+let FILE_NAME_S = HOLDER_NAME_S + HOLDER_NAME_LENGTH; // ファイル名開始行 - 1
+let FILE_NAME_E = FILE_NAME_S + FILE_NAME_LENGTH * FILE_CNT; // ファイル名終了行
+let KATA_S = 12; // 型データ開始行 - 1
+let KATA_E = KATA_S + 2048; // 型データ終了行
 // 列は「0」始まりとしてカウントします。
 const DATA_S = 5; // データ開始列
 
@@ -40,15 +52,6 @@ const MEMO_S = 1536; // メモ画面(文字入力)開始アドレス
 const MEMO_NUM = 512; // メモ画面(文字入力)点数
 const MEMO01_S = 1536; // メモ01開始アドレス
 const MEMO02_S = 1792; // メモ02開始アドレス
-
-// 10ホルダ30型
-const HOLDER_CNT = 10;
-const FILE_CNT = 30;
-// ファイル頁3
-const PAGE_CNT = 3;
-const HOLDER_NAME_LENGTH = 20; // ホルダ名20ワード
-const FILE_NAME_LENGTH = 30; // ファイル名10ワード x 3項目
-const FILE_NAME_ITEM_NUM = 3; // 3項目
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / 型データ読み込み・表示
@@ -286,8 +289,9 @@ makeFunctionTable();
 function fileRead(e) {
 	// 読み込んだファイル情報を取得
 	let moldFile = e.target.files[0];
+	let fileName = moldFile.name.toUpperCase(); // 大文字に変換してから比較
 
-	switch (moldFile.name) {
+	switch (fileName) {
 		case "KATA.TXT": // 型データ
 			// 初期化
 			holderNum = 0;
@@ -339,6 +343,10 @@ function fileLoad(e) {
 	// 改行で分解
 	let rows = e.target.result.split("\r\n");
 
+	// GOTタイプ判定
+	(rows[0].indexOf("GT2K_RECIPE") != -1) ? GOT_Type = "got2000": GOT_Type = "got1000";
+	recipeFormat(GOT_Type);
+
 	// ファイル判定
 	if (rows[RECIPE_NAME].indexOf("KATA") != -1) {
 		makeKataList(rows);
@@ -365,8 +373,11 @@ function makeNameList(e) {
 
 		// ホルダ名配列
 		for (j = DATA_S; j < cols.length; j++) {
-			//holderList[j - DATA_S][i - HOLDER_NAME_S] = cols[j].replace(/"/g, '');
-			holderList[j - DATA_S][i - HOLDER_NAME_S] = toHex(cols[j].replace(/^"|"$/g, ''), 0);
+			if (GOT_Type === "got2000") {
+				holderList[j - DATA_S][i - HOLDER_NAME_S] = toHex(cols[j].replace(/^"|"$/g, ''), 0);
+			} else if (GOT_Type === "got1000") {
+				holderList[j - DATA_S][i - HOLDER_NAME_S] = toHex(cols[j], 0);
+			}
 		}
 	}
 
@@ -377,9 +388,13 @@ function makeNameList(e) {
 		cols = e[i].split("\t");
 
 		// ファイルリスト配列
+
 		for (j = DATA_S; j < cols.length; j++) {
-			//fileHolder[j - DATA_S][i - FILE_NAME_S] = cols[j].replace(/"/g, '');
-			fileHolder[j - DATA_S][i - FILE_NAME_S] = cols[j].replace(/^"|"$/g, '');
+			if (GOT_Type === "got2000") {
+				fileHolder[j - DATA_S][i - FILE_NAME_S] = cols[j].replace(/^"|"$/g, '');
+			} else if (GOT_Type === "got1000") {
+				fileHolder[j - DATA_S][i - FILE_NAME_S] = cols[j];
+			}
 		}
 	}
 	// 各ホルダファイル毎分割
@@ -416,8 +431,11 @@ function makeKataList(e) {
 
 		// 型データ配列
 		for (j = DATA_S; j < cols.length; j++) {
-			//dataList[j - DATA_S][i - KATA_S] = cols[j].replace(/"/g, '');
-			dataList[j - DATA_S][i - KATA_S] = cols[j].replace(/^"|"$/g, '');
+			if (GOT_Type === "got2000") {
+				dataList[j - DATA_S][i - KATA_S] = cols[j].replace(/^"|"$/g, '');
+			} else if (GOT_Type === "got1000") {
+				dataList[j - DATA_S][i - KATA_S] = cols[j];
+			}
 			// メモ画面処理
 			if (i >= (KATA_S + MEMO_S)) {
 				dataList[j - DATA_S][i - KATA_S] = toHex(dataList[j - DATA_S][i - KATA_S], 0);
@@ -656,4 +674,22 @@ function complement(e) {
 	i = tmp.toString(2);
 
 	return i;
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ レシピファイルフォーマット
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+function recipeFormat(e) {
+	if (e === "got2000") {
+		HOLDER_NAME_S = 12; // ホルダ名開始行 - 1
+		KATA_S = 12; // 型データ開始行 - 1
+	} else if (e === "got1000") {
+		HOLDER_NAME_S = 9; // ホルダ名開始行 - 1
+		KATA_S = 9; // 型データ開始行 - 1
+	}
+
+	HOLDER_NAME_E = HOLDER_NAME_S + HOLDER_NAME_LENGTH; // ホルダ名終了行
+	FILE_NAME_S = HOLDER_NAME_S + HOLDER_NAME_LENGTH; // ファイル名開始行 - 1
+	FILE_NAME_E = FILE_NAME_S + FILE_NAME_LENGTH * FILE_CNT; // ファイル名終了行
+	KATA_E = KATA_S + 2048; // 型データ終了行
 }
