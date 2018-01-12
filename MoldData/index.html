@@ -5,7 +5,9 @@
 	<meta charset="UTF-8">
 	<title>型データ</title>
 	<link rel="shortcut icon" type="image/png" href="calculator69.png" />
-	<link rel="stylesheet" href="MoldData.css">
+
+	<link rel="stylesheet" href="reset.css" />
+	<link rel="stylesheet" href="MoldData.css" />
 	<link rel="stylesheet" href="handsontable.full.min.css" />
 
 	<script src="./db/db.js" charset="UTF-8" defer="defer"></script>
@@ -28,6 +30,25 @@
 <body>
 	<div id="header"></div>
 
+	<p>言語切換機能は、<a href="https://www.plusdesign.co.jp/blog/?p=7268">こちら</a>を参考に設置しました。</p>
+
+	<!-- https://www.plusdesign.co.jp/blog/?p=7268
+多言語に対応する方法のうちの一つ -->
+	<div id="google_translate_element"></div>
+	<script type="text/javascript">
+		function googleTranslateElementInit() {
+			new google.translate.TranslateElement({
+				pageLanguage: 'ja',
+				includedLanguages: 'en,ko,th,zh-CN,zh-TW',
+				layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+				autoDisplay: false
+			}, 'google_translate_element');
+		}
+	</script>
+	<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+	<hr />
+
 	<h1>型データ</h1>
 	<p>
 		GOT2000/GOT1000シリーズで保存した型データを読み込めます。型データは予めGOT側でUnicodeテキストファイルに変換して下さい。2ワードのデータには対応していません。
@@ -37,7 +58,7 @@
 	<p id="machineName">機械名</p>
 	<p>製造番号を入力します。半角数字4桁で入力して下さい。コメントファイルの読込、点火率画面の再描画を行います。</p>
 	<p>GOT2000:*#0000(開発FLC),*#5557,#5583,#5705,*#5752,#5788,#5801,*#5901,#5923,#5950,#5954,#5992</p>
-	<p>GOT1000:#5162,#5171,#5172,*#5174,#5185,#5186,#5204,#5279,#5290,*#5300,*#5304,#5309,*#5315,*#5557,#5623,#5630,*#5648,*#5670,*#5714</p>
+	<p>GOT1000:#5162,#5171,#5172,*#5174,#5185,#5186,#5204,#5279,#5290,*#5300,*#5304,#5309,*#5315,#5623,#5630,*#5648,*#5670,*#5714</p>
 
 
 	<!-- form内でsubmitしても頁遷移したくない -->
@@ -56,6 +77,7 @@
 	<form name="gotForm">
 		<input name="gotFile" class="fileInput" type="file" accept=".txt" />
 	</form>
+	<p id="gotType"></p>
 
 	<hr />
 
@@ -126,7 +148,7 @@
 	<hr />
 
 	<h3>PLS</h3>
-	<button type="button" name="dispayChange" id="timing1Change">表示切替6</button>
+	<button type="button" name="dispayChange" id="timing1Change">表示切替7</button>
 
 	<h4>タイミング</h4>
 	<canvas id="timing1">canvasが利用できるWebブラウザで開いてください。</canvas>

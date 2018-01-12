@@ -79,6 +79,7 @@ let moldDataList = document.getElementById("moldDataList");
 let functionList = document.getElementById("functionList");
 let listForm = document.forms.listForm;
 let dataName = document.getElementById("dataName"); // 型データ名
+let gotType = document.getElementById("gotType"); // GOTタイプ判定結果
 
 // 初期化
 let holderNum = 0;
@@ -291,8 +292,10 @@ function fileRead(e) {
 	let moldFile = e.target.files[0];
 	let fileName = moldFile.name.toUpperCase(); // 大文字に変換してから比較
 
-	switch (fileName) {
-		case "KATA.TXT": // 型データ
+	// https://qiita.com/t_uda/items/1969e09a970d71e4cfd6
+	//switch (fileName) {
+	switch (true) {
+		case fileName === "KATA.TXT": // 型データ
 			// 初期化
 			holderNum = 0;
 			pageNum = 0;
@@ -302,7 +305,7 @@ function fileRead(e) {
 			fileProcess(moldFile);
 			break;
 
-		case "NAME.TXT": // 型リスト
+		case fileName === "NAME.TXT": // 型リスト
 			// 初期化
 			holderNum = 0;
 			pageNum = 0;
@@ -312,7 +315,7 @@ function fileRead(e) {
 			fileProcess(moldFile);
 			break;
 
-		case "comment.txt": // コメントファイル
+		case fileName === "comment.txt": // コメントファイル
 			fileProcess(moldFile);
 			break;
 
@@ -345,6 +348,7 @@ function fileLoad(e) {
 
 	// GOTタイプ判定
 	(rows[0].indexOf("GT2K_RECIPE") != -1) ? GOT_Type = "got2000": GOT_Type = "got1000";
+	gotType.textContent = "[ " + GOT_Type.toUpperCase() + " ] フォーマット";
 	recipeFormat(GOT_Type);
 
 	// ファイル判定

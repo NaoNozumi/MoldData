@@ -86,8 +86,60 @@ function commLoad(e) {
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-/
+/ comment.txt書出
+/ https://gist.github.com/mojagehub/75aa23f42a211a5d722ace35fda50a7c
+/ https://stackoverflow.com/questions/29677339/invalidstateerror-in-internet-explorer-11-during-blob-creation
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function dataDownload() {
-	alert(hot.getData());
+	let i, j, k, l, strData;
+	let strRow = new Array(); // 行
+
+	// 入力内容取得
+	let content = hot.getData();
+	// タブ区切り
+	k = content.length;
+	for (i = 0; i < k; i++) {
+		strRow[i] = content[i].join("\t");
+	}
+	// 改行挿入
+	strData = strRow.join("\r\n");
+
+	try {
+		// Blob形式に変換
+		let blob = new Blob([strData], {
+			"type": "text/plain"
+		});
+	} catch (e) {
+		// for MS IE
+		/*			window.BlobBuilder = window.BlobBuilder ||
+						window.WebKitBlobBuilder ||
+						window.MozBlobBuilder ||
+						window.MSBlobBuilder;
+
+					if (window.BlobBuilder) {
+						let bb = new BlobBuilder();
+						bb.append(content);
+						blob = bb.getBlob("text/plain");
+		*/
+	} finally {
+
+		// for MS IE
+		if (window.navigator.msSaveBlob) {
+			window.navigator.msSaveBlob(blob, "comment.txt");
+		} else {
+			// URL発行
+			let blobURL = window.URL.createObjectURL(blob);
+			// URLをaタグに設定
+			let a = document.createElement("a");
+			a.href = blobURL;
+			// download属性でファイル名指定
+			a.download = "comment.txt";
+			// DOMにaタグ追加
+			document.body.appendChild(a);
+			// Clickしてダウンロード
+			a.click();
+			// 終了したら片付け
+			a.parentNode.removeChild(a);
+		}
+	}
 }

@@ -6,6 +6,12 @@
 / 初期化
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 let machineName = document.getElementById("machineName");
+// html読込完了時にスクリプトタグの数をカウント
+let scriptCount, scriptCountComp = 0;
+window.addEventListener('load', function() {
+	scriptCount = document.getElementsByTagName("script").length;
+	scriptCountComp = 1;
+});
 let loadCount; // 詠み込んだスクリプトの数
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -53,10 +59,10 @@ function inputSerial() {
 				j = 1; // 一致フラグ
 				machineName.textContent = MachineList[i][0] + " #" + value + " " + MachineList[i][3] + " " + MachineList[i][2];
 				// https://q-az.net/remove-native-javascript/
-				if (document.getElementsByTagName("script").length > 8) {
+				if (document.getElementsByTagName("script").length > scriptCount) {
 					// init.jsとratioArray.js再読込
-					let elem1 = document.getElementsByTagName("script")[8];
-					let elem2 = document.getElementsByTagName("script")[9];
+					let elem1 = document.getElementsByTagName("script")[scriptCount];
+					let elem2 = document.getElementsByTagName("script")[scriptCount + 1];
 
 					elem1.parentNode.removeChild(elem1);
 					elem2.parentNode.removeChild(elem2);

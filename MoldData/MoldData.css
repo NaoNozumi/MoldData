@@ -1,31 +1,106 @@
 @charset "utf-8";
-body {
-	margin: 24px 48px;
-	line-height: 1.4;
+* {
+	margin: 4px 0px;
+	color:#333333;
 }
 
+body {
+	padding: 24px 48px;
+	line-height: 1.4;
+	background-color: #fcfcf1;
+}
+
+/* 見出し */
+
 h1 {
-	color: #333333;
-	border-left: 20px solid #333333;
-	border-bottom: 1px dashed #333333;
+	margin: 24px 0px;
+	font-size: 2em;
+	font-weight: bold;
+	border-left: 1em solid #27577e;
+	border-bottom: 1px dashed #27577e;
 	padding: 2px 2px 2px 8px;
 }
 
 h2 {
-	color: #333333;
-	border-left: 4px solid #333333;
+	margin: 16px 0px;
+	font-size: 1.6em;
+	font-weight: bold;
+	border-left: 0.25em solid #27577e;
 	padding: 2px 2px 2px 8px;
 }
 
 h3 {
-	color: #333333;
-	border-bottom: 1px dashed #333333;
+	margin: 12px 0px;
+	font-size: 1.2em;
+	font-weight: bold;
+	border-bottom: 1px dashed #27577e;
 	padding: 2px 2px 2px 4px;
 }
+
+h4 {
+	margin: 8px 0px;
+	font-weight: bold;
+	padding: 2px 2px 2px 4px;
+}
+
+h4:before {
+	content: "◆ ";
+}
+
+/* 段落 */
 
 p {
 	margin: 4px 0px 8px 24px;
 	text-indent: 1em;
+}
+
+/* フォーム部品 */
+
+button {
+	margin: 4px 4px;
+	padding: 4px 24px;
+	border-radius: 4px;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+}
+
+button:active {
+	transform: translateY(2px);
+	box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+}
+
+input[type="text"] {
+	padding: 4px 4px;
+}
+
+input[type="text"]:focus {
+	box-shadow: 0 0 2px #3498db;
+	border: 1px solid #3498db;
+}
+
+input[type="submit"] {
+	margin: 8px 4px;
+	padding: 4px 16px;
+}
+
+label {
+	margin: 4px 8px 8px 4px;
+	font-size: 1.1em;
+}
+
+input[type="radio"] {
+	margin: 8px 8px;
+}
+
+/* テーブル基本 */
+
+table {
+	margin: 8px 0px 24px 0px;
+	background-color: #ffffff;
+}
+
+table th {
+	text-align: center;
+	font-weight: bold;
 }
 
 /* ファイル選択 */
@@ -49,16 +124,14 @@ table#moldList {
 }
 
 table#moldList th {
-	text-align: center;
-	width: 20px;
+	width: 24px;
 	padding: 4px;
-	font-weight: bold;
 	vertical-align: middle;
 	border-right: 1px solid #cccccc;
 	border-bottom: 1px solid #cccccc;
 	border-top: 1px solid #ffffff;
 	border-left: 1px solid #ffffff;
-	background: #eeeeee;
+	background: #e3eae9;
 }
 
 table#moldList td {
@@ -82,7 +155,6 @@ table.ratio {
 table.ratio th {
 	width: 28px;
 	padding: 4px;
-	font-weight: bold;
 	vertical-align: middle;
 	color: #ffffff;
 	background: #666666;
@@ -99,7 +171,7 @@ table.ratio td {
 ホルダ・型名 */
 
 #holderName, #dataName, #machineName {
-	font-weight: bolder;
+	font-weight: bold;
 	text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
 	color: #000080;
 	padding: 8px;
@@ -213,16 +285,14 @@ table#moldDataList {
 }
 
 table#moldDataList th {
-	text-align: center;
 	width: 60px;
 	padding: 2px 4px;
-	font-weight: bold;
 	vertical-align: middle;
 	border-right: 2px solid #cccccc;
 	border-bottom: 1px solid #cccccc;
 	border-top: 1px solid #ffffff;
 	border-left: 2px solid #ffffff;
-	background: #eeeeee;
+	background: #e3eae9;
 }
 
 table#moldDataList td {
@@ -249,6 +319,7 @@ table#moldDataList tr:nth-child(even) {
 
 canvas {
 	padding: 4px 12px;
+	background-color: #ffffff;
 	border: 1px solid #cccccc;
 }
 
@@ -261,8 +332,7 @@ canvas {
 	padding: 2px 12px;
 	font-weight: bold;
 	text-decoration: none;
-	border-left: solid 4px #333333;
-	color: #333333;
+	border-left: solid 0.5em #333333;
 	background: #f7f7f7;
 	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
 }

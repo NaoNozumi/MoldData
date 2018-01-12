@@ -5,7 +5,8 @@
 	<meta charset="UTF-8" />
 	<title>comment.txt編集テスト</title>
 	<link rel="shortcut icon" type="image/png" href="calculator69.png" />
-	<link rel="stylesheet" href="css/handsontable.full.min.css" />
+	<link rel="stylesheet" href="./css/reset.css" />
+	<link rel="stylesheet" href="./css/handsontable.full.min.css" />
 	<link rel="stylesheet" href="./css/ExcelLike.css">
 
 	<noscript>
@@ -26,8 +27,8 @@
 		<a href="../MoldData/">戻る</a>
 	</p>
 	<form name="getForm">
-		<input name="getFile" type="file" accept=".txt" />
-		<button type="button" onClick="dataDownload();return false;">出力</button>
+		<input name="getFile" class="fileInput" type="file" accept=".txt" />
+		<button type="button" onClick="dataDownload();return false;">comment.txt出力</button>
 	</form>
 
 	<div id="commentTable">
