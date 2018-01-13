@@ -6,12 +6,6 @@
 / 初期化
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 let machineName = document.getElementById("machineName");
-// html読込完了時にスクリプトタグの数をカウント
-let scriptCount, scriptCountComp = 0;
-window.addEventListener('load', function() {
-	scriptCount = document.getElementsByTagName("script").length;
-	scriptCountComp = 1;
-});
 let loadCount; // 詠み込んだスクリプトの数
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -47,7 +41,8 @@ xhr.send(null); // リクエストを発行
 // https://so-zou.jp/web-app/tech/programming/javascript/sample/script.htm
 // https://qiita.com/w650/items/adb108649a0e2a86f334
 function inputSerial() {
-	let i, j, k, l;
+	let i, j, k, l, m, n;
+	let elem;
 	let value = document.serialForm.serialNum.value;
 	let regex = /^\d{4}$/; // 半角4桁の数字
 
@@ -56,17 +51,23 @@ function inputSerial() {
 		j = 0; // 検索完了フラグ
 		for (i = 0; i < MachineList.length; i++) {
 			if (MachineList[i][1] == value) {
-				j = 1; // 一致フラグ
+				j = 1; // 検索完了フラグ一致
 				machineName.textContent = MachineList[i][0] + " #" + value + " " + MachineList[i][3] + " " + MachineList[i][2];
+				// init.jsとratioArray.js再読込前に古いスクリプト削除
 				// https://q-az.net/remove-native-javascript/
-				if (document.getElementsByTagName("script").length > scriptCount) {
-					// init.jsとratioArray.js再読込
-					let elem1 = document.getElementsByTagName("script")[scriptCount];
-					let elem2 = document.getElementsByTagName("script")[scriptCount + 1];
-
-					elem1.parentNode.removeChild(elem1);
-					elem2.parentNode.removeChild(elem2);
+				n = document.getElementsByTagName("script").length;
+				m = 0;
+				while (m < n) {
+					console.log(m + "/" + n);
+					if (document.getElementsByTagName("script")[m].src.indexOf("/HDATA/") != -1) {
+						elem = document.getElementsByTagName("script")[m];
+						elem.parentNode.removeChild(elem);
+						n--; // 総数1減算
+					} else {
+						m++;
+					}
 				}
+
 				// スクリプト読込
 				loadCount = 0;
 				loadScript(value);
