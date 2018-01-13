@@ -21,6 +21,7 @@ let FLOW = 0; // 0:正規勝手/1:反対勝手(使い道無かった)
 let CLS_PEHEATING_NUM = 30; // CLSヒータ予熱温度点数
 let CLS_OPERATION_NUM = 30; // CLSヒータ運転温度点数
 //
+let FUNCTION_S = 1152; // 機能開始アドレス
 let FUNCTION_NUM = 48; // 機能点数(何とFLCは80点)
 
 // 型データ構成
