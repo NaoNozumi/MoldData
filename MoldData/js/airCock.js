@@ -55,6 +55,12 @@ function airCockDraw() {
 	x = (airCockWidth - width) / 2;
 	y = (airCockHeight - height) / 2;
 	cockCanvasCtx.strokeRect(x, y, width, height);
+	// A,B,C,D
+	cockCanvasCtx.fillStyle = "#000080";
+	cockCanvasCtx.fillText("A", x + width / 2, y + height / 8);
+	cockCanvasCtx.fillText("B", x + width / 8, y + height / 2);
+	cockCanvasCtx.fillText("C", x + width * 7 / 8, y + height / 2);
+	cockCanvasCtx.fillText("D", x + width / 2, y + height * 7 / 8);
 
 	//
 	xx = (cockBtnShort - holePitchPX) / 2;

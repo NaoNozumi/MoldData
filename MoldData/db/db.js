@@ -58,7 +58,6 @@ function inputSerial() {
 				n = document.getElementsByTagName("script").length;
 				m = 0;
 				while (m < n) {
-					console.log(m + "/" + n);
 					if (document.getElementsByTagName("script")[m].src.indexOf("/HDATA/") != -1) {
 						elem = document.getElementsByTagName("script")[m];
 						elem.parentNode.removeChild(elem);

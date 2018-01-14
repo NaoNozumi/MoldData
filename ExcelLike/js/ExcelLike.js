@@ -91,8 +91,10 @@ function commLoad(e) {
 / https://stackoverflow.com/questions/29677339/invalidstateerror-in-internet-explorer-11-during-blob-creation
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function dataDownload() {
-	let i, j, k, l, strData;
+	let i, j, k, l;
+	let bb, blob;
 	let strRow = new Array(); // 行
+	let strData;
 
 	// 入力内容取得
 	let content = hot.getData();
@@ -104,42 +106,36 @@ function dataDownload() {
 	// 改行挿入
 	strData = strRow.join("\r\n");
 
+	// comment.txtダウンロード処理
 	try {
 		// Blob形式に変換
-		let blob = new Blob([strData], {
+		blob = new Blob([strData], {
 			"type": "text/plain"
 		});
 	} catch (e) {
 		// for MS IE
-		/*			window.BlobBuilder = window.BlobBuilder ||
-						window.WebKitBlobBuilder ||
-						window.MozBlobBuilder ||
-						window.MSBlobBuilder;
+		window.BlobBuilder = window.BlobBuilder ||
+			window.WebKitBlobBuilder ||
+			window.MozBlobBuilder ||
+			window.MSBlobBuilder;
 
-					if (window.BlobBuilder) {
-						let bb = new BlobBuilder();
-						bb.append(content);
-						blob = bb.getBlob("text/plain");
-		*/
+		if (window.BlobBuilder) {
+			bb = new BlobBuilder();
+			bb.append(content);
+			blob = bb.getBlob("text/plain");
+		}
 	} finally {
-
 		// for MS IE
 		if (window.navigator.msSaveBlob) {
 			window.navigator.msSaveBlob(blob, "comment.txt");
 		} else {
-			// URL発行
-			let blobURL = window.URL.createObjectURL(blob);
-			// URLをaタグに設定
-			let a = document.createElement("a");
+			let blobURL = window.URL.createObjectURL(blob); // URL発行
+			let a = document.createElement("a"); // URLをaタグに設定
 			a.href = blobURL;
-			// download属性でファイル名指定
-			a.download = "comment.txt";
-			// DOMにaタグ追加
-			document.body.appendChild(a);
-			// Clickしてダウンロード
-			a.click();
-			// 終了したら片付け
-			a.parentNode.removeChild(a);
+			a.download = "comment.txt"; // download属性でファイル名指定
+			document.body.appendChild(a); // DOMにaタグ追加
+			a.click(); // Clickしてダウンロード
+			a.parentNode.removeChild(a); // 終了したら片付け
 		}
 	}
 }
