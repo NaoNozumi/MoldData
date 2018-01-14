@@ -1,7 +1,7 @@
 @charset "utf-8";
 * {
 	margin: 4px 0px;
-	color:#333333;
+	color: #333333;
 }
 
 body {
@@ -124,14 +124,16 @@ table#moldList {
 }
 
 table#moldList th {
-	width: 24px;
+	text-align: center;
+	width: 20px;
 	padding: 4px;
+	font-weight: bold;
 	vertical-align: middle;
 	border-right: 1px solid #cccccc;
 	border-bottom: 1px solid #cccccc;
 	border-top: 1px solid #ffffff;
 	border-left: 1px solid #ffffff;
-	background: #e3eae9;
+	background: #eeeeee;
 }
 
 table#moldList td {
@@ -285,14 +287,16 @@ table#moldDataList {
 }
 
 table#moldDataList th {
+	text-align: center;
 	width: 60px;
 	padding: 2px 4px;
+	font-weight: bold;
 	vertical-align: middle;
 	border-right: 2px solid #cccccc;
 	border-bottom: 1px solid #cccccc;
 	border-top: 1px solid #ffffff;
 	border-left: 2px solid #ffffff;
-	background: #e3eae9;
+	background: #eeeeee;
 }
 
 table#moldDataList td {
@@ -315,14 +319,6 @@ table#moldDataList tr:nth-child(even) {
 	background: #ebeeff;
 }
 
-/* タイミング */
-
-canvas {
-	padding: 4px 12px;
-	background-color: #ffffff;
-	border: 1px solid #cccccc;
-}
-
 /* 上に戻るボタン */
 
 .square_btn {
@@ -332,7 +328,8 @@ canvas {
 	padding: 2px 12px;
 	font-weight: bold;
 	text-decoration: none;
-	border-left: solid 0.5em #333333;
+	border-left: solid 4px #333333;
+	color: #333333;
 	background: #f7f7f7;
 	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
 }
