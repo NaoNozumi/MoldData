@@ -315,7 +315,7 @@ function fileRead(e) {
 			fileProcess(moldFile);
 			break;
 
-		case fileName === "comment.txt": // コメントファイル
+		case fileName === "COMMENT.TXT": // コメントファイル
 			fileProcess(moldFile);
 			break;
 
@@ -347,7 +347,13 @@ function fileLoad(e) {
 	let rows = e.target.result.split("\r\n");
 
 	// GOTタイプ判定
-	(rows[0].indexOf("GT2K_RECIPE") != -1) ? GOT_Type = "got2000": GOT_Type = "got1000";
+	if (rows[0].indexOf("GT2K_RECIPE") != -1) {
+		GOT_Type = "got2000";
+	} else if (rows[0].indexOf("ARECIPE") != -1) {
+		GOT_Type = "got1000";
+	} else {
+		GOT_Type = "コメントファイル";
+	}
 	gotType.textContent = "[ " + GOT_Type.toUpperCase() + " ] フォーマット";
 	recipeFormat(GOT_Type);
 
@@ -684,7 +690,7 @@ function complement(e) {
 / レシピファイルフォーマット
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function recipeFormat(e) {
-	if (e === "got2000") {
+	if (e === "got2000" || e === "コメントファイル") {
 		HOLDER_NAME_S = 12; // ホルダ名開始行 - 1
 		KATA_S = 12; // 型データ開始行 - 1
 	} else if (e === "got1000") {

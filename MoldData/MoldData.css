@@ -319,6 +319,14 @@ table#moldDataList tr:nth-child(even) {
 	background: #ebeeff;
 }
 
+/* タイミング */
+
+canvas {
+	padding: 4px 12px;
+	background-color: #ffffff;
+	border: 1px solid #cccccc;
+}
+
 /* 上に戻るボタン */
 
 .square_btn {
