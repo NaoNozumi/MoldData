@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>型データ(For Aモーション)</title>
+	<link rel="shortcut icon" type="image/png" href="calculator69.png" />
+
+	<link rel="stylesheet" href="./css/reset.css" />
+	<link rel="stylesheet" href="./css/MoldDataEPC.css">
+	<!-- <link rel="stylesheet" href="./css/handsontable.full.min.css" /> -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.20.0/handsontable.full.min.css" />
+
+	<script src="./js/MoldDataEPC.js" charset="UTF-8" defer="defer"></script>
+	<script src="./js/ratio.js" charset="UTF-8" defer="defer"></script>
+	<script src="./js/airCock.js" charset="UTF-8" defer="defer"></script>
+
+	<noscript>
+			<p>このページではJavaScriptを使用しています。</p>
+		</noscript>
+</head>
+
+<body>
+	<div id="header"></div>
+
+	<h1>型データ(For Aモーション)</h1>
+	<p>
+		EPCで保存した型データの読込。セキュリティの制限により型データリストから選ぶ方法は使えない。FLC点火率画面は標準(9x19列)のみ対応。勝手違いも未対応。
+	</p>
+
+	<h2>機種選択</h2>
+	<p>
+		現状FLC、CLSのみ対応。他は気があれば。
+	</p>
+
+	<form name="modelForm">
+		<p>
+			<label><input type="radio" name="model" value="FLC" checked />FLC</label>
+			<label><input type="radio" name="model" value="FLTP" />FLTP</label>
+			<label><input type="radio" name="model" value="CLS" />CLS</label>
+			<label><input type="radio" name="model" value="OTHERS" />その他</label>
+		</p>
+	</form>
+
+	<hr />
+
+	<h2>ファイルを選択</h2>
+	<p>
+		型データは「TYPE**.DAT」。型データリストは「HNAME.DAT」。読み込ませても構わないが、処理は未実装。
+	</p>
+
+	<form name="gotForm">
+		<input name="gotFile" class="fileInput" type="file" accept=".dat" />
+	</form>
+
+	<hr />
+
+	<h2>型データ</h2>
+
+	<h3>点火率</h3>
+	<button type="button" name="dispayChange" id="ratioUpChange">表示切替1</button>
+	<button type="button" name="dispayChange" id="ratioCornerChange">表示切替2</button>
+	<button type="button" name="dispayChange" id="ratioDownChange">表示切替3</button>
+
+	<h4>上ヒータ</h4>
+	<table class="ratio" id="ratioUp"></table>
+
+	<h4>U字ヒータ</h4>
+	<table class="ratio" id="ratioCorner"></table>
+
+	<h4>下ヒータ</h4>
+	<table class="ratio" id="ratioDown"></table>
+
+	<hr />
+
+	<h3>CLS</h3>
+	<button type="button" name="dispayChange" id="clsRatioChange">表示切替4</button>
+	<button type="button" name="dispayChange" id="airCockChange">表示切替5</button>
+
+	<h4>熱板ヒータ点火率</h4>
+	<table class="ratio" id="clsRatio"></table>
+
+	<h4>エアコック</h4>
+	<canvas id="airCock">canvasが利用できるWebブラウザで開いてください。</canvas>
+
+	<hr />
+
+	<a href="#header" class="square_btn">Top</a>
+
+	<!-- <script src="./js/handsontable.full.min.js" charset="UTF-8"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.20.0/handsontable.full.min.js"></script>
+</body>
+
+</html>
