@@ -33,11 +33,11 @@ const CLS_CORNER = 1; // CLSコーナヒータ数
 
 // 型データ構成
 // 「0」始まりとします。
-const RATIO_UP_S = 0; // 上ヒータ点火率開始アドレス
-const RATIO_U_S = 171; // U字ヒータ開始アドレス(標準:171)
-const RAITO_DOWN_S = 512; // 下ヒータ点火率開始アドレス
+let RATIO_UP_S = 0; // 上ヒータ点火率開始アドレス
+let RATIO_U_S = 171; // U字ヒータ開始アドレス(標準:171)
+let RAITO_DOWN_S = 512; // 下ヒータ点火率開始アドレス
 
-const CLS_PEHEATING_S = 0; // CLSヒータ点火率開始アドレス
+const CLS_RATIO_S = 0; // CLSヒータ点火率開始アドレス
 
 // 点火率色設定
 let ratio_color = new Array(10);
@@ -148,7 +148,9 @@ function upperHeaterRatio() {
 	}
 }
 
+/*
 // 下ヒータ
+*/
 function lowerHeaterRatio() {
 	let i, j, k, l;
 
@@ -174,7 +176,7 @@ function clsHeaterRatio() {
 
 	for (i = 0; i < CLS_ROW; i++) { // 各行
 		for (j = 0; j < CLS_COL; j++) { // 各列
-			l = parseInt(dataList[CLS_PEHEATING_S + CLS_COL * i + j], 10);
+			l = parseInt(dataList[CLS_RATIO_S + CLS_COL * (CLS_ROW - i) - j - 1], 10);
 			if (isNaN(l)) l = 0; // 数値でない場合は0
 			clsRatio.rows[i * 2 + 1].cells[j].textContent = l / 10;
 

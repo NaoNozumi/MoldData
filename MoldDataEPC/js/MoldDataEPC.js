@@ -17,6 +17,9 @@ let holderList = new Array(); // ホルダ配列
 let fileList = new Array(); // ファイルリスト配列(30 or 300型)
 let dataList = new Array(); // 型データ配列
 
+let moldDataFlag = new Array(); // 型データ保存領域フラグ
+let commentList = new Array(); // デバイスコメント配列
+
 let dispChangeButtons = document.getElementsByName("dispayChange"); // 表示切替釦
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -35,34 +38,67 @@ for (i = 0; i < j; i++) {
 // 初期化
 let model = "FLC";
 modelForm.model[0].checked = true;
+moldDataFlag = ["CW0@1024", "CW1120@170"];
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / 機種選択
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function modelFormClick(e) {
-	model = e.target.value;
+	switch (e.target.type) {
+		case "radio": // 機種
+			// 機種名取得
+			model = e.target.value;
 
-	// 初期化
-	holderList.length = 0;
-	fileList.length = 0;
-	dataList.length = 0;
-	// FLC点火率
-	upperHeaterRatio();
-	lowerHeaterRatio();
-	// CLS点火率
-	clsHeaterRatio();
-	// エアコック描画
-	airCockDraw();
+			// 初期化
+			holderList.length = 0;
+			fileList.length = 0;
+			dataList.length = 0;
 
-	// 機種毎の処理
-	switch (model) {
-		case "FLC":
-			break;
-		case "FLTP":
-			break;
-		case "CLS":
-			break;
-		case "OTHERS":
+			moldDataFlag.length = 0;
+			commentList.length = 0;
+
+			// FLC点火率
+			upperHeaterRatio();
+			lowerHeaterRatio();
+
+			// CLS点火率
+			clsHeaterRatio();
+			// エアコック描画
+			airCockDraw();
+
+			// 機種毎の処理
+			switch (model) {
+				case "FLC":
+					moldDataFlag = ["CW0@1024", "CW1120@170"];
+					loadCh0("Flc001o.ch0"); // *.ch0読込
+					break;
+				case "FLD":
+					moldDataFlag = ["CW0@512", "CW512@245"];
+					loadCh0("Fld001e.ch0"); // *.ch0読込
+					break;
+				case "FLCD":
+					moldDataFlag = ["CW0@512", "CW512@245"];
+					loadCh0("Fcd001c.ch0"); // *.ch0読込
+					break;
+				case "FKS":
+					moldDataFlag = ["CW0@608", "CW1100@100"];
+					loadCh0("Fks001b.ch0"); // *.ch0読込
+					break;
+				case "CLS":
+					moldDataFlag = ["CW0@350"];
+					loadCh0("Cls001j.ch0"); // *.ch0読込
+					break;
+				case "FLTP":
+					moldDataFlag = ["CW0@760", "CW1070@170"];
+					break;
+				case "OTHERS":
+					break;
+				default:
+					break;
+			}
+
+			// デバイス表切り出し
+			inputDispData();
 			break;
 		default:
 			break;
@@ -133,21 +169,38 @@ function binaryLoad(e) {
 			upperHeaterRatio();
 			lowerHeaterRatio();
 			break;
-		case "FLTP":
+		case "FLD": // FLC点火率
+			upperHeaterRatio();
+			lowerHeaterRatio();
+			break;
+		case "FLCD": // FLC点火率
+			upperHeaterRatio();
+			lowerHeaterRatio();
+			break;
+		case "FKS": // FLC点火率
+			upperHeaterRatio();
+			lowerHeaterRatio();
 			break;
 		case "CLS": // CLS点火率
 			clsHeaterRatio();
 			// エアコック描画
 			airCockDraw();
 			break;
+		case "FLTP":
+			break;
 		case "OTHERS":
 			break;
 		default:
 			break;
 	}
+
+	// デバイス表切り出し
+	inputDispData();
 }
 
+/*
 // 型リスト
+*/
 function fileLoad(e) {
 	// 改行で分解
 	let rows = e.target.result.split("\r\n");
@@ -161,6 +214,51 @@ function fileLoad(e) {
 		l = fileList[i].length;
 		for (k = 0; k < l; k++) {
 			console.log(fileList[i][k]);
+		}
+	}
+}
+
+/*
+// コメントリスト
+*/
+function makech0List(e) {
+	let i, j, k, l, m, n, o, p;
+	let str = new Array();
+
+	// 型データ保存点数演算
+	j = moldDataFlag.length;
+	o = 0;
+	for (i = 0; i < j; i++) {
+		// @位置
+		k = moldDataFlag[i].indexOf("@");
+		// コメントリスト生成
+		l = parseInt(moldDataFlag[i].slice(k + 1), 10); // 点数
+		m = parseInt(moldDataFlag[i].substring(2, k), 10); // 開始アドレス
+		//
+		for (n = 0; n < l; n++) {
+			commentList[o] = new Array(" ", " ", " ");
+			commentList[o][0] = "CW" + ("0000" + (m + n)).slice(-4); // ゼロパディング(4桁)
+			o++;
+		}
+	}
+
+	// コメント切出
+	j = e.length;
+	for (i = 0; i < j; i++) {
+		// データ分割
+		str[i] = e[i].split(",");
+	}
+
+	// 型データ保存領域コメント抽出
+	j = commentList.length;
+	l = str.length;
+	for (i = 0; i < j; i++) { // 全型データ保存領域
+		for (m = 0; m < l; m++) { // *.ch0サーチ
+			if (commentList[i][0] === str[m][0]) { // 一致した場合
+				commentList[i][1] = str[m][2];
+				commentList[i][2] = str[m][3].slice(2);
+				break;
+			}
 		}
 	}
 }

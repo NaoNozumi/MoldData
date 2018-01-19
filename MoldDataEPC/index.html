@@ -15,6 +15,8 @@
 	<script src="./js/ratio.js" charset="UTF-8" defer="defer"></script>
 	<script src="./js/airCock.js" charset="UTF-8" defer="defer"></script>
 
+	<script src="./EPC/ch0.js" charset="UTF-8" defer="defer"></script>
+
 	<noscript>
 			<p>このページではJavaScriptを使用しています。</p>
 		</noscript>
@@ -30,14 +32,17 @@
 
 	<h2>機種選択</h2>
 	<p>
-		現状FLC、CLSのみ対応。他は気があれば。
+		現状FL系、CLSのみ対応。他は気があれば。機種を選択してから型データを読み出す。
 	</p>
 
 	<form name="modelForm">
 		<p>
 			<label><input type="radio" name="model" value="FLC" checked />FLC</label>
-			<label><input type="radio" name="model" value="FLTP" />FLTP</label>
+			<label><input type="radio" name="model" value="FLD" />FLD</label>
+			<label><input type="radio" name="model" value="FLCD" />FLCD</label>
+			<label><input type="radio" name="model" value="FKS" />FKS</label>
 			<label><input type="radio" name="model" value="CLS" />CLS</label>
+			<label><input type="radio" name="model" value="FLTP" />FLTP</label>
 			<label><input type="radio" name="model" value="OTHERS" />その他</label>
 		</p>
 	</form>
@@ -85,10 +90,15 @@
 
 	<hr />
 
+	<h3>デバイス表</h3>
+
+	<div id="deviceTable"></div>
+
 	<a href="#header" class="square_btn">Top</a>
 
 	<!-- <script src="./js/handsontable.full.min.js" charset="UTF-8"></script> -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.20.0/handsontable.full.min.js"></script>
+	<script src="./js/dispDevice.js" charset="UTF-8"></script>
 </body>
 
 </html>

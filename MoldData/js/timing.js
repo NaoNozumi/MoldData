@@ -70,7 +70,7 @@ function timingDraw() {
 		l = timingItemHeight * i + angleCommHeight; // Y座標
 		for (j = 0; j < 2; j++) {
 			n = parseInt(dataList[holderNum * FILE_CNT + pageNum * (FILE_CNT / PAGE_CNT) + fileNum][TIMING_S + i * 2 + j], 10); // タイミング設定値
-			if (isNaN(n)) break; // 数値でない場合は終了
+			if (isNaN(n)) n = 0; // 数値でない場合は0
 
 			k = timingItemWidthName + n / 3600 * timingItemWidthOneLap; // X座標
 

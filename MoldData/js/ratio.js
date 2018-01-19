@@ -116,8 +116,7 @@ function clsPreheat() {
 	for (i = 0; i < CLS_ROW; i++) { // 各行
 		for (j = 0; j < CLS_COL; j++) { // 各列
 			l = parseInt(dataList[holderNum * FILE_CNT + pageNum * (FILE_CNT / PAGE_CNT) + fileNum][CLS_PEHEATING_S + i * CLS_COL + j], 10);
-			if (isNaN(l)) break; // 数値でない場合は終了
-
+			if (isNaN(l)) l = 0; // 数値でない場合は0
 			clsPreheating.rows[i * 2 + 1].cells[j].textContent = (l / 10) + "℃";
 
 			// 点火率色
@@ -134,8 +133,7 @@ function clsOpe() {
 	for (i = 0; i < CLS_ROW; i++) { // 各行
 		for (j = 0; j < CLS_COL; j++) { // 各列
 			l = parseInt(dataList[holderNum * FILE_CNT + pageNum * (FILE_CNT / PAGE_CNT) + fileNum][CLS_OPERATION_S + i * CLS_COL + j], 10);
-			if (isNaN(l)) break; // 数値でない場合は終了
-
+			if (isNaN(l)) l = 0; // 数値でない場合は0
 			clsOperation.rows[i * 2 + 1].cells[j].textContent = (l / 10) + "℃";
 
 			// 点火率色
@@ -154,6 +152,7 @@ function upperHeaterRatio() {
 	for (i = 0; i < RATIO_UP_ROW; i++) { // 各行
 		for (j = 0; j < RATIO_UP_COL; j++) { // 各列
 			l = dataList[holderNum * FILE_CNT + pageNum * (FILE_CNT / PAGE_CNT) + fileNum][RATIO_UP_S + UPPER_HEATER_ADD[i * RATIO_UP_COL + j]];
+			if (isNaN(l)) l = 0; // 数値でない場合は0
 			ratioUp.rows[i + 1].cells[j + 1].textContent = l;
 
 			// 点火率色
@@ -165,6 +164,7 @@ function upperHeaterRatio() {
 	// U字ヒータ
 	for (i = 0; i < RATIO_CORNER; i++) {
 		l = dataList[holderNum * FILE_CNT + pageNum * (FILE_CNT / PAGE_CNT) + fileNum][U_HEATER_ADD[i]];
+		if (isNaN(l)) l = 0; // 数値でない場合は0
 		ratioCorner.rows[1].cells[i].textContent = l;
 
 		// 点火率色
@@ -179,6 +179,7 @@ function lowerHeaterRatio() {
 	for (i = 0; i < RATIO_DOWN_ROW; i++) { // 各行
 		for (j = 0; j < RATIO_DOWN_COL; j++) { // 各列
 			l = dataList[holderNum * FILE_CNT + pageNum * (FILE_CNT / PAGE_CNT) + fileNum][RAITO_DOWN_S + LOWER_HEATER_ADD[i * RATIO_DOWN_COL + j]];
+			if (isNaN(l)) l = 0; // 数値でない場合は0
 			ratioDown.rows[i + 1].cells[j + 1].textContent = l;
 
 			// 点火率色

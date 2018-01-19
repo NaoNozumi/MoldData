@@ -6,7 +6,7 @@
  |- \0000(製造番号)
  |  |-init.js
  |  |-ratioArray.js
- |  |-comment.txt
+ |  |-comment.txt(文字コード:UTF-8 改行:CR+LF)
  |-\0001
     |-init.js
     |-ratioArray.js
