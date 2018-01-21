@@ -1,5 +1,7 @@
 @charset "utf-8";
 * {
+	word-break: break-all;
+	/* http://web-dou.com/css/etc_word_wrap1.html */
 	margin: 4px 0px;
 	color: #333333;
 }
@@ -134,6 +136,21 @@ table.ratio td {
 	padding: 4px;
 	vertical-align: middle;
 	background: #00FFFF;
+}
+
+/* https://saruwakakun.com/html-css/reference/h-design
+ホルダ・型名 */
+
+#holderName, #dataName, #machineName, #tmp1, #tmp2, #tmp3 {
+	font-weight: bold;
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
+	color: #000080;
+}
+
+/* デバイス一覧 */
+
+#deviceTable {
+	margin: 4px 0px 36px 0px;
 }
 
 /* canvas */

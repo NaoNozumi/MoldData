@@ -513,7 +513,7 @@ function makeFileList() {
 
 		if (l === "0000") break; // "0000"は何も入力されていないと見做す
 		tmp += l;
-	}
+	}console.log(tmp);
 	txtDecode(tmp, holderNum + 1, 0, "holderName");
 
 	// ファイル名

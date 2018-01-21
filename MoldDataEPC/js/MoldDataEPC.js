@@ -5,6 +5,11 @@
 let i, j, k, l, m, n;
 let rows, cells, th, td;
 
+// おまけ
+let tmp1 = document.getElementById("tmp1");
+let tmp2 = document.getElementById("tmp2");
+let tmp3 = document.getElementById("tmp3");
+
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / 覚書
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -99,7 +104,13 @@ function modelFormClick(e) {
 
 			// デバイス表切り出し
 			inputDispData();
+
+			// 役に立たない型データ名
+			tmp1.textContent = "ホルダ / 型";
+			tmp2.textContent = "品名";
+			tmp3.textContent = "作成者";
 			break;
+
 		default:
 			break;
 	}
@@ -143,7 +154,7 @@ function fileProcess(e, flag) {
 		reader.readAsArrayBuffer(e); // 読み込んだファイルの中身を取得
 		reader.addEventListener('load', binaryLoad, false); // ファイルの中身取得後処理
 	} else if (flag === "str") {
-		reader.readAsText(e); // 読み込んだファイルの中身を取得
+		reader.readAsText(e, 'shift_jis'); // 読み込んだファイルの中身を取得
 		reader.addEventListener('load', fileLoad, false); // ファイルの中身取得後処理
 	}
 }
@@ -153,6 +164,7 @@ function fileProcess(e, flag) {
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 // 型データ
 function binaryLoad(e) {
+	let i, j, k, l, m, n;
 	// 16ビット符号付き整数値
 	let I16A = new Int16Array(e.target.result);
 
@@ -168,6 +180,7 @@ function binaryLoad(e) {
 		case "FLC": // FLC点火率
 			upperHeaterRatio();
 			lowerHeaterRatio();
+			moldDataName(1154); // 型データ名
 			break;
 		case "FLD": // FLC点火率
 			upperHeaterRatio();
@@ -185,6 +198,7 @@ function binaryLoad(e) {
 			clsHeaterRatio();
 			// エアコック描画
 			airCockDraw();
+			moldDataName(304); // 型データ名
 			break;
 		case "FLTP":
 			break;
@@ -202,9 +216,9 @@ function binaryLoad(e) {
 // 型リスト
 */
 function fileLoad(e) {
+	let i, j, k, l;
 	// 改行で分解
 	let rows = e.target.result.split("\r\n");
-	let i, j;
 
 	// 品名/作成者/日付
 	j = rows.length;
@@ -264,6 +278,50 @@ function makech0List(e) {
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ 型データ名
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+// ホルダ/品名/作者名
+function moldDataName(e) {
+	let i, j, k, l, m, n;
+	let tmp;
+
+	// データ範囲確認
+	if (dataList.length < e + 32) {
+		// データが取れない場合
+		tmp1.textContent = "ホルダ / 型";
+		tmp2.textContent = "品名";
+		tmp3.textContent = "作成者";
+	} else {
+		tmp1.textContent = "ホルダ No." + dataList[e] + " / 型 No." + dataList[e + 11] + " / ホルダ名：";
+		i = e + 1;
+		m = i;
+
+		// ホルダ名/品名/作成者
+		for (l = 0; l < 3; l++) {
+			tmp = ""; // 初期化
+			for (j = 0; j < 10; j++) {
+				k = toHex(dataList[i].toString(10), 0);
+				if (k === "0000") break; // "0000"は何も入力されていないと見做す
+				tmp += k; // 文字列連結
+				i++;
+			}
+			// アドレス+10点
+			switch (l) {
+				case (0):
+					i = m + 11;
+					break;
+				case (1):
+					i = m + 21;
+					break;
+				default:
+					break;
+			}
+			txtDecode(tmp, l);
+		}
+	}
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / 表示/非表示切替
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function showBlock(e) {
@@ -271,4 +329,88 @@ function showBlock(e) {
 	let j = document.getElementById(i).style.display;
 
 	(j == "" || j == "block") ? document.getElementById(i).style.display = "none": document.getElementById(i).style.display = "block";
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ 文字コード変換の為のあれこれ
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+function toHex(e, f) {
+	let i, j, k;
+
+	// 負の数だった場合
+	if (e.indexOf("-") != -1) {
+		e = e.slice(1); // 符号を除く
+		e = binNumberConv(e); // 2進数変換
+		e = complement(e); // 2の補数
+	} else {
+		e = binNumberConv(e); // 2進数変換
+	}
+
+	// 16進数変換
+	k = parseInt(e, 2).toString(16);
+	// 桁合わせ
+	j = 4 - k.length;
+	for (i = 0; i < j; i++) {
+		k = "0" + k;
+	}
+
+	// swap
+	// リトルエンディアンと判断されたものに対して処理
+	if (f == 0) {
+		let LE, BE;
+		LE = k.substr(2, 2);
+		BE = k.substr(0, 2);
+		k = LE + BE;
+	}
+
+	return k;
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ 2進数
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+function binNumberConv(e) {
+	let i, j, k;
+
+	// 2進数変換
+	e = parseInt(e, 10).toString(2);
+	// 16桁合わせ
+	j = 16 - e.length;
+	for (i = 0; i < j; i++) {
+		e = "0" + e;
+	}
+
+	return e;
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ 2の補数
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+function complement(e) {
+	let i, j, k;
+
+	// ビット反転&1加算(2の補数)
+	//i = (0b1111111111111111 ^ ("0b" + i)) + 0b1; // 残念、ieで動かない
+	let a, tmp;
+	tmp = "";
+	for (k = 0; k < 16; k++) {
+		a = e.substr(k, 1); // 1文字切出し
+		switch (a) {
+			case "0":
+				a = "1";
+				break;
+			case "1":
+				a = "0";
+				break;
+			default:
+				break;
+		}
+		tmp += a;
+	}
+	tmp = parseInt(tmp, 2) + 1; // 1加算
+
+	// 2進数
+	i = tmp.toString(2);
+
+	return i;
 }

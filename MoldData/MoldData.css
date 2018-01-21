@@ -1,5 +1,7 @@
 @charset "utf-8";
 * {
+	word-break: break-all;
+	/* http://web-dou.com/css/etc_word_wrap1.html */
 	margin: 4px 0px;
 	color: #333333;
 }

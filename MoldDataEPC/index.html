@@ -11,6 +11,7 @@
 	<!-- <link rel="stylesheet" href="./css/handsontable.full.min.css" /> -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.20.0/handsontable.full.min.css" />
 
+	<script src="./js/txtDecode.js" charset="UTF-8" defer="defer"></script>
 	<script src="./js/MoldDataEPC.js" charset="UTF-8" defer="defer"></script>
 	<script src="./js/ratio.js" charset="UTF-8" defer="defer"></script>
 	<script src="./js/airCock.js" charset="UTF-8" defer="defer"></script>
@@ -32,7 +33,7 @@
 
 	<h2>機種選択</h2>
 	<p>
-		現状FL系、CLSのみ対応。他は気があれば。機種を選択してから型データを読み出す。
+		現状FLC、CLSのみ対応。他は気があれば。機種を選択してから型データを読み出す。
 	</p>
 
 	<form name="modelForm">
@@ -57,6 +58,12 @@
 	<form name="gotForm">
 		<input name="gotFile" class="fileInput" type="file" accept=".dat" />
 	</form>
+
+	<h4>型データ名</h4>
+	<p>
+		恐らく、型データを保存した時に読み込まれていた型データの名称。役に立つのかどうかは知らない。
+	</p>
+	<p><span id="tmp1">ホルダ / 型</span> / <span id="tmp2">品名</span> / <span id="tmp3">作成者</span></p>
 
 	<hr />
 
@@ -92,6 +99,7 @@
 
 	<h3>デバイス表</h3>
 
+	<h4>一覧</h4>
 	<div id="deviceTable"></div>
 
 	<a href="#header" class="square_btn">Top</a>

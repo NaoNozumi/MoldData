@@ -46,21 +46,27 @@ let deviceHOT = new Handsontable(deviceTable, {
 function inputDispData() {
 	let i, j, k, l;
 
+	// コメント点数と型データ点数が一致しなければ処理はしない
+	k = dataList.length;
+	l = commentList.length;
+
+	//	if (k === l) {
 	// 初期化
 	dispData.length = 0;
 
 	// データ切出し
 	j = dataList.length;
-	console.log(dataList.length);
-	console.log(commentList.length);
 	for (i = 0; i < j; i++) {
 		dispData[i] = new Array(4);
-		dispData[i][0] = commentList[i][0];
-		dispData[i][1] = commentList[i][1];
-		dispData[i][2] = commentList[i][2];
+		(commentList[i][0] !== undefined) ? dispData[i][0] = commentList[i][0]: dispData[i][0] = "";
+		(commentList[i][1] !== undefined) ? dispData[i][1] = commentList[i][1]: dispData[i][1] = "";
+		(commentList[i][2] !== undefined) ? dispData[i][2] = commentList[i][2]: dispData[i][2] = "";
 		dispData[i][3] = dataList[i];
 	}
 
 	// データ読込
 	deviceHOT.loadData(dispData);
+	/*	} else {
+			alert("読出し不可 データ点数：" + k + "点 / コメント点数：" + l + "点");
+		}*/
 }

@@ -102,6 +102,8 @@ function makeRatioTable() {
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 // CLS点火率
 function makeCLSRatioTable() {
+	let i, j, k, l;
+
 	for (i = 0; i < CLS_ROW * 2; i++) { // 行
 		// 行追加
 		rows = clsRatio.insertRow(-1);
