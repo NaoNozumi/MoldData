@@ -10,6 +10,9 @@ let tmp1 = document.getElementById("tmp1");
 let tmp2 = document.getElementById("tmp2");
 let tmp3 = document.getElementById("tmp3");
 
+let deviceNum = document.getElementById("deviceNum");
+let ch0num = document.getElementById("ch0num");
+
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / 覚書
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -43,7 +46,6 @@ for (i = 0; i < j; i++) {
 // 初期化
 let model = "FLC";
 modelForm.model[0].checked = true;
-moldDataFlag = ["CW0@1024", "CW1120@170"];
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / 機種選択
@@ -77,6 +79,10 @@ function modelFormClick(e) {
 					moldDataFlag = ["CW0@1024", "CW1120@170"];
 					loadCh0("Flc001o.ch0"); // *.ch0読込
 					break;
+				case "FLS":
+					moldDataFlag = ["CW0@1024", "CW1120@170"];
+					loadCh0("Flc001o.ch0"); // *.ch0読込
+					break;
 				case "FLD":
 					moldDataFlag = ["CW0@512", "CW512@245"];
 					loadCh0("Fld001e.ch0"); // *.ch0読込
@@ -94,7 +100,8 @@ function modelFormClick(e) {
 					loadCh0("Cls001j.ch0"); // *.ch0読込
 					break;
 				case "FLTP":
-					moldDataFlag = ["CW0@760", "CW1070@170"];
+					moldDataFlag = ["CW0@800", "CW800@145"];
+					loadCh0("FLTP512.ch0")
 					break;
 				case "OTHERS":
 					break;
@@ -109,6 +116,9 @@ function modelFormClick(e) {
 			tmp1.textContent = "ホルダ / 型";
 			tmp2.textContent = "品名";
 			tmp3.textContent = "作成者";
+
+			// 型データ点数表示
+			deviceNum.textContent = "一覧";
 			break;
 
 		default:
@@ -175,12 +185,20 @@ function binaryLoad(e) {
 		dataList[i] = I16A[i];
 	}
 
+	// 型データ点数表示
+	deviceNum.textContent = "一覧 [型データ点数 " + dataList.length + "点]";
+
 	// 機種毎に処理分岐
 	switch (model) {
 		case "FLC": // FLC点火率
 			upperHeaterRatio();
 			lowerHeaterRatio();
-			moldDataName(1154); // 型データ名
+			moldDataName(1154, 0); // 型データ名
+			break;
+		case "FLS": // FLC点火率
+			upperHeaterRatio();
+			lowerHeaterRatio();
+			moldDataName(1154, 1); // 型データ名
 			break;
 		case "FLD": // FLC点火率
 			upperHeaterRatio();
@@ -198,9 +216,11 @@ function binaryLoad(e) {
 			clsHeaterRatio();
 			// エアコック描画
 			airCockDraw();
-			moldDataName(304); // 型データ名
+			moldDataName(304, 1); // 型データ名
 			break;
-		case "FLTP":
+		case "FLTP": // FLC点火率
+			upperHeaterRatio();
+			lowerHeaterRatio();
 			break;
 		case "OTHERS":
 			break;
@@ -275,29 +295,49 @@ function makech0List(e) {
 			}
 		}
 	}
+	ch0num.textContent = "型データ点数 " + commentList.length + " 点";
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / 型データ名
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 // ホルダ/品名/作者名
-function moldDataName(e) {
+function moldDataName(e, flag) {
 	let i, j, k, l, m, n;
-	let tmp;
+	let tmp, len;
+	let no, loop, offset;
+
+	// 型データ名フォーマット
+	switch (flag) {
+		case 0:
+			len = 12;
+			no = 1; // 型 No.
+			loop = 1; // 品名のみ
+			offset = 2; // 品名開始アドレスオフセット
+			break;
+		case 1:
+			len = 32;
+			no = 11; // 型 No.
+			loop = 3; // ホルダ名/品名/作成者
+			offset = 1; // 品名開始アドレスオフセット
+			break;
+		default:
+			break;
+	}
 
 	// データ範囲確認
-	if (dataList.length < e + 32) {
+	if (dataList.length < (e + len)) {
 		// データが取れない場合
 		tmp1.textContent = "ホルダ / 型";
 		tmp2.textContent = "品名";
 		tmp3.textContent = "作成者";
 	} else {
-		tmp1.textContent = "ホルダ No." + dataList[e] + " / 型 No." + dataList[e + 11] + " / ホルダ名：";
-		i = e + 1;
+		tmp1.textContent = "ホルダ No." + dataList[e] + " / 型 No." + dataList[e + no] + " / ホルダ名：";
+		i = e + offset;
 		m = i;
 
 		// ホルダ名/品名/作成者
-		for (l = 0; l < 3; l++) {
+		for (l = 0; l < loop; l++) {
 			tmp = ""; // 初期化
 			for (j = 0; j < 10; j++) {
 				k = toHex(dataList[i].toString(10), 0);
@@ -316,7 +356,7 @@ function moldDataName(e) {
 				default:
 					break;
 			}
-			txtDecode(tmp, l);
+			(flag === 1) ? txtDecode(tmp, l): txtDecode(tmp, 1);
 		}
 	}
 }

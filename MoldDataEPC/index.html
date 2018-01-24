@@ -39,6 +39,7 @@
 	<form name="modelForm">
 		<p>
 			<label><input type="radio" name="model" value="FLC" checked />FLC</label>
+			<label><input type="radio" name="model" value="FLS" />FLS</label>
 			<label><input type="radio" name="model" value="FLD" />FLD</label>
 			<label><input type="radio" name="model" value="FLCD" />FLCD</label>
 			<label><input type="radio" name="model" value="FKS" />FKS</label>
@@ -47,6 +48,7 @@
 			<label><input type="radio" name="model" value="OTHERS" />その他</label>
 		</p>
 	</form>
+	<p id="ch0num"></p>
 
 	<hr />
 
@@ -99,7 +101,7 @@
 
 	<h3>デバイス表</h3>
 
-	<h4>一覧</h4>
+	<h4 id="deviceNum">一覧</h4>
 	<div id="deviceTable"></div>
 
 	<a href="#header" class="square_btn">Top</a>

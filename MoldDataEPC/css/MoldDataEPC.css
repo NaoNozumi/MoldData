@@ -1,182 +1,182 @@
 @charset "utf-8";
 * {
-	word-break: break-all;
-	/* http://web-dou.com/css/etc_word_wrap1.html */
-	margin: 4px 0px;
-	color: #333333;
+  word-break: break-all;
+  /* http://web-dou.com/css/etc_word_wrap1.html */
+  margin: 4px 0px;
+  color: #333333;
 }
 
 body {
-	padding: 24px 48px;
-	line-height: 1.4;
-	background-color: #fcfcf1;
+  padding: 24px 48px;
+  line-height: 1.4;
+  background-color: #fcfcf1;
 }
 
 /* 見出し */
 
 h1 {
-	margin: 24px 0px;
-	font-size: 2em;
-	font-weight: bold;
-	border-left: 1em solid #27577e;
-	border-bottom: 1px dashed #27577e;
-	padding: 2px 2px 2px 8px;
+  margin: 24px 0px;
+  font-size: 2em;
+  font-weight: bold;
+  border-left: 1em solid #27577e;
+  border-bottom: 1px dashed #27577e;
+  padding: 2px 2px 2px 8px;
 }
 
 h2 {
-	margin: 16px 0px;
-	font-size: 1.6em;
-	font-weight: bold;
-	border-left: 0.25em solid #27577e;
-	padding: 2px 2px 2px 8px;
+  margin: 16px 0px;
+  font-size: 1.6em;
+  font-weight: bold;
+  border-left: 0.25em solid #27577e;
+  padding: 2px 2px 2px 8px;
 }
 
 h3 {
-	margin: 12px 0px;
-	font-size: 1.2em;
-	font-weight: bold;
-	border-bottom: 1px dashed #27577e;
-	padding: 2px 2px 2px 4px;
+  margin: 12px 0px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-bottom: 1px dashed #27577e;
+  padding: 2px 2px 2px 4px;
 }
 
 h4 {
-	margin: 8px 0px;
-	font-weight: bold;
-	padding: 2px 2px 2px 4px;
+  margin: 8px 0px;
+  font-weight: bold;
+  padding: 2px 2px 2px 4px;
 }
 
 h4:before {
-	content: "◆ ";
+  content: "◆ ";
 }
 
 /* 段落 */
 
 p {
-	margin: 4px 0px 8px 24px;
-	text-indent: 1em;
+  margin: 4px 0px 8px 24px;
+  text-indent: 1em;
 }
 
 /* フォーム部品 */
 
 button {
-	margin: 4px 4px;
-	padding: 4px 24px;
-	border-radius: 4px;
-	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+  margin: 4px 4px;
+  padding: 4px 24px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
 }
 
 button:active {
-	transform: translateY(2px);
-	box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+  transform: translateY(2px);
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
 }
 
 input[type="text"] {
-	padding: 4px 4px;
+  padding: 4px 4px;
 }
 
 input[type="text"]:focus {
-	box-shadow: 0 0 2px #3498db;
-	border: 1px solid #3498db;
+  box-shadow: 0 0 2px #3498db;
+  border: 1px solid #3498db;
 }
 
 input[type="submit"] {
-	margin: 8px 4px;
-	padding: 4px 16px;
+  margin: 8px 4px;
+  padding: 4px 16px;
 }
 
 label {
-	margin: 4px 8px 8px 4px;
-	font-size: 1.1em;
+  margin: 4px 8px 8px 4px;
+  font-size: 1.1em;
 }
 
 input[type="radio"] {
-	margin: 8px 8px;
+  margin: 8px 8px;
 }
 
 /* テーブル基本 */
 
 table {
-	margin: 8px 0px 24px 0px;
-	background-color: #ffffff;
+  margin: 8px 0px 24px 0px;
+  background-color: #ffffff;
 }
 
 table th {
-	text-align: center;
-	font-weight: bold;
+  text-align: center;
+  font-weight: bold;
 }
 
 /* ファイル選択 */
 
 .fileInput {
-	padding: 12px;
-	background-image: linear-gradient(180deg, #efefef, #fefefe);
-	border: 1px dashed #333333;
-	border-radius: 0.4em;
+  padding: 12px;
+  background-image: linear-gradient(180deg, #efefef, #fefefe);
+  border: 1px dashed #333333;
+  border-radius: 0.4em;
 }
 
 /* 点火率テーブル */
 
 table.ratio {
-	border-collapse: separate;
-	border-spacing: 2px;
-	text-align: center;
-	line-height: 1.8;
+  border-collapse: separate;
+  border-spacing: 2px;
+  text-align: center;
+  line-height: 1.8;
 }
 
 table.ratio th {
-	width: 28px;
-	padding: 4px;
-	vertical-align: middle;
-	color: #ffffff;
-	background: #666666;
+  width: 28px;
+  padding: 4px;
+  vertical-align: middle;
+  color: #ffffff;
+  background: #666666;
 }
 
 table.ratio td {
-	width: 28px;
-	padding: 4px;
-	vertical-align: middle;
-	background: #00FFFF;
+  width: 28px;
+  padding: 4px;
+  vertical-align: middle;
+  background: #00FFFF;
 }
 
 /* https://saruwakakun.com/html-css/reference/h-design
 ホルダ・型名 */
 
-#holderName, #dataName, #machineName, #tmp1, #tmp2, #tmp3 {
-	font-weight: bold;
-	text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
-	color: #000080;
+#holderName, #dataName, #machineName, #tmp1, #tmp2, #tmp3, #ch0num {
+  font-weight: bold;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
+  color: #000080;
 }
 
 /* デバイス一覧 */
 
 #deviceTable {
-	margin: 4px 0px 36px 0px;
+  margin: 4px 0px 36px 0px;
 }
 
 /* canvas */
 
 canvas {
-	padding: 4px 12px;
-	background-color: #ffffff;
-	border: 1px solid #cccccc;
+  padding: 4px 12px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
 }
 
 /* 上に戻るボタン */
 
 .square_btn {
-	position: fixed;
-	bottom: 16px;
-	right: 8px;
-	padding: 2px 12px;
-	font-weight: bold;
-	text-decoration: none;
-	border-left: solid 4px #333333;
-	color: #333333;
-	background: #f7f7f7;
-	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+  position: fixed;
+  bottom: 16px;
+  right: 8px;
+  padding: 2px 12px;
+  font-weight: bold;
+  text-decoration: none;
+  border-left: solid 4px #333333;
+  color: #333333;
+  background: #f7f7f7;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
 }
 
 .square_btn:active {
-	box-shadow: inset 0 0 2px rgba(128, 128, 128, 0.1);
-	transform: translateY(2px);
+  box-shadow: inset 0 0 2px rgba(128, 128, 128, 0.1);
+  transform: translateY(2px);
 }

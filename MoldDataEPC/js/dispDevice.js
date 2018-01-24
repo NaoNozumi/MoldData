@@ -58,9 +58,9 @@ function inputDispData() {
 	j = dataList.length;
 	for (i = 0; i < j; i++) {
 		dispData[i] = new Array(4);
-		(commentList[i][0] !== undefined) ? dispData[i][0] = commentList[i][0]: dispData[i][0] = "";
-		(commentList[i][1] !== undefined) ? dispData[i][1] = commentList[i][1]: dispData[i][1] = "";
-		(commentList[i][2] !== undefined) ? dispData[i][2] = commentList[i][2]: dispData[i][2] = "";
+		(commentList[i] !== undefined) ? dispData[i][0] = commentList[i][0]: dispData[i][0] = "";
+		(commentList[i] !== undefined) ? dispData[i][1] = commentList[i][1]: dispData[i][1] = "";
+		(commentList[i] !== undefined) ? dispData[i][2] = commentList[i][2]: dispData[i][2] = "";
 		dispData[i][3] = dataList[i];
 	}
 

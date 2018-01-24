@@ -5,6 +5,7 @@
 let xhrCh0 = new XMLHttpRequest();
 
 // 初期化
+moldDataFlag = ["CW0@1024", "CW1120@170"];
 loadCh0("Flc001o.ch0"); // *.ch0読込
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
