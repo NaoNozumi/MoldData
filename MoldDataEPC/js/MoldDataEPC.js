@@ -13,6 +13,8 @@ let tmp3 = document.getElementById("tmp3");
 let deviceNum = document.getElementById("deviceNum");
 let ch0num = document.getElementById("ch0num");
 
+let moldDataList = document.getElementById("moldDataList");
+
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / 覚書
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
@@ -84,16 +86,16 @@ function modelFormClick(e) {
 					loadCh0("Flc001o.ch0"); // *.ch0読込
 					break;
 				case "FLD":
-					moldDataFlag = ["CW0@512", "CW512@245"];
-					loadCh0("Fld001e.ch0"); // *.ch0読込
+					moldDataFlag = ["CW0@944", "CW1030@260"];
+					loadCh0("Fld010.ch0"); // *.ch0読込
 					break;
 				case "FLCD":
-					moldDataFlag = ["CW0@512", "CW512@245"];
-					loadCh0("Fcd001c.ch0"); // *.ch0読込
+					moldDataFlag = ["CW0@512", "CW512@236"];
+					loadCh0("Fcd010.ch0"); // *.ch0読込
 					break;
 				case "FKS":
 					moldDataFlag = ["CW0@608", "CW1100@100"];
-					loadCh0("Fks001b.ch0"); // *.ch0読込
+					loadCh0("Fks010.ch0"); // *.ch0読込
 					break;
 				case "CLS":
 					moldDataFlag = ["CW0@350"];
@@ -104,6 +106,8 @@ function modelFormClick(e) {
 					loadCh0("FLTP512.ch0")
 					break;
 				case "OTHERS":
+					// 表をクリア
+					while (moldDataList.children[0].children[1]) moldDataList.children[0].removeChild(moldDataList.children[0].children[1]);
 					break;
 				default:
 					break;
@@ -118,6 +122,7 @@ function modelFormClick(e) {
 			tmp3.textContent = "作成者";
 
 			// 型データ点数表示
+			ch0num.textContent = "型データ点数 " + commentList.length + " 点";
 			deviceNum.textContent = "一覧";
 			break;
 
@@ -203,6 +208,7 @@ function binaryLoad(e) {
 		case "FLD": // FLC点火率
 			upperHeaterRatio();
 			lowerHeaterRatio();
+			moldDataName(1164, 0); // 型データ名
 			break;
 		case "FLCD": // FLC点火率
 			upperHeaterRatio();
@@ -222,7 +228,10 @@ function binaryLoad(e) {
 			upperHeaterRatio();
 			lowerHeaterRatio();
 			break;
-		case "OTHERS":
+		case "OTHERS": // FLC点火率
+			upperHeaterRatio();
+			lowerHeaterRatio();
+			moldDataName(960, 1); // 型データ名
 			break;
 		default:
 			break;
@@ -230,11 +239,22 @@ function binaryLoad(e) {
 
 	// デバイス表切り出し
 	inputDispData();
+
+	// デバイス表データ挿入
+	j = moldDataList.children[0].children.length - 1;
+	for (i = 0; i < j; i++) {
+		k = i;
+		l = moldDataList.children[0].children[i + 1].children[3];
+		(dataList[k] !== undefined) ? l.textContent = dataList[k]: l.textContent = "-";
+		k = i + j;
+		l = moldDataList.children[0].children[i + 1].children[7];
+		(dataList[k] !== undefined) ? l.textContent = dataList[k]: l.textContent = "-";
+	}
 }
 
-/*
-// 型リスト
-*/
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ 型リスト
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function fileLoad(e) {
 	let i, j, k, l;
 	// 改行で分解
@@ -252,9 +272,9 @@ function fileLoad(e) {
 	}
 }
 
-/*
-// コメントリスト
-*/
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ コメントリスト
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function makech0List(e) {
 	let i, j, k, l, m, n, o, p;
 	let str = new Array();
@@ -295,7 +315,45 @@ function makech0List(e) {
 			}
 		}
 	}
+	// デバイス表
+	makeDeviceTable();
 	ch0num.textContent = "型データ点数 " + commentList.length + " 点";
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// デバイス表
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+let tentative = 2; // 2分割(仮)
+
+function makeDeviceTable() {
+	let i, j, k, l, m, n, o, p;
+	let rows, th, content;
+
+	// 表をクリア
+	while (moldDataList.children[0].children[1]) moldDataList.children[0].removeChild(moldDataList.children[0].children[1]);
+
+	// 表生成
+	j = Math.ceil(commentList.length / tentative);
+	for (i = 0; i < j; i++) {
+		// 行追加
+		rows = moldDataList.insertRow(-1);
+		for (k = 0; k < tentative; k++) {
+			l = i + k * j;
+			// No.セル追加
+			(commentList[l] !== undefined) ? content = commentList[l][0]: content = "";
+			rows.appendChild(document.createElement("th")).textContent = content;
+			(commentList[l] !== undefined) ? content = commentList[l][1]: content = "";
+			rows.appendChild(document.createElement("th")).textContent = content;
+
+			// コメント/値セル追加
+			th = rows.insertCell(-1);
+			th.setAttribute("class", "comment");
+			(commentList[l] !== undefined) ? th.textContent = commentList[l][2]: th.textContent = "";
+			th = rows.insertCell(-1);
+			th.setAttribute("class", "value");
+			th.textContent = "-";
+		}
+	}
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

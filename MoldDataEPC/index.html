@@ -8,8 +8,8 @@
 
 	<link rel="stylesheet" href="./css/reset.css" />
 	<link rel="stylesheet" href="./css/MoldDataEPC.css">
-	<!-- <link rel="stylesheet" href="./css/handsontable.full.min.css" /> -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.20.0/handsontable.full.min.css" />
+	<link rel="stylesheet" href="./css/handsontable.full.min.css" />
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.20.0/handsontable.full.min.css" /> -->
 
 	<script src="./js/txtDecode.js" charset="UTF-8" defer="defer"></script>
 	<script src="./js/MoldDataEPC.js" charset="UTF-8" defer="defer"></script>
@@ -26,14 +26,85 @@
 <body>
 	<div id="header"></div>
 
+	<p>言語切換機能は、<a href="https://www.plusdesign.co.jp/blog/?p=7268">こちら</a>を参考に設置しました。</p>
+
+	<div id="google_translate_element"></div>
+	<script type="text/javascript">
+		function googleTranslateElementInit() {
+			new google.translate.TranslateElement({
+				pageLanguage: 'ja',
+				includedLanguages: 'en,ko,th,zh-CN,zh-TW',
+				layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+			}, 'google_translate_element');
+		}
+	</script>
+	<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+	<hr />
+
 	<h1>型データ(For Aモーション)</h1>
 	<p>
-		EPCで保存した型データの読込。セキュリティの制限により型データリストから選ぶ方法は使えない。FLC点火率画面は標準(9x19列)のみ対応。勝手違いも未対応。
+		EPCで保存した型データの読込。型データリストから選ぶ方法は使えない(ブラウザの機能的な問題)。FLC点火率画面は標準(9x19列)のみ対応。
 	</p>
+
+	<ul>
+		<li>点火率画面は、流れ方向に関しては考慮していない。</li>
+		<li>客先専用にする事は考えていない。</li>
+		<li>多少使い勝手が悪くても、汎用性重視。</li>
+		<li>FLTPは客先仕様の要素が強いので、対応は考えていない。</li>
+	</ul>
+
+	<h4>型データ範囲情報(標準と思われるものを選定している。)</h4>
+	<table class="moldDataInfo">
+		<tbody>
+			<tr>
+				<th>FLC</th>
+				<td>CW0から1024点</td>
+				<td>CW1120から170点</td>
+				<td>合計：1194点</td>
+			</tr>
+			<tr>
+				<th>FLS</th>
+				<td>CW0から1024点</td>
+				<td>CW1120から170点</td>
+				<td>合計：1194点</td>
+			</tr>
+			<tr>
+				<th>FLD</th>
+				<td>CW0から944点</td>
+				<td>CW1030から260点</td>
+				<td>合計：1204点</td>
+			</tr>
+			<tr>
+				<th>FLCD</th>
+				<td>CW0から512点</td>
+				<td>CW512から236点</td>
+				<td>合計：748点</td>
+			</tr>
+			<tr>
+				<th>FKS</th>
+				<td>CW0から608点</td>
+				<td>CW1100から100点</td>
+				<td>合計：708点</td>
+			</tr>
+			<tr>
+				<th>CLS</th>
+				<td>CW0から350点</td>
+				<td></td>
+				<td>合計：350点</td>
+			</tr>
+			<tr>
+				<th>FLTP</th>
+				<td>CW0から800点</td>
+				<td>CW800から145点</td>
+				<td>合計：945点</td>
+			</tr>
+		</tbody>
+	</table>
 
 	<h2>機種選択</h2>
 	<p>
-		現状FLC、CLSのみ対応。他は気があれば。機種を選択してから型データを読み出す。
+		機種を選択してから型データを読み出す。予め用意された*.ch0からコメントリストを生成している。
 	</p>
 
 	<form name="modelForm">
@@ -44,7 +115,7 @@
 			<label><input type="radio" name="model" value="FLCD" />FLCD</label>
 			<label><input type="radio" name="model" value="FKS" />FKS</label>
 			<label><input type="radio" name="model" value="CLS" />CLS</label>
-			<label><input type="radio" name="model" value="FLTP" />FLTP</label>
+			<label><input type="radio" name="model" value="FLTP" />FLTP(M993206 #4034)</label>
 			<label><input type="radio" name="model" value="OTHERS" />その他</label>
 		</p>
 	</form>
@@ -63,7 +134,7 @@
 
 	<h4>型データ名</h4>
 	<p>
-		恐らく、型データを保存した時に読み込まれていた型データの名称。役に立つのかどうかは知らない。
+		機種によっては何か出て来る。恐らく、型データを保存した時に読み込まれていた型データの名称。
 	</p>
 	<p><span id="tmp1">ホルダ / 型</span> / <span id="tmp2">品名</span> / <span id="tmp3">作成者</span></p>
 
@@ -102,12 +173,25 @@
 	<h3>デバイス表</h3>
 
 	<h4 id="deviceNum">一覧</h4>
+	<table id="moldDataList">
+		<tr>
+			<th>Add.(EPC)</th>
+			<th>Add.(PLC)</th>
+			<th>コメント</th>
+			<th>値</th>
+			<th>Add.(EPC)</th>
+			<th>Add.(PLC)</th>
+			<th>コメント</th>
+			<th>値</th>
+		</tr>
+	</table>
+
 	<div id="deviceTable"></div>
 
 	<a href="#header" class="square_btn">Top</a>
 
-	<!-- <script src="./js/handsontable.full.min.js" charset="UTF-8"></script> -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.20.0/handsontable.full.min.js"></script>
+	<script src="./js/handsontable.full.min.js" charset="UTF-8"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.20.0/handsontable.full.min.js"></script> -->
 	<script src="./js/dispDevice.js" charset="UTF-8"></script>
 </body>
 
