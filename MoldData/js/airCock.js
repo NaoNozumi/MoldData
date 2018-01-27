@@ -90,11 +90,11 @@ function airCockDraw() {
 		cockCanvasCtx.fillText(i + 1, k + j * cockBtnLong + cockBtnLong / 2, i * holePitchPX + cockBtnShort / 2 + cockFontSize / 2);
 		// 反転
 		(dataList[holderNum * FILE_CNT + pageNum * (FILE_CNT / PAGE_CNT) + fileNum][COCK_D_S - i] == 1) ? cockCanvasCtx.fillStyle = "#ffbf00": cockCanvasCtx.fillStyle = "#bfbfbf"; // 色
-		cockCanvasCtx.fillRect(k + j * cockBtnLong, airCockHeight - (i + 1) * holePitchPX - cockBtnShort, cockBtnLong, cockBtnShort);
-		cockCanvasCtx.strokeRect(k + j * cockBtnLong, airCockHeight - (i + 1) * holePitchPX - cockBtnShort, cockBtnLong, cockBtnShort);
+		cockCanvasCtx.fillRect(k + j * cockBtnLong, airCockHeight - i * holePitchPX - cockBtnShort, cockBtnLong, cockBtnShort);
+		cockCanvasCtx.strokeRect(k + j * cockBtnLong, airCockHeight - i * holePitchPX - cockBtnShort, cockBtnLong, cockBtnShort);
 		// 文字
 		cockCanvasCtx.fillStyle = "#000000";
-		cockCanvasCtx.fillText(i + 1, k + j * cockBtnLong + cockBtnLong / 2, airCockHeight - (i + 1) * holePitchPX - cockBtnShort + cockBtnShort / 2 + cockFontSize / 2);
+		cockCanvasCtx.fillText(i + 1, k + j * cockBtnLong + cockBtnLong / 2, airCockHeight - i * holePitchPX - cockBtnShort + cockBtnShort / 2 + cockFontSize / 2);
 		(j < 3) ? j++ : j = 0;
 	}
 
@@ -123,11 +123,11 @@ function airCockDraw() {
 		cockCanvasCtx.fillText(COCK_ALPHA[i], i * holePitchPX + cockBtnShort / 2, k + j * cockBtnLong + cockBtnLong / 2 + cockFontSize / 2);
 		// 反転
 		(dataList[holderNum * FILE_CNT + pageNum * (FILE_CNT / PAGE_CNT) + fileNum][COCK_C_S - i] == 1) ? cockCanvasCtx.fillStyle = "#ffbf00": cockCanvasCtx.fillStyle = "#bfbfbf"; // 色
-		cockCanvasCtx.fillRect(airCockWidth - (i + 1) * holePitchPX - cockBtnShort, k + j * cockBtnLong, cockBtnShort, cockBtnLong);
-		cockCanvasCtx.strokeRect(airCockWidth - (i + 1) * holePitchPX - cockBtnShort, k + j * cockBtnLong, cockBtnShort, cockBtnLong);
+		cockCanvasCtx.fillRect(airCockWidth - i * holePitchPX - cockBtnShort, k + j * cockBtnLong, cockBtnShort, cockBtnLong);
+		cockCanvasCtx.strokeRect(airCockWidth - i * holePitchPX - cockBtnShort, k + j * cockBtnLong, cockBtnShort, cockBtnLong);
 		// 文字
 		cockCanvasCtx.fillStyle = "#000000";
-		cockCanvasCtx.fillText(COCK_ALPHA[i], airCockWidth - (i + 1) * holePitchPX - cockBtnShort + cockBtnShort / 2, k + j * cockBtnLong + cockBtnLong / 2 + cockFontSize / 2);
+		cockCanvasCtx.fillText(COCK_ALPHA[i], airCockWidth - i * holePitchPX - cockBtnShort + cockBtnShort / 2, k + j * cockBtnLong + cockBtnLong / 2 + cockFontSize / 2);
 		(j < 3) ? j++ : j = 0;
 	}
 }

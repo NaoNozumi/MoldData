@@ -53,6 +53,8 @@ modelForm.model[0].checked = true;
 / 機種選択
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function modelFormClick(e) {
+	let tmp, i, j;
+
 	switch (e.target.type) {
 		case "radio": // 機種
 			// 機種名取得
@@ -76,34 +78,64 @@ function modelFormClick(e) {
 			airCockDraw();
 
 			// 機種毎の処理
+			// http://39mamon.com/?p=156
+			// javascriptでは連想配列を別の要素に代入すると参照渡しになるらしい。
 			switch (model) {
 				case "FLC":
-					moldDataFlag = ["CW0@1024", "CW1120@170"];
-					loadCh0("Flc001o.ch0"); // *.ch0読込
+					tmp = ch0Info.FLC.moldDataRange;
+					j = tmp.length;
+					for (i = 0; i < j; i++) {
+						moldDataFlag[i] = tmp[i];
+					}
+					loadCh0(ch0Info.FLC.ch0); // *.ch0読込
 					break;
 				case "FLS":
-					moldDataFlag = ["CW0@1024", "CW1120@170"];
-					loadCh0("Flc001o.ch0"); // *.ch0読込
+					tmp = ch0Info.FLS.moldDataRange;
+					j = tmp.length;
+					for (i = 0; i < j; i++) {
+						moldDataFlag[i] = tmp[i];
+					}
+					loadCh0(ch0Info.FLS.ch0); // *.ch0読込
 					break;
 				case "FLD":
-					moldDataFlag = ["CW0@944", "CW1030@260"];
-					loadCh0("Fld010.ch0"); // *.ch0読込
+					tmp = ch0Info.FLD.moldDataRange;
+					j = tmp.length;
+					for (i = 0; i < j; i++) {
+						moldDataFlag[i] = tmp[i];
+					}
+					loadCh0(ch0Info.FLD.ch0); // *.ch0読込
 					break;
 				case "FLCD":
-					moldDataFlag = ["CW0@512", "CW512@236"];
-					loadCh0("Fcd010.ch0"); // *.ch0読込
+					tmp = ch0Info.FLCD.moldDataRange;
+					j = tmp.length;
+					for (i = 0; i < j; i++) {
+						moldDataFlag[i] = tmp[i];
+					}
+					loadCh0(ch0Info.FLCD.ch0); // *.ch0読込
 					break;
 				case "FKS":
-					moldDataFlag = ["CW0@608", "CW1100@100"];
-					loadCh0("Fks010.ch0"); // *.ch0読込
+					tmp = ch0Info.FKS.moldDataRange;
+					j = tmp.length;
+					for (i = 0; i < j; i++) {
+						moldDataFlag[i] = tmp[i];
+					}
+					loadCh0(ch0Info.FKS.ch0); // *.ch0読込
 					break;
 				case "CLS":
-					moldDataFlag = ["CW0@350"];
-					loadCh0("Cls001j.ch0"); // *.ch0読込
+					tmp = ch0Info.CLS.moldDataRange;
+					j = tmp.length;
+					for (i = 0; i < j; i++) {
+						moldDataFlag[i] = tmp[i];
+					}
+					loadCh0(ch0Info.CLS.ch0); // *.ch0読込
 					break;
 				case "FLTP":
-					moldDataFlag = ["CW0@800", "CW800@145"];
-					loadCh0("FLTP512.ch0")
+					tmp = ch0Info.FLTP.moldDataRange;
+					j = tmp.length;
+					for (i = 0; i < j; i++) {
+						moldDataFlag[i] = tmp[i];
+					}
+					loadCh0(ch0Info.FLTP.ch0)
 					break;
 				case "OTHERS":
 					// 表をクリア
