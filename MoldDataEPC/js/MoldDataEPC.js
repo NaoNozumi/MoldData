@@ -23,12 +23,16 @@ const HOLDER_CNT = 10;
 const FILE_CNT = 30;
 const FILE_NAME_ITEM_NUM = 3; // 3項目
 
+const CH0_ITEM_NUM = 4; // デバイス表に出す項目数 CW****/W****/コメント/値
+
 let holderList = new Array(); // ホルダ配列
 let fileList = new Array(); // ファイルリスト配列(30 or 300型)
 let dataList = new Array(); // 型データ配列
 
 let moldDataFlag = new Array(); // 型データ保存領域フラグ
 let commentList = new Array(); // デバイスコメント配列
+
+let csvTable = new Array(); // CSV出力用
 
 let dispChangeButtons = document.getElementsByName("dispayChange"); // 表示切替釦
 
@@ -47,6 +51,7 @@ for (i = 0; i < j; i++) {
 
 // 初期化
 let model = "FLC";
+let hoge = "";
 modelForm.model[0].checked = true;
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -59,6 +64,7 @@ function modelFormClick(e) {
 		case "radio": // 機種
 			// 機種名取得
 			model = e.target.value;
+			hoge = "";
 
 			// 初期化
 			holderList.length = 0;
@@ -67,6 +73,8 @@ function modelFormClick(e) {
 
 			moldDataFlag.length = 0;
 			commentList.length = 0;
+
+			csvTable.length = 0; // CSV出力用
 
 			// FLC点火率
 			upperHeaterRatio();
@@ -177,7 +185,12 @@ function fileRead(e) {
 	switch (true) {
 		case regex.test(fileName): //
 			result = fileName.match(/\d{1,2}/); // TYPE**.DATから数字部分を切出し
-			(1 <= result[0] && result[0] <= 30) ? fileProcess(moldFile, "bin"): alert("サポート外のファイル形式です。"); // 1~30までか
+			if (1 <= result[0] && result[0] <= 30) {
+				fileProcess(moldFile, "bin");
+				hoge = fileName;
+			} else {
+				alert("サポート外のファイル形式です。");
+			} // 1~30までか
 			break;
 
 		case fileName === "HNAME.DAT": //
@@ -211,7 +224,7 @@ function fileProcess(e, flag) {
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 // 型データ
 function binaryLoad(e) {
-	let i, j, k, l, m, n;
+	let i, j, k, l, m, n, o, p;
 	// 16ビット符号付き整数値
 	let I16A = new Int16Array(e.target.result);
 
@@ -273,14 +286,28 @@ function binaryLoad(e) {
 	inputDispData();
 
 	// デバイス表データ挿入
+	// CSV出力用
+	csvTable.length = 0;
+	// ヘッダ情報
+	csvTable[0] = new Array(CH0_ITEM_NUM);
+	for (i = 0; i < CH0_ITEM_NUM; i++) {
+		csvTable[0][i] = "\"" + moldDataList.children[0].children[0].children[i].textContent + "\"";
+	}
+	// デバイス表データ挿入
 	j = moldDataList.children[0].children.length - 1;
 	for (i = 0; i < j; i++) {
-		k = i;
-		l = moldDataList.children[0].children[i + 1].children[3];
-		(dataList[k] !== undefined) ? l.textContent = dataList[k]: l.textContent = "-";
-		k = i + j;
-		l = moldDataList.children[0].children[i + 1].children[7];
-		(dataList[k] !== undefined) ? l.textContent = dataList[k]: l.textContent = "-";
+		for (o = 0; o < tentative; o++) {
+			k = i + j * o;
+			l = moldDataList.children[0].children[i + 1];
+			(dataList[k] !== undefined) ? l.children[3 + CH0_ITEM_NUM * o].textContent = dataList[k]: l.children[3 + CH0_ITEM_NUM * o].textContent = "-";
+			// CSV出力用
+			csvTable[k + 1] = new Array(CH0_ITEM_NUM);
+			for (m = 0; m < CH0_ITEM_NUM; m++) {
+				n = l.children[m + CH0_ITEM_NUM * o].textContent;
+				n = n.replace(/\"/g, "\"\"");
+				csvTable[k + 1][m] = "\"" + n + "\"";
+			}
+		}
 	}
 }
 

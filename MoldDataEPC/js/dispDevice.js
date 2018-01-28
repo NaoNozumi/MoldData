@@ -70,3 +70,59 @@ function inputDispData() {
 			alert("読出し不可 データ点数：" + k + "点 / コメント点数：" + l + "点");
 		}*/
 }
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ デバイスデータ書出
+/ https://gist.github.com/mojagehub/75aa23f42a211a5d722ace35fda50a7c
+/ https://stackoverflow.com/questions/29677339/invalidstateerror-in-internet-explorer-11-during-blob-creation
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+function dataDownload() {
+	let i, j, k, l;
+	let bb, blob;
+	let strRow = new Array(); // 行
+	let strData;
+	let name = model + "_" + hoge.replace(".DAT","") + "_deviceList.csv";
+
+	// 入力内容取得
+	let content = csvTable;
+	// タブ区切り
+	k = content.length;
+	for (i = 0; i < k; i++) {
+		strRow[i] = content[i].join(",");
+	}
+	// 改行挿入
+	strData = strRow.join("\r\n");
+
+	// ダウンロード処理
+	try {
+		// Blob形式に変換
+		blob = new Blob([strData], {
+			"type": "text/plain"
+		});
+	} catch (e) {
+		// for MS IE
+		window.BlobBuilder = window.BlobBuilder ||
+			window.WebKitBlobBuilder ||
+			window.MozBlobBuilder ||
+			window.MSBlobBuilder;
+
+		if (window.BlobBuilder) {
+			bb = new BlobBuilder();
+			bb.append(content);
+			blob = bb.getBlob("text/plain");
+		}
+	} finally {
+		// for MS IE
+		if (window.navigator.msSaveBlob) {
+			window.navigator.msSaveBlob(blob, name);
+		} else {
+			let blobURL = window.URL.createObjectURL(blob); // URL発行
+			let a = document.createElement("a"); // URLをaタグに設定
+			a.href = blobURL;
+			a.download = name; // download属性でファイル名指定
+			document.body.appendChild(a); // DOMにaタグ追加
+			a.click(); // Clickしてダウンロード
+			a.parentNode.removeChild(a); // 終了したら片付け
+		}
+	}
+}
