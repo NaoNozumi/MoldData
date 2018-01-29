@@ -76,9 +76,16 @@ function modelFormClick(e) {
 
 			csvTable.length = 0; // CSV出力用
 
+			// 初期化
+			upperRowNum.value = 9;
+			upperColNum.value = 19;
+			lowerRowNum.value = 9;
+			lowerColNum.value = 19;
+
 			// FLC点火率
-			upperHeaterRatio();
-			lowerHeaterRatio();
+			(model === "FLCD") ? RAITO_DOWN_S = 256: RAITO_DOWN_S = 512;
+			upperChange();
+			lowerChange();
 
 			// CLS点火率
 			clsHeaterRatio();
@@ -96,6 +103,22 @@ function modelFormClick(e) {
 						moldDataFlag[i] = tmp[i];
 					}
 					loadCh0(ch0Info.FLC.ch0); // *.ch0読込
+					break;
+				case "FI":
+					tmp = ch0Info.FI.moldDataRange;
+					j = tmp.length;
+					for (i = 0; i < j; i++) {
+						moldDataFlag[i] = tmp[i];
+					}
+					loadCh0(ch0Info.FI.ch0); // *.ch0読込
+					break;
+				case "FLB":
+					tmp = ch0Info.FLB.moldDataRange;
+					j = tmp.length;
+					for (i = 0; i < j; i++) {
+						moldDataFlag[i] = tmp[i];
+					}
+					loadCh0(ch0Info.FLB.ch0); // *.ch0読込
 					break;
 				case "FLS":
 					tmp = ch0Info.FLS.moldDataRange;
@@ -244,6 +267,14 @@ function binaryLoad(e) {
 			upperHeaterRatio();
 			lowerHeaterRatio();
 			moldDataName(1154, 0); // 型データ名
+			break;
+		case "FI": // FLC点火率
+			upperHeaterRatio();
+			lowerHeaterRatio();
+			break;
+		case "FLB": // FLC点火率
+			upperHeaterRatio();
+			lowerHeaterRatio();
 			break;
 		case "FLS": // FLC点火率
 			upperHeaterRatio();

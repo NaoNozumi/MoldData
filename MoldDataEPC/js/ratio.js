@@ -12,17 +12,31 @@ let ratioCorner = document.getElementById("ratioCorner");
 let ratioDown = document.getElementById("ratioDown");
 let clsRatio = document.getElementById("clsRatio");
 
+// 上下ヒータ行列数
+let upperRowNum = document.upperHeaterNum.upperRowNum;
+let upperColNum = document.upperHeaterNum.upperColNum;
+let lowerRowNum = document.lowerHeaterNum.lowerRowNum;
+let lowerColNum = document.lowerHeaterNum.lowerColNum;
+
 // 点火率画面情報
 let RATIO_UP_ROW = 9; // 上ヒータ行数(標準:9)
 let RATIO_UP_COL = 19; // 上ヒータ列数(標準:19)
 let RATIO_CORNER = 2; // U字ヒータ数(標準:2)
 let RATIO_DOWN_ROW = 9; // 下ヒータ行数(標準:9)
 let RATIO_DOWN_COL = 19; // 下ヒータ列数(標準:19)
+//
+const inputMax = 32;
 
-let RATIO_UP_ROW_HEADER = new Array(" ", 9, 8, 7, 6, 5, 4, 3, 2, 1); // 上の行
-let RATIO_UP_COL_HEADER = new Array(19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1); // 上の列
-let RATIO_DOWN_ROW_HEADER = new Array(" ", 9, 8, 7, 6, 5, 4, 3, 2, 1); // 下の行
-let RATIO_DOWN_COL_HEADER = new Array(19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1); // 下の列
+//
+upperRowNum.value = RATIO_UP_ROW;
+upperColNum.value = RATIO_UP_COL;
+lowerRowNum.value = RATIO_DOWN_ROW;
+lowerColNum.value = RATIO_DOWN_COL;
+
+let RATIO_UP_ROW_HEADER = new Array(); // 上の行
+let RATIO_UP_COL_HEADER = new Array(); // 上の列
+let RATIO_DOWN_ROW_HEADER = new Array(); // 下の行
+let RATIO_DOWN_COL_HEADER = new Array(); // 下の列
 
 // ヒータ画面情報
 const CLS_PEHEATING_NUM = 30; // CLSヒータ予熱温度点数
@@ -44,13 +58,102 @@ let ratio_color = new Array(10);
 ratio_color = ["#00FFFF", "#5FFFBF", "#7FFF7F", "#BFFF7F", " #FFFF7F", "#FFFF00", "#FFBF00", "#FF7F00", "#FF3F00", "#FF0000"];
 
 // 初期化
-makeRatioTable();
-makeCLSRatioTable();
+makeUpperHeaterHeader(); // 上
+makeUpperRatioTable();
+makeLowerHeaterHeader(); // 下
+makeLowerRatioTable();
+makeCLSRatioTable(); // CLS
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ ヒータ数変更処理
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+function upperChange() {
+	let i, j, k, l, m, n;
+
+	// 値取得
+	i = upperRowNum.value;
+	j = upperColNum.value;
+
+	if (heaterNumValidater(i) && heaterNumValidater(j)) {
+		// 上ヒータ行列数取得
+		RATIO_UP_ROW = i;
+		RATIO_UP_COL = j;
+		RATIO_U_S = RATIO_UP_ROW * RATIO_UP_COL;
+
+		// 表をクリア
+		while (ratioUp.children[0].children[0]) ratioUp.children[0].removeChild(ratioUp.children[0].children[0]);
+		while (ratioCorner.children[0].children[0]) ratioCorner.children[0].removeChild(ratioCorner.children[0].children[0]);
+
+		// 点火率画面生成
+		makeUpperHeaterHeader();
+		makeUpperRatioTable();
+
+		// FLC点火率
+		if (model !== "CLS") upperHeaterRatio();
+	} else {
+		alert("0〜" + inputMax + "まで入力可能");
+	}
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+function lowerChange() {
+	let i, j, k, l, m, n;
+
+	// 値取得
+	i = lowerRowNum.value;
+	j = lowerColNum.value;
+
+	if (heaterNumValidater(i) && heaterNumValidater(j)) {
+		// 下ヒータ行列数取得
+		RATIO_DOWN_ROW = i;
+		RATIO_DOWN_COL = j;
+
+		// 表をクリア
+		while (ratioDown.children[0].children[0]) ratioDown.children[0].removeChild(ratioDown.children[0].children[0]);
+
+		// 点火率画面生成
+		makeLowerHeaterHeader();
+		makeLowerRatioTable();
+
+		// FLC点火率
+		if (model !== "CLS") lowerHeaterRatio();
+	} else {
+		alert("0〜" + inputMax + "まで入力可能");
+	}
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ ヒータ番号配列生成
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+// 上
+function makeUpperHeaterHeader() {
+	RATIO_UP_ROW_HEADER[0] = " ";
+	for (i = 1; i <= RATIO_UP_ROW; i++) {
+		RATIO_UP_ROW_HEADER[i] = RATIO_UP_ROW - i + 1;
+	}
+	for (i = 0; i < RATIO_UP_COL; i++) {
+		RATIO_UP_COL_HEADER[i] = RATIO_UP_COL - i;
+	}
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+// 下
+function makeLowerHeaterHeader() {
+	RATIO_DOWN_ROW_HEADER[0] = " ";
+	for (i = 1; i <= RATIO_DOWN_ROW; i++) {
+		RATIO_DOWN_ROW_HEADER[i] = RATIO_DOWN_ROW - i + 1;
+	}
+	for (i = 0; i < RATIO_DOWN_COL; i++) {
+		RATIO_DOWN_COL_HEADER[i] = RATIO_DOWN_COL - i;
+	}
+}
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / 点火率画面生成
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
-function makeRatioTable() {
+function makeUpperRatioTable() {
 	let i, j;
 	let rows;
 
@@ -79,7 +182,11 @@ function makeRatioTable() {
 	for (i = 0; i < RATIO_CORNER; i++) {
 		rows.insertCell(-1).textContent = 0;
 	}
+}
 
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+function makeLowerRatioTable() {
 	// 下ヒータ
 	for (i = 0; i <= RATIO_DOWN_ROW; i++) {
 		// 行追加
@@ -204,4 +311,21 @@ function ratioColor(e) {
 	}
 
 	return i;
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ 入力値チェック
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+function heaterNumValidater(e) {
+	let regex = /^[0-9]{1,2}$/;
+
+	if (regex.test(e)) { // 2桁の数字であった場合
+		if (0 <= e && e <= inputMax) { // 0〜inputMaxまで入力可能
+			return true;
+		} else {
+			return false;
+		}
+	} else { // それ以外はfalse
+		return false;
+	}
 }

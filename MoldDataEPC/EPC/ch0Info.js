@@ -10,6 +10,14 @@ const ch0Info = {
 		moldDataRange: ["CW0@1024", "CW1120@170"],
 		ch0: "Flc001o.ch0"
 	},
+	FI: {
+		moldDataRange: ["CW0@768", "CW1100@146"],
+		ch0: "Fi010.ch0"
+	},
+	FLB: {
+		moldDataRange: ["CW0@1024", "CW1120@150"],
+		ch0: "Flb014.ch0"
+	},
 	FLS: {
 		moldDataRange: ["CW0@1024", "CW1120@170"],
 		ch0: "Flc001o.ch0"

@@ -97,7 +97,7 @@ function dataDownload() {
 	try {
 		// Blob形式に変換
 		blob = new Blob([strData], {
-			"type": "text/plain"
+			"type": "text/csv"
 		});
 	} catch (e) {
 		// for MS IE
@@ -109,7 +109,7 @@ function dataDownload() {
 		if (window.BlobBuilder) {
 			bb = new BlobBuilder();
 			bb.append(content);
-			blob = bb.getBlob("text/plain");
+			blob = bb.getBlob("text/csv");
 		}
 	} finally {
 		// for MS IE

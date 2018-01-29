@@ -49,9 +49,11 @@
 	</p>
 
 	<ul>
+		<li>バイナリデータを「16ビット符号付き整数」だろうと予想して人が読めるような形で表示しているだけ。</li>
+		<li>2ワードのデータには対応していない。</li>
+		<li>Webサーバに置かないと動作しない。</li>
 		<li>点火率画面は、流れ方向に関しては考慮していない。</li>
-		<li>客先専用にする事は考えていない。</li>
-		<li>多少使い勝手が悪くても、汎用性重視。</li>
+		<li>客先専用にする事は考えていない。汎用性重視。</li>
 		<li>FLTPは客先仕様の要素が強いので、対応は考えていない。</li>
 	</ul>
 
@@ -63,6 +65,18 @@
 				<td>CW0から1024点</td>
 				<td>CW1120から170点</td>
 				<td>合計：1194点</td>
+			</tr>
+			<tr>
+				<th>FI</th>
+				<td>CW0から768点</td>
+				<td>CW1100から146点</td>
+				<td>合計：914点</td>
+			</tr>
+			<tr>
+				<th>FLB</th>
+				<td>CW0から1024点</td>
+				<td>CW1120から150点</td>
+				<td>合計：1174点</td>
 			</tr>
 			<tr>
 				<th>FLS</th>
@@ -111,6 +125,8 @@
 	<form name="modelForm">
 		<p>
 			<label><input type="radio" name="model" value="FLC" checked />FLC</label>
+			<label><input type="radio" name="model" value="FI" />FI</label>
+			<label><input type="radio" name="model" value="FLB" />FLB</label>
 			<label><input type="radio" name="model" value="FLS" />FLS</label>
 			<label><input type="radio" name="model" value="FLD" />FLD</label>
 			<label><input type="radio" name="model" value="FLCD" />FLCD</label>
@@ -149,12 +165,26 @@
 	<button type="button" name="dispayChange" id="ratioDownChange">表示切替3</button>
 
 	<h4>上ヒータ</h4>
+	<p>&#9832; ヒータ行/列は0〜32まで入力可能</p>
+	<!-- <form name="upperHeaterNum" onsubmit="upperChange();return false;"> -->
+	<form name="upperHeaterNum" onsubmit="return false;">
+		<input name="upperRowNum" type="text" size="4" /> 行　<input name="upperColNum" type="text" size="4" /> 列
+		<!-- <input type="submit" value="決定" /> -->
+		<button type="button" onclick="upperChange();return false;">決定</button>
+	</form>
 	<table class="ratio" id="ratioUp"></table>
 
 	<h4>U字ヒータ</h4>
 	<table class="ratio" id="ratioCorner"></table>
 
 	<h4>下ヒータ</h4>
+	<p>&#9832; ヒータ行/列は0〜32まで入力可能</p>
+	<!-- <form name="lowerHeaterNum" onsubmit="lowerChange();return false;"> -->
+	<form name="lowerHeaterNum" onsubmit="return false;">
+		<input name="lowerRowNum" type="text" size="4" /> 行　<input name="lowerColNum" type="text" size="4" /> 列
+		<!-- <input type="submit" value="決定" /> -->
+		<button type="button" onclick="lowerChange();return false;">決定</button>
+	</form>
 	<table class="ratio" id="ratioDown"></table>
 
 	<hr />
