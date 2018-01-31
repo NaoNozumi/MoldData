@@ -24,7 +24,7 @@ let RATIO_UP_COL = 19; // 上ヒータ列数(標準:19)
 let RATIO_CORNER = 2; // U字ヒータ数(標準:2)
 let RATIO_DOWN_ROW = 9; // 下ヒータ行数(標準:9)
 let RATIO_DOWN_COL = 19; // 下ヒータ列数(標準:19)
-//
+// ヒータ行/列数最大値
 const inputMax = 32;
 
 //
@@ -50,6 +50,7 @@ const CLS_CORNER = 1; // CLSコーナヒータ数
 let RATIO_UP_S = 0; // 上ヒータ点火率開始アドレス
 let RATIO_U_S = 171; // U字ヒータ開始アドレス(標準:171)
 let RAITO_DOWN_S = 512; // 下ヒータ点火率開始アドレス
+let FLOW_DIRECTION = true; // 流れ方向(true:正規勝手/false:反対勝手)
 
 const CLS_RATIO_S = 0; // CLSヒータ点火率開始アドレス
 
@@ -128,12 +129,15 @@ function lowerChange() {
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 // 上
 function makeUpperHeaterHeader() {
+	RATIO_UP_ROW_HEADER.length = 0;
+	RATIO_UP_COL_HEADER.length = 0;
+
 	RATIO_UP_ROW_HEADER[0] = " ";
 	for (i = 1; i <= RATIO_UP_ROW; i++) {
 		RATIO_UP_ROW_HEADER[i] = RATIO_UP_ROW - i + 1;
 	}
 	for (i = 0; i < RATIO_UP_COL; i++) {
-		RATIO_UP_COL_HEADER[i] = RATIO_UP_COL - i;
+		(FLOW_DIRECTION) ? RATIO_UP_COL_HEADER[i] = RATIO_UP_COL - i: RATIO_UP_COL_HEADER[i] = i + 1;
 	}
 }
 
@@ -141,12 +145,15 @@ function makeUpperHeaterHeader() {
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 // 下
 function makeLowerHeaterHeader() {
+	RATIO_DOWN_ROW_HEADER.length = 0;
+	RATIO_DOWN_COL_HEADER.length = 0;
+
 	RATIO_DOWN_ROW_HEADER[0] = " ";
 	for (i = 1; i <= RATIO_DOWN_ROW; i++) {
 		RATIO_DOWN_ROW_HEADER[i] = RATIO_DOWN_ROW - i + 1;
 	}
 	for (i = 0; i < RATIO_DOWN_COL; i++) {
-		RATIO_DOWN_COL_HEADER[i] = RATIO_DOWN_COL - i;
+		(FLOW_DIRECTION) ? RATIO_DOWN_COL_HEADER[i] = RATIO_DOWN_COL - i: RATIO_DOWN_COL_HEADER[i] = i + 1;
 	}
 }
 
@@ -235,7 +242,7 @@ function upperHeaterRatio() {
 
 	for (i = 0; i < RATIO_UP_ROW; i++) { // 各行
 		for (j = 0; j < RATIO_UP_COL; j++) { // 各列
-			l = dataList[RATIO_UP_S + RATIO_UP_COL * (RATIO_UP_ROW - i) - j - 1];
+			(FLOW_DIRECTION) ? l = dataList[RATIO_UP_S + RATIO_UP_COL * (RATIO_UP_ROW - i) - j - 1]: l = dataList[RATIO_UP_S + RATIO_UP_COL * (RATIO_UP_ROW - (i + 1)) + j];
 			if (isNaN(l)) l = 0; // 数値でない場合は0
 			ratioUp.rows[i + 1].cells[j + 1].textContent = l;
 
@@ -265,7 +272,7 @@ function lowerHeaterRatio() {
 
 	for (i = 0; i < RATIO_DOWN_ROW; i++) { // 各行
 		for (j = 0; j < RATIO_DOWN_COL; j++) { // 各列
-			l = dataList[RAITO_DOWN_S + RATIO_DOWN_COL * (RATIO_DOWN_ROW - i) - j - 1];
+			(FLOW_DIRECTION) ? l = dataList[RAITO_DOWN_S + RATIO_DOWN_COL * (RATIO_DOWN_ROW - i) - j - 1]: l = dataList[RAITO_DOWN_S + RATIO_DOWN_COL * (RATIO_DOWN_ROW - (i + 1)) + j];
 			if (isNaN(l)) l = 0; // 数値でない場合は0
 			ratioDown.rows[i + 1].cells[j + 1].textContent = l;
 

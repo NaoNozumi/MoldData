@@ -45,7 +45,7 @@
 
 	<h1>型データ(For Aモーション)</h1>
 	<p>
-		EPCで保存した型データの読込。型データリストから選ぶ方法は使えない(ブラウザの機能的な問題)。FLC点火率画面は標準(9x19列)のみ対応。
+		EPCで保存した型データの読込。型データリストから選ぶ方法は使えない(ブラウザの機能的な問題)。
 	</p>
 
 	<ul>
@@ -53,8 +53,8 @@
 		<li>2ワードのデータには対応していない。</li>
 		<li>Webサーバに置かないと動作しない。</li>
 		<li>点火率画面は、流れ方向に関しては考慮していない。</li>
-		<li>客先専用にする事は考えていない。汎用性重視。</li>
-		<li>FLTPは客先仕様の要素が強いので、対応は考えていない。</li>
+		<li>汎用性重視。</li>
+		<li>FLTPは#4034限定のお試し。</li>
 	</ul>
 
 	<h4>型データ範囲情報(標準と思われるものを選定している。)</h4>
@@ -132,7 +132,7 @@
 			<label><input type="radio" name="model" value="FLCD" />FLCD</label>
 			<label><input type="radio" name="model" value="FKS" />FKS</label>
 			<label><input type="radio" name="model" value="CLS" />CLS</label>
-			<label><input type="radio" name="model" value="FLTP" />FLTP(M993206 #4034)</label>
+			<label><input type="radio" name="model" value="FLTP" />FLTP(#4034)</label>
 			<label><input type="radio" name="model" value="OTHERS" />その他</label>
 		</p>
 	</form>
@@ -187,6 +187,8 @@
 	</form>
 	<table class="ratio" id="ratioDown"></table>
 
+	<button type="button" name="flowDirectionChange">ヒータ流れ方向変更</button>
+
 	<hr />
 
 	<h3>CLS</h3>
@@ -205,6 +207,7 @@
 
 	<h4 id="deviceNum">一覧</h4>
 	<button type="button" onclick="dataDownload();return false;">device.csv出力</button>
+	<p>&#9832; UTF-8で出力されるので、エクセルで開くと文字化けします。他のテキストエディタでShift_JISに変換して下さい。</p>
 	<table id="moldDataList">
 		<tr>
 			<th>Add.(EPC)</th>

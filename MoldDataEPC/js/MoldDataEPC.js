@@ -28,6 +28,7 @@ const CH0_ITEM_NUM = 4; // デバイス表に出す項目数 CW****/W****/コメ
 let holderList = new Array(); // ホルダ配列
 let fileList = new Array(); // ファイルリスト配列(30 or 300型)
 let dataList = new Array(); // 型データ配列
+let data2List = new Array(); // 2ワード型データ配列
 
 let moldDataFlag = new Array(); // 型データ保存領域フラグ
 let commentList = new Array(); // デバイスコメント配列
@@ -35,6 +36,7 @@ let commentList = new Array(); // デバイスコメント配列
 let csvTable = new Array(); // CSV出力用
 
 let dispChangeButtons = document.getElementsByName("dispayChange"); // 表示切替釦
+let flowDirectionChange = document.getElementsByName("flowDirectionChange"); // 流れ方向切替釦
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 / http://www.sejuku.net/blog/32532
@@ -48,6 +50,7 @@ j = dispChangeButtons.length;
 for (i = 0; i < j; i++) {
 	dispChangeButtons[i].addEventListener('click', showBlock, false); // 表示切替釦
 }
+flowDirectionChange[0].addEventListener('click', directChange, false); // 流れ方向切替
 
 // 初期化
 let model = "FLC";
@@ -70,6 +73,7 @@ function modelFormClick(e) {
 			holderList.length = 0;
 			fileList.length = 0;
 			dataList.length = 0;
+			data2List.length = 0;
 
 			moldDataFlag.length = 0;
 			commentList.length = 0;
@@ -81,9 +85,16 @@ function modelFormClick(e) {
 			upperColNum.value = 19;
 			lowerRowNum.value = 9;
 			lowerColNum.value = 19;
+			FLOW_DIRECTION = true;
 
 			// FLC点火率
-			(model === "FLCD") ? RAITO_DOWN_S = 256: RAITO_DOWN_S = 512;
+			if (model === "FLCD") {
+				RAITO_DOWN_S = 256;
+			} else if (model === "FLTP") {
+				RAITO_DOWN_S = 400;
+			} else {
+				RAITO_DOWN_S = 512;
+			}
 			upperChange();
 			lowerChange();
 
@@ -248,15 +259,34 @@ function fileProcess(e, flag) {
 // 型データ
 function binaryLoad(e) {
 	let i, j, k, l, m, n, o, p;
+
+	// ArrayBuffer取得
+	i = e.target.result;
 	// 16ビット符号付き整数値
-	let I16A = new Int16Array(e.target.result);
+	let I16A = new Int16Array(i);
+	// 32ビット符号付き整数値
+	/*j = i.byteLength;
+	if (j % 4 === 0) {
+		I32A = new Int32Array(i);
+	} else {
+		k = j / 4 | 0;
+		I32A = new Int32Array(i, 0, k);
+	}*/
 
 	// 型データ
+	// 1Word
 	j = I16A.length;
 	dataList.length = 0;
 	for (let i = 0; i < j; i++) {
 		dataList[i] = I16A[i];
 	}
+	// 2Word
+	/*j = I32A.length;
+	data2List.length = 0;
+	for (let i = 0; i < j; i++) {
+		data2List[i] = I32A[i];
+	}*/
+
 
 	// 型データ点数表示
 	deviceNum.textContent = "一覧 [型データ点数 " + dataList.length + "点]";
@@ -517,6 +547,31 @@ function showBlock(e) {
 	let j = document.getElementById(i).style.display;
 
 	(j == "" || j == "block") ? document.getElementById(i).style.display = "none": document.getElementById(i).style.display = "block";
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ 流れ方向切替
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+function directChange(e) {
+	// 設定反転
+	FLOW_DIRECTION = !FLOW_DIRECTION;
+
+	// 表をクリア
+	while (ratioUp.children[0].children[0]) ratioUp.children[0].removeChild(ratioUp.children[0].children[0]);
+	while (ratioCorner.children[0].children[0]) ratioCorner.children[0].removeChild(ratioCorner.children[0].children[0]);
+	while (ratioDown.children[0].children[0]) ratioDown.children[0].removeChild(ratioDown.children[0].children[0]);
+
+	// 点火率画面生成
+	makeUpperHeaterHeader();
+	makeUpperRatioTable();
+	makeLowerHeaterHeader();
+	makeLowerRatioTable();
+
+	// FLC点火率
+	if (model !== "CLS") {
+		upperHeaterRatio();
+		lowerHeaterRatio();
+	}
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

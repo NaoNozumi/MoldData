@@ -81,7 +81,7 @@ function dataDownload() {
 	let bb, blob;
 	let strRow = new Array(); // 行
 	let strData;
-	let name = model + "_" + hoge.replace(".DAT","") + "_deviceList.csv";
+	let name = model + "_" + hoge.replace(".DAT", "") + "_deviceList.csv";
 
 	// 入力内容取得
 	let content = csvTable;
