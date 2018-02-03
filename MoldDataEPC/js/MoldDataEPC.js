@@ -68,6 +68,9 @@ function modelFormClick(e) {
 			// 機種名取得
 			model = e.target.value;
 			hoge = "";
+			// JavaScriptで同じローカルファイルをもう一度読み込む
+			// https://qiita.com/te20/items/00a72535163c6d632408
+			document.forms.gotForm.gotFile.value = null;
 
 			// 初期化
 			holderList.length = 0;
@@ -286,7 +289,6 @@ function binaryLoad(e) {
 	for (let i = 0; i < j; i++) {
 		data2List[i] = I32A[i];
 	}*/
-
 
 	// 型データ点数表示
 	deviceNum.textContent = "一覧 [型データ点数 " + dataList.length + "点]";
