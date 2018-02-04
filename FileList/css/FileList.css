@@ -145,3 +145,10 @@ img#dropBox {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+img#dropBox.dropover {
+	/* 下に動く */
+	-ms-transform: translateY(4px);
+	-webkit-transform: translateY(4px);
+	transform: translateY(4px);
+}
