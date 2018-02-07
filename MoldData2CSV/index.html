@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>型データ2CSV(For Aモーション)</title>
+	<link rel="shortcut icon" type="image/png" href="calculator69.png" />
+
+	<link rel="stylesheet" href="./css/reset.css" />
+	<link rel="stylesheet" href="./css/MoldData2CSV.css">
+	<link rel="stylesheet" href="./css/handsontable.full.min.css" />
+
+	<script src="./js/MoldData2CSV.js" charset="UTF-8" defer="defer"></script>
+
+
+	<noscript>
+			<p>このページではJavaScriptを使用しています。</p>
+		</noscript>
+</head>
+
+<body>
+	<h1>型データ to CSV(For Aモーション)</h1>
+	<p>
+		EPCで保存した型データをCSVファイルにまとめます。複数ファイルの読込テスト。
+	</p>
+
+	<hr />
+
+	<h2>ファイルを選択</h2>
+	<p>
+		型データは「TYPE**.DAT」。型データリストは「HNAME.DAT」。読み込ませても構わないが、処理は未実装。
+	</p>
+
+	<form name="gotForm">
+		<input name="gotFile" class="fileInput" type="file" accept=".dat" multiple />
+	</form>
+
+	<script src="./js/handsontable.full.min.js" charset="UTF-8"></script>
+</body>
+
+</html>
