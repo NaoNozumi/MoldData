@@ -119,13 +119,21 @@ function modelFormClick(e) {
 / ファイルが読み込まれた時の処理
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 function fileRead(e) {
-	// 配列初期化
-	//dataList.length = 0;
-
 	// 読み込んだファイル情報を取得
 	let moldFile = e.target.files;
 	let regex = /^TYPE\d{1,2}.DAT$/; // TYPE**.DAT
 	let fileName, result, i, j;
+
+	// 配列初期化
+	//dataList.length = 0;
+	// 初期化
+	j = dataList.length;
+	for (i = 0; i < j; i++) {
+		l = dataList[i].length - TITLE_CNT;
+		for (k = 0; k < l; k++) {
+			dataList[i][k + TITLE_CNT] = 0;
+		}
+	}
 
 	// 各ファイルに付いて処理
 	j = moldFile.length;
@@ -183,7 +191,8 @@ function binaryLoad(num) {
 
 		// 型データ
 		// 1Word
-		j = I16A.length;
+		//j = I16A.length;
+		j = dataList.length;
 		for (i = 0; i < j; i++) {
 			dataList[i][num - 1 + TITLE_CNT] = I16A[i]; // デバイスCW/W/コメントで+3
 		}
