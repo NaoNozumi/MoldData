@@ -57,7 +57,7 @@ p {
 /* フォーム部品 */
 
 button {
-	margin: 4px 4px;
+	margin: 12px 4px;
 	padding: 4px 24px;
 	border-radius: 4px;
 	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);

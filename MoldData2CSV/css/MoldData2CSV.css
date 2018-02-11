@@ -59,7 +59,7 @@ p {
 /* フォーム部品 */
 
 button {
-	margin: 4px 4px;
+	margin: 12px 4px;
 	padding: 4px 24px;
 	border-radius: 4px;
 	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
@@ -128,6 +128,50 @@ ul li::before {
 	background-image: linear-gradient(180deg, #efefef, #fefefe);
 	border: 1px dashed #333333;
 	border-radius: 0.4em;
+}
+
+/* https://saruwakakun.com/html-css/reference/h-design
+ホルダ・型名 */
+
+#ch0num {
+	font-weight: bold;
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
+	color: #000080;
+}
+
+/* デバイスリスト */
+
+table.moldDataInfo {
+	border-collapse: separate;
+	border-spacing: 0;
+	line-height: 1.2;
+	border-top: 1px solid #cccccc;
+	border-left: 1px solid #cccccc;
+}
+
+table.moldDataInfo th {
+	text-align: center;
+	width: 80px;
+	padding: 2px 4px;
+	font-weight: bold;
+	vertical-align: middle;
+	border-right: 2px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
+	border-top: 1px solid #ffffff;
+	border-left: 2px solid #ffffff;
+	background: #eeeeee;
+}
+
+table.moldDataInfo td {
+	text-align: left;
+	padding: 2px 4px;
+	vertical-align: middle;
+	border-right: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
+}
+
+table.moldDataInfo tr:nth-child(even) {
+	background: #ebeeff;
 }
 
 /* canvas */

@@ -12,6 +12,8 @@
 
 	<script src="./js/MoldData2CSV.js" charset="UTF-8" defer="defer"></script>
 
+	<script src="./EPC/ch0.js" charset="UTF-8" defer="defer"></script>
+	<script src="./EPC/ch0Info.js" charset="UTF-8" defer="defer"></script>
 
 	<noscript>
 			<p>このページではJavaScriptを使用しています。</p>
@@ -24,6 +26,72 @@
 		EPCで保存した型データをCSVファイルにまとめます。複数ファイルの読込テスト。
 	</p>
 
+	<h4>型データ範囲情報</h4>
+	<table class="moldDataInfo">
+		<tbody>
+			<tr>
+				<th>FLC</th>
+				<td>CW0から1024点</td>
+				<td>CW1120から170点</td>
+				<td>合計：1194点</td>
+			</tr>
+			<tr>
+				<th>FLB</th>
+				<td>CW0から1024点</td>
+				<td>CW1120から150点</td>
+				<td>合計：1174点</td>
+			</tr>
+			<tr>
+				<th>FLS</th>
+				<td>CW0から1024点</td>
+				<td>CW1120から170点</td>
+				<td>合計：1194点</td>
+			</tr>
+			<tr>
+				<th>FLD</th>
+				<td>CW0から944点</td>
+				<td>CW1030から260点</td>
+				<td>合計：1204点</td>
+			</tr>
+			<tr>
+				<th>FLCD</th>
+				<td>CW0から512点</td>
+				<td>CW512から236点</td>
+				<td>合計：748点</td>
+			</tr>
+			<tr>
+				<th>FKS</th>
+				<td>CW0から608点</td>
+				<td>CW1100から100点</td>
+				<td>合計：708点</td>
+			</tr>
+			<tr>
+				<th>CLS</th>
+				<td>CW0から350点</td>
+				<td></td>
+				<td>合計：350点</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h2>機種選択</h2>
+	<p>
+		機種を選択してから型データを読み出す。予め用意された*.ch0からコメントリストを生成している。
+	</p>
+
+	<form name="modelForm">
+		<p>
+			<label><input type="radio" name="model" value="FLC" checked />FLC</label>
+			<label><input type="radio" name="model" value="FLB" />FLB</label>
+			<label><input type="radio" name="model" value="FLS" />FLS</label>
+			<label><input type="radio" name="model" value="FLD" />FLD</label>
+			<label><input type="radio" name="model" value="FLCD" />FLCD</label>
+			<label><input type="radio" name="model" value="FKS" />FKS</label>
+			<label><input type="radio" name="model" value="CLS" />CLS</label>
+		</p>
+	</form>
+	<p id="ch0num"></p>
+
 	<hr />
 
 	<h2>ファイルを選択</h2>
@@ -34,6 +102,9 @@
 	<form name="gotForm">
 		<input name="gotFile" class="fileInput" type="file" accept=".dat" multiple />
 	</form>
+
+	<button type="button" onclick="dataDownload();return false;">device.csv出力</button>
+	<p>&#9832; UTF-8で出力されるので、エクセルで開くと文字化けします。他のテキストエディタでShift_JISに変換して下さい。</p>
 
 	<script src="./js/handsontable.full.min.js" charset="UTF-8"></script>
 </body>
