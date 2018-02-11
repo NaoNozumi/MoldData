@@ -211,7 +211,11 @@ function makech0List(e) {
 			dataList[o] = Array(FILE_CNT + TITLE_CNT);
 			// 配列初期化
 			for (let q = 0, r = FILE_CNT + TITLE_CNT; q < r; q++) {
-				dataList[o][q] = 0;
+				if (0 <= q && q < TITLE_CNT) {
+					dataList[o][q] = ""
+				} else if (TITLE_CNT <= q) {
+					dataList[o][q] = 0;
+				}
 			}
 			dataList[o][0] = "CW" + ("0000" + (m + n)).slice(-4); // ゼロパディング(4桁)
 			o++;
