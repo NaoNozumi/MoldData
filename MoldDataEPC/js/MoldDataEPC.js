@@ -389,7 +389,7 @@ function fileLoad(e) {
 		fileList[i] = rows[i].split(",");
 		l = fileList[i].length;
 		for (k = 0; k < l; k++) {
-			console.log(fileList[i][k]);
+			console.log(fileList[i][k] + "/" + strLength(fileList[i][k], "Shift_JIS") + "/" + fileList[i][k].length);
 		}
 	}
 }
@@ -658,4 +658,45 @@ function complement(e) {
 	i = tmp.toString(2);
 
 	return i;
+}
+
+/* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+/ 文字数取得
+/ http://shanabrian.com/web/javascript/string-length.php
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+function strLength(str, encode) {
+	let count = 0,
+		setEncode = "Shift_JIS",
+		c = "";
+	let i, len;
+
+	// 文字コードセット
+	if (encode && encode !== "") {
+		if (encode.match(/^(SJIS|Shift[_\-]JIS)$/i)) {
+			setEncode = "Shift_JIS";
+		} else if (encode.match(/^(UTF-?8)$/i)) {
+			setEncode = "UTF-8";
+		}
+	}
+
+	// 文字数カウント
+	len = str.length;
+	for (i = 0; i < len; i++) {
+		c = str.charCodeAt(i);
+		//
+		if (setEncode === "UTF-8") {
+			if ((c >= 0x0 && c < 0x81) || (c == 0xf8f0) || (c >= 0xff61 && c < 0xffa0) || (c >= 0xf8f1 && c < 0xf8f4)) {
+				count += 1;
+			} else {
+				count += 2;
+			}
+		} else if (setEncode === "Shift_JIS") {
+			if ((c >= 0x0 && c < 0x81) || (c == 0xa0) || (c >= 0xa1 && c < 0xdf) || (c >= 0xfd && c < 0xff)) {
+				count += 1;
+			} else {
+				count += 2;
+			}
+		}
+	}
+	return count;
 }
